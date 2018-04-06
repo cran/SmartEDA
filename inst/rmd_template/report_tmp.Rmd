@@ -1,0 +1,151 @@
+---
+title: "Exploratory Data Analysis Report"
+output:
+  html_document: 
+    theme: cerulean
+    toc: yes
+    toc_depth: 6
+params:
+  data: data
+  Target: Target
+  label: label
+  sc: sc
+  sn: sn
+  Rc: Rc
+---
+  
+```{r setup, include=FALSE}
+library(rmarkdown)
+library(SmartEDA)
+library(knitr)
+library(scales)
+library(gridExtra)
+library(ggplot2)
+
+data <- params$data
+
+```
+  
+## Exploratory Data analysis (EDA)
+Analyzing the data sets to summarize their main characteristics of variables, often with visual graphs, without using a statistical model. 
+
+### 1. Overview of the data
+Understanding the dimensions of the dataset, variable names, overall missing summary and data types of each variables
+
+
+```{r od_1,warning=FALSE,eval=F,include=T}
+# Overiview of the data
+ExpData(data=data,type=1,DV=Target)
+# Structure of the data
+ExpData(data=data,type=2,DV=Target)
+```
+
+```{r od_2,warning=FALSE,eval=T,include=F}
+ovw_tabl <- ExpData(data=data,type=1,DV=Target)
+ovw_tab2 <- ExpData(data=data,type=2,DV=Target)
+```
+
+**Overview of the data**
+```{r od_3,warning=FALSE,eval=T,render=ovw_tabl,echo=F}
+kable(ovw_tabl, "html")
+```
+
+**Structure of the data**
+```{r od_32,warning=FALSE,eval=T,render=ovw_tab2,echo=F}
+paged_table(ovw_tab2)
+```
+
+**Target variable**
+
+Summary of continuous dependent variable
+
+  1. Variable name - **`r Target `**
+  2. Variable description - **`r label `**
+
+```{r dv-r,warning=FALSE,eval=T,include=F}
+summary(data[,Target])
+```
+
+### 2. Summary of numerical variables
+
+```{r snv_all,warning=FALSE,eval=T,include=F}
+snv_2 = ExpNumStat(data,by="GA",gp=Target,Qnt=seq(0,1,0.1),MesofShape=2,Outlier=TRUE,round=2)
+rownames(snv_2)<-NULL
+```
+
+Summary statistics when dependent variable is Continuous **`r Target `**. 
+
+```{r snv_2, warning=FALSE,eval=F,include=T}
+ExpNumStat(data,by="A",gp=Target,Qnt=seq(0,1,0.1),MesofShape=2,Outlier=TRUE,round=2)
+```
+
+```{r snv_2.1,warning=FALSE,eval=T,render=snv_2,echo=F}
+paged_table(snv_2)
+```
+
+### 3. Distributions of numerical variables
+Graphical representation of all numeric features, used below types of plots to explore the data
+
+  * Density plot (Univariate)
+  * Scatter plot (Bivariate)
+
+#### Density plots for numerical variables - Univariate
+Density plot for all numerical variables
+
+```{r snv2,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=10,fig.width=10}
+ExpNumViz(data,gp=NULL,nlim=5,fname=NULL,col=NULL,Page=c(2,2),sample=sn)
+```
+
+#### Scatter plot for all Numeric variables vs Continuous dependent variable
+Scatter plot between all numeric variables and target variable **`r Target `**.
+This plot help to examine how well a target variable is correlated with list of dependent variables in the data set.
+
+Dependent variable is **`r Target `** (continuous). 
+
+```{r snv1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=10,fig.width=10}
+ExpNumViz(data,gp=Target,nlim=5,fname=NULL,col=NULL,Page=c(2,2),sample=sn)
+```
+
+### 4. Summary of categorical variables
+Summary of categorical variables
+
+```{r eda_4, eval=T,include=F}
+et1 <- ExpCTable(data,Target=NULL,margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=T)
+rownames(et1)<-NULL
+```
+
+```{r eda_41, eval=T,include=F}
+et11 <- ExpCTable(data,Target=Target,margin=1,clim=10,nlim=NULL,round=2,bin=4,per=T)
+rownames(et11)<-NULL
+```
+  * frequency for all categorical independent variables
+
+```{r e4.1, warning=FALSE,eval=F,include=T}
+ExpCTable(data,margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=T)
+```
+
+```{r e4.1.1,warning=FALSE,eval=T,render=et1,echo=F}
+kable(et1,"html")
+```
+
+ * frequency for all categorical independent variables by descretized **`r Target `**
+
+```{r e4.2, warning=FALSE,eval=F,include=T}
+##bin=4, descretized 4 categories based on quantiles
+ExpCTable(data,Target=Target,margin=1,clim=10,nlim=NULL,round=2,bin=4,per=T)
+```
+
+```{r e4.2.1,warning=FALSE,eval=T,render=et11,echo=F}
+paged_table(et11)
+```
+
+### 5. Distributions of Categorical variables
+Graphical representation of all Categorical variables
+
+  * Bar plot (Univariate)
+ 
+Bar plot with vertical or horizontal bars for all categorical variables
+
+```{r bp1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=10,fig.width=10}
+ExpCatViz(data,gp=NULL,clim=10,margin=2,Page = c(2,2),sample=sc)
+```

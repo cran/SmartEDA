@@ -1,0 +1,19 @@
+Package: SmartEDA
+Type: Package
+Title: Summarize and Explore the Data
+Version: 0.1.0
+Author: Dayanand Ubrangala; Kiran R; Ravi Prasad Kondapalli
+Maintainer: Dayanand Ubrangala<daya6489@gmail.com>
+Depends: R (>= 3.3.0)
+Imports: ggplot2,gridExtra,scales,utils,rmarkdown,ISLR
+Description: Exploratory analysis on any input data describing the structure and the relationships present in the data. The package automatically select the variable and does related descriptive statistics. Analyzing information value, weight of evidence, custom tables, summary statistics, graphical techniques will be performed for both numeric and categorical predictors.
+License: GPL (>= 2)
+Suggests: psych, Hmisc, smbinning,testthat,knitr
+Encoding: UTF-8
+LazyData: true
+Repository: CRAN
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr
+NeedsCompilation: no
+Packaged: 2018-04-06 07:06:09 UTC; dubrangala
+Date/Publication: 2018-04-06 12:51:58 UTC
