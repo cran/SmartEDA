@@ -63,8 +63,8 @@ ExpData <- function(data,type=1,DV=NULL){
             tt = sapply(name_var, function(x){
               cla_var <- as.character(paste0(class(xx[,x])))
 
-              if(is.null(DV)){Typ <- "Independet variable"} else {
-                if(x==DV){Typ <- "Dependent variable"} else {Typ <- "Independet variable"}
+              if(is.null(DV)){Typ <- "Independent variable"} else {
+                if(x==DV){Typ <- "Dependent variable"} else {Typ <- "Independent variable"}
               }
 
               if(cla_var!="numeric") {x=paste0(x,"*")}
