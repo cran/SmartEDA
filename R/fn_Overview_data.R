@@ -1,10 +1,9 @@
 #' Function to generate the overview of a data frame
 #'
 #' @description This function used to produce summaries of data structure and overview of the data frame.
-#' @usage ExpData(data,type=1,DV=NULL)
+#' @usage ExpData(data,type=1)
 ##' @param data a data frame
 ##' @param type Type 1 is overview of the data; Type 2 is structure of the data
-##' @param DV specifiy the target variable name if any. this is not mandatory
 ##' @details
 ##' This function provides overview and structure of the data frames.
 ##'
@@ -14,12 +13,12 @@
 ##'
 ##' @examples
 ##' # Overview of the data
-##' ExpData(data=mtcars,type=1,DV=NULL)
+##' ExpData(data=mtcars,type=1)
 ##' # Structure of the data
-##' ExpData(data=mtcars,type=2,DV=NULL)
+##' ExpData(data=mtcars,type=2)
 ##' @export ExpData
 
-ExpData <- function(data,type=1,DV=NULL){
+ExpData <- function(data,type=1){
   if(!is.data.frame(data)) stop("'data must be a numeric vector or data.frame'")
   xx <- as.data.frame(data)
 
@@ -31,21 +30,22 @@ ExpData <- function(data,type=1,DV=NULL){
               }
   )
 
-  p1 = paste0(round(length(dd[dd==4])/length(dd)*100,2),"%")
-  p2 = paste0(round(length(dd[dd==3])/length(dd)*100,2),"%")
-  p3 = paste0(round(length(dd[dd==2])/length(dd)*100,2),"%")
-  p4 = paste0(round(length(dd[dd==1])/length(dd)*100,2),"%")
+  p1 = paste0(round(length(dd[dd==4])/length(dd)*100,2),"%"," (",length(dd[dd==4]),")")
+  p2 = paste0(round(length(dd[dd==3])/length(dd)*100,2),"%"," (",length(dd[dd==3]),")")
+  p3 = paste0(round(length(dd[dd==2])/length(dd)*100,2),"%"," (",length(dd[dd==2]),")")
+  p4 = paste0(round(length(dd[dd==1])/length(dd)*100,2),"%"," (",length(dd[dd==1]),")")
 
   Date_cnt = length(names(xx)[unlist(sapply(xx, function(x) class(x)%in%c("Date","POSIXct","POSIXt")))])
   Unif_cnt = length(names(xx)[unlist(sapply(xx, function(x) length(unique(x[!is.na(x)]))==1))])
   switch (type,
 
           {Out_put <-data.frame(rbind(
-            c("Total Sample",nrow(xx)),
-            c("No. of Variables", ncol(xx)),
+            c("Sample size (Nrow)",nrow(xx)),
+            c("No. of Variables (Ncol)", ncol(xx)),
             c("No. of Numeric Variables",length(names(xx)[sapply(xx, is.numeric)])),
             c("No. of Factor Variables",length(names(xx)[sapply(xx, is.factor)])),
             c("No. of Text Variables",length(names(xx)[sapply(xx, is.character)])),
+            c("No. of Logical Variables",length(names(xx)[sapply(xx, is.logical)])),
             c("No. of Date Variables",Date_cnt),
             c("No. of Zero variance Variables (Uniform)" ,Unif_cnt),
             c("%. of Variables having complete cases" ,p4),
@@ -61,16 +61,20 @@ ExpData <- function(data,type=1,DV=NULL){
             ## Data Structure
             name_var = names(xx)
             tt = sapply(name_var, function(x){
+              Xvar = xx[,x]
               cla_var <- as.character(paste0(class(xx[,x])))
 
-              if(is.null(DV)){Typ <- "Independet variable"} else {
-                if(x==DV){Typ <- "Dependent variable"} else {Typ <- "Independet variable"}
-              }
-
-              if(cla_var!="numeric") {x=paste0(x,"*")}
-
-              mydata = c(S.no=1,VarName=x,VarClass=cla_var,VarType=Typ,VarDescriptions=NULL)
-              return(mydata)
+              # if(is.null(DV)){Typ <- "Independent variable"} else {
+              #   if(x==DV){Typ <- "Dependent variable"} else {Typ <- "Independent variable"}
+              # }
+              Per_missing <- round(length(Xvar[is.na(Xvar)])/length(Xvar),2)
+              Per_Unique <- length(unique(Xvar))
+              # if(cla_var!="numeric") {x=paste0(x,"*")}
+              if(class(xx[,x]) %in% c("factor","character")) {x=paste0(x,"*")} else
+              if(class(xx[,x]) %in% c("Date","POSIXct","POSIXt")) {x=paste0(x,"**")} else {x=x}
+              # mydata = c(S.no=1,VarName=x,VarClass=cla_var,VarType=Typ,Per_mis=Per_missing,Unique=Per_Unique,VarDescriptions=NULL)
+              mydata = c(S.no=1,VarName=x,VarClass=cla_var,Per_mis=Per_missing,Unique=Per_Unique,VarDescriptions=NULL)
+                return(mydata)
 
             })
 

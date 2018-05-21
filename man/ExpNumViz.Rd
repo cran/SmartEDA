@@ -48,14 +48,12 @@ If input "gp" is categorical then output is box plot.
 If input "gp" is NULL, means there is no target variable and this will generate density plot for all numeric features
 }
 \examples{
-## Generate boxplot by category and overall
-ExpNumViz(mtcars,gp="gear",type=1,nlim=3,fname = file.path(tempdir(),"Mtcars1"),Page = c(2,2))
 ## Generate Boxplot by category
-ExpNumViz(mtcars,gp="gear",type=2,nlim=3,fname = file.path(tempdir(),"Mtcars2"),Page = c(2,2))
+ExpNumViz(mtcars,gp="gear",type=2,nlim=25,fname = file.path(tempdir(),"Mtcars2"),Page = c(2,2))
 ## Generate Density plot
-ExpNumViz(mtcars,gp=NULL,type=3,nlim=3,fname = file.path(tempdir(),"Mtcars3"),Page = c(2,2))
+ExpNumViz(mtcars,gp=NULL,type=3,nlim=25,fname = file.path(tempdir(),"Mtcars3"),Page = c(2,2))
 ## Generate Scatter plot
-ExpNumViz(mtcars,gp="carb",type=3,nlim=3,fname = file.path(tempdir(),"Mtcars4"),Page = c(2,2))
+ExpNumViz(mtcars,gp="carb",type=3,nlim=25,fname = file.path(tempdir(),"Mtcars4"),Page = c(2,2))
 }
 \seealso{
 \code{\link[ggplot2:geom_boxplot]{geom_boxplot}}

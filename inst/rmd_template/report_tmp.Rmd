@@ -35,19 +35,19 @@ Understanding the dimensions of the dataset, variable names, overall missing sum
 
 ```{r od_1,warning=FALSE,eval=F,include=T}
 # Overiview of the data
-ExpData(data=data,type=1,DV=Target)
+ExpData(data=data,type=1)
 # Structure of the data
-ExpData(data=data,type=2,DV=Target)
+ExpData(data=data,type=2)
 ```
 
 ```{r od_2,warning=FALSE,eval=T,include=F}
-ovw_tabl <- ExpData(data=data,type=1,DV=Target)
-ovw_tab2 <- ExpData(data=data,type=2,DV=Target)
+ovw_tabl <- ExpData(data=data,type=1)
+ovw_tab2 <- ExpData(data=data,type=2)
 ```
 
 **Overview of the data**
 ```{r od_3,warning=FALSE,eval=T,render=ovw_tabl,echo=F}
-kable(ovw_tabl, "html")
+paged_table(ovw_tabl)
 ```
 
 **Structure of the data**
@@ -125,7 +125,7 @@ ExpCTable(data,margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=T)
 ```
 
 ```{r e4.1.1,warning=FALSE,eval=T,render=et1,echo=F}
-kable(et1,"html")
+paged_table(et1)
 ```
 
  * frequency for all categorical independent variables by descretized **`r Target `**

@@ -35,19 +35,19 @@ Understanding the dimensions of the dataset, variable names, overall missing sum
 
 ```{r od_1,warning=FALSE,eval=F,include=T}
 # Overiview of the data
-ExpData(data=data,type=1,DV=Target)
+ExpData(data=data,type=1)
 # Structure of the data
-ExpData(data=data,type=2,DV=Target)
+ExpData(data=data,type=2)
 ```
 
 ```{r od_2,warning=FALSE,eval=T,include=F}
-ovw_tabl <- ExpData(data=data,type=1,DV=Target)
-ovw_tab2 <- ExpData(data=data,type=2,DV=Target)
+ovw_tabl <- ExpData(data=data,type=1)
+ovw_tab2 <- ExpData(data=data,type=2)
 ```
 
 **Overview of the data**
 ```{r od_3,warning=FALSE,eval=T,render=ovw_tabl,echo=F}
-kable(ovw_tabl, "html")
+paged_table(ovw_tabl)
 ```
 
 **Structure of the data**
@@ -70,7 +70,7 @@ rownames(tab_tar)<-NULL
 ```
 
 ```{r dv-r,warning=FALSE,eval=T,render=tab_tar,echo=F}
-kable(tab_tar, "html")
+tab_tar
 ```
 
 ### 2. Summary of numerical variables
@@ -136,7 +136,7 @@ ExpCTable(data,Target=Target,margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
 ```
 
 ```{r e4.1.1,warning=FALSE,eval=T,render=et1,echo=F}
-kable(et1,"html")
+paged_table(et1)
 ```
 
 **Information Value**
@@ -147,7 +147,7 @@ ExpCatStat(data,Target=Target,Label=label,result = "IV",clim=10,nlim=5,Pclass=Rc
 ```
 
 ```{r e4.21,warning=FALSE,eval=T,render=et5,echo=F}
-kable(et5,"html")
+paged_table(et5)
 ```
 
 **Statistical test**
@@ -156,7 +156,7 @@ ExpCatStat(data,Target=Target,Label=label,result = "Stat",clim=10,nlim=5,Pclass=
 ```
 
 ```{r e4.31,warning=FALSE,eval=T,render=et4,echo=F}
-kable(et4,"html")
+paged_table(et4)
 ```
 
 ### 5. Distributions of categorical variables

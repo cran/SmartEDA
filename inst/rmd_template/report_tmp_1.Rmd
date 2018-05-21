@@ -35,19 +35,19 @@ Understanding the dimensions of the dataset, variable names, overall missing sum
 
 ```{r od_1,warning=FALSE,eval=F,include=T}
 # Overiview of the data
-ExpData(data=data,type=1,DV=NULL)
+ExpData(data=data,type=1)
 # Structure of the data
-ExpData(data=data,type=2,DV=NULL)
+ExpData(data=data,type=2)
 ```
 
 ```{r od_2,warning=FALSE,eval=T,include=F}
-ovw_tabl <- ExpData(data=data,type=1,DV=NULL)
-ovw_tab2 <- ExpData(data=data,type=2,DV=NULL)
+ovw_tabl <- ExpData(data=data,type=1)
+ovw_tab2 <- ExpData(data=data,type=2)
 ```
 
 **Overview of the data**
 ```{r od_3,warning=FALSE,eval=T,render=ovw_tabl,echo=F}
-kable(ovw_tabl, "html")
+paged_table(ovw_tabl)
 ```
 
 **Structure of the data**

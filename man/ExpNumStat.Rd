@@ -36,7 +36,7 @@ coloumn descriptions
 
 •	Group – Target variable
 
-•	TN – Total sample
+•	TN – Total sample (inculded NA observations)
 
 •	nNeg – Total negative observations
 

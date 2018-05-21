@@ -25,7 +25,7 @@
 ##'
 ##' •	Group – Target variable
 ##'
-##' •	TN – Total sample
+##' •	TN – Total sample (inculded NA observations)
 ##'
 ##' •	nNeg – Total negative observations
 ##'
@@ -83,6 +83,7 @@ ExpNumStat = function(data,by=c("A","G","GA"),gp=NULL,Qnt=NULL,MesofShape=2,Outl
                 PosInf = length(which(x==Inf)),
                 NA_Value = length(x[is.na(x)]),
                 Per_of_Missing = round((length(x[is.na(x)])/length(x))*100,r),
+                sum = round(sum(x,na.rm = T),r),
                 min = round(min(x,na.rm = T),r),
                 max = round(max(x,na.rm = T),r),
                 mean = round(mean(x,na.rm = T),r),

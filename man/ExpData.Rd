@@ -4,14 +4,12 @@
 \alias{ExpData}
 \title{Function to generate the overview of a data frame}
 \usage{
-ExpData(data,type=1,DV=NULL)
+ExpData(data,type=1)
 }
 \arguments{
 \item{data}{a data frame}
 
 \item{type}{Type 1 is overview of the data; Type 2 is structure of the data}
-
-\item{DV}{specifiy the target variable name if any. this is not mandatory}
 }
 \description{
 This function used to produce summaries of data structure and overview of the data frame.
@@ -25,7 +23,7 @@ If Type=2,structure of the data (column names are "S.no", "VarName", "VarClass",
 }
 \examples{
 # Overview of the data
-ExpData(data=mtcars,type=1,DV=NULL)
+ExpData(data=mtcars,type=1)
 # Structure of the data
-ExpData(data=mtcars,type=2,DV=NULL)
+ExpData(data=mtcars,type=2)
 }

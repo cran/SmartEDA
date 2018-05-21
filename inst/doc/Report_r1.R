@@ -18,14 +18,14 @@ library(ggplot2)
 
 ## ----od_1,warning=FALSE,eval=F,include=T---------------------------------
 #  # Overview of the data - Type = 1
-#  ExpData(data=Carseats,type=1,DV=NULL)
+#  ExpData(data=Carseats,type=1)
 #  
 #  # Structure of the data - Type = 2
-#  ExpData(data=Carseats,type=2,DV=NULL)
+#  ExpData(data=Carseats,type=2)
 
 ## ----od_2,warning=FALSE,eval=T,include=F---------------------------------
-ovw_tabl <- ExpData(data=Carseats,type=1,DV=NULL)
-ovw_tab2 <- ExpData(data=Carseats,type=2,DV=NULL)
+ovw_tabl <- ExpData(data=Carseats,type=1)
+ovw_tab2 <- ExpData(data=Carseats,type=2)
 
 ## ----od_3,warning=FALSE,eval=T,render=ovw_tabl,echo=F--------------------
 kable(ovw_tabl, "html")

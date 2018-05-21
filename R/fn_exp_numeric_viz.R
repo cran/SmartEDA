@@ -34,20 +34,18 @@
 ##' Boxplot – by overall and group (target variable)
 ##'
 ##' @examples
-#' ## Generate boxplot by category and overall
-#' ExpNumViz(mtcars,gp="gear",type=1,nlim=3,fname = file.path(tempdir(),"Mtcars1"),Page = c(2,2))
 #' ## Generate Boxplot by category
-#' ExpNumViz(mtcars,gp="gear",type=2,nlim=3,fname = file.path(tempdir(),"Mtcars2"),Page = c(2,2))
+#' ExpNumViz(mtcars,gp="gear",type=2,nlim=25,fname = file.path(tempdir(),"Mtcars2"),Page = c(2,2))
 #' ## Generate Density plot
-#' ExpNumViz(mtcars,gp=NULL,type=3,nlim=3,fname = file.path(tempdir(),"Mtcars3"),Page = c(2,2))
+#' ExpNumViz(mtcars,gp=NULL,type=3,nlim=25,fname = file.path(tempdir(),"Mtcars3"),Page = c(2,2))
 #' ## Generate Scatter plot
-#' ExpNumViz(mtcars,gp="carb",type=3,nlim=3,fname = file.path(tempdir(),"Mtcars4"),Page = c(2,2))
+#' ExpNumViz(mtcars,gp="carb",type=3,nlim=25,fname = file.path(tempdir(),"Mtcars4"),Page = c(2,2))
 ##' @importFrom gridExtra marrangeGrob
 ##' @export ExpNumViz
 
 ExpNumViz = function(data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL,sample=NULL) {
-  if(!is.data.frame(data)) stop("'data must be a numeric vector or data.frame'")
 
+  if(!is.data.frame(data)) stop("'data must be a numeric vector or data.frame'")
   xx <- as.data.frame(data)
 
   num_var = names(xx)[sapply(xx, is.numeric)]
@@ -104,7 +102,7 @@ ExpNumViz = function(data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL
     {
       target <- as.factor(as.character(paste0(target)))
       nlev_tar <- nlevels(target)
-      if(nlev_tar < 2) stop("Target variable has required atleast 2 categories")
+      # if(nlev_tar < 2) stop("Target variable has required atleast 2 categories")
 
       ## Box plot by target - Bivariate
       plot_l <- lapply(num_var, function(j){

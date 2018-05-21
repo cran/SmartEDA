@@ -34,7 +34,7 @@ Here is what the values of IV mean according to Siddiqi (2006)
 
 If information value is < 0.03 then predictive power = "Not Predictive"
 
-If information value is 0.3 to 0.1 then predictive power = "Somewhat Predictive"
+If information value is 0.03 to 0.1 then predictive power = "Somewhat Predictive"
 
 If information value is 0.1 to 0.3 then predictive power = "Meidum Predictive"
 
