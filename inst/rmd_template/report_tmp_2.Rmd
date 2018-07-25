@@ -63,6 +63,7 @@ Summary of categorical dependent variable
   2. Variable description - **`r label `**
 
 ```{r dd,warning=FALSE,eval=T,include=F}
+if(is.null(label)) label <- Target
 tab_tar <- data.frame(table(data[,Target]))
 tab_tar$Descriptions <- label
 names(tab_tar) <- c(Target,"Frequency","Descriptions")
@@ -96,9 +97,17 @@ paged_table(snv_2)
 
 * Box plots for all numerical variables vs categorical dependent variable - Bivariate comparision only with categories
 
+  * Quantile-quantile plot(Univariate)
   * Density plot (Univariate)
   * Box plot (univariate and Bivariate)
 
+#### Quantile-quantile plot for Numerical variables - Univariate  
+Quantile-quantile plot for all Numerical variables
+
+```{r snv2_new,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=10,fig.width=10}
+ExpOutQQ(data,nlim=4,fname=NULL,Page=c(2,2),sample=sn)
+```
+      
 #### Density plots for Numerical variables - Univariate
 Density plot for all Numerical variables
 
@@ -117,6 +126,7 @@ ExpNumViz(data,gp=Target,type=2,nlim=NULL,fname=NULL,col=NULL,Page=c(2,2),sample
 Summary of categorical variable
 
 ```{r eda_4, eval=T,include=F}
+if(is.null(Rc)) {Rc=as.character(paste0(unique(data[,Target])[1]))}
 et1 <- ExpCTable(data,Target=Target,margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
 rownames(et1)<-NULL
 

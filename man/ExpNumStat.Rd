@@ -4,7 +4,8 @@
 \alias{ExpNumStat}
 \title{Summary statistics for numerical variables}
 \usage{
-ExpNumStat(data,by=c("A","G","GA"),gp=NULL,Qnt=NULL,MesofShape=2,Outlier=FALSE,round=3)
+ExpNumStat(data,by=NULL,gp=NULL,Qnt=NULL,Nlim=10,MesofShape=2,
+Outlier=FALSE,round=3,dcast=FALSE,val=NULL)
 }
 \arguments{
 \item{data}{dataframe or matrix}
@@ -15,15 +16,25 @@ ExpNumStat(data,by=c("A","G","GA"),gp=NULL,Qnt=NULL,MesofShape=2,Outlier=FALSE,r
 
 \item{Qnt}{default NULL. Specified quantiles [c(.25,0.75) will find 25th and 75th percentiles]}
 
+\item{Nlim}{numeric variable limit (default value is 10 which means it will only consider those variable having more than 10 unique values and variable type is numeric/integer)}
+
 \item{MesofShape}{Measures of shapes (Skewness and kurtosis).}
 
 \item{Outlier}{Calculate the lower hinge, upper hinge and number of outliers}
 
 \item{round}{round off}
+
+\item{dcast}{fast dcast from data.table}
+
+\item{val}{Name of the column whose values will be filled to cast (see Detials sections for list of column names)}
 }
 \value{
 summary statistics for numeric independent variables
-
+}
+\description{
+Function provides summary statistics for all numerical variable. This function automatically scans through each variable and select only numeric/integer variables. Also if we know the target variable, function will generate relationship between target variable and each independent variable.
+}
+\details{
 Summary by – overall
 
 Summary by – group (target variable)
@@ -74,16 +85,19 @@ coloumn descriptions
 
 •	Cor – Correlation b/w target and independent variables
 }
-\description{
-Function provides summary statistics for all numerical variable. This function automatically scans through each variable and select only numeric/integer variables. Also if we know the target variable, function will generate relationship between target variable and each independent variable.
-}
 \examples{
 ## Descriptive summary of numeric variables - Summary by Target variables
-ExpNumStat(mtcars,by="G",gp="gear",Qnt=c(0.1,0.2),MesofShape=2,Outlier=TRUE,round=3)
+ExpNumStat(mtcars,by="G",gp="gear",Qnt=c(0.1,0.2),MesofShape=2,
+Outlier=TRUE,round=3)
 ## Descriptive summary of numeric variables - Summary by Overall
-ExpNumStat(mtcars,by="A",gp="gear",Qnt=c(0.1,0.2),MesofShape=2,Outlier=TRUE,round=3)
+ExpNumStat(mtcars,by="A",gp="gear",Qnt=c(0.1,0.2),MesofShape=2,
+Outlier=TRUE,round=3)
 ## Descriptive summary of numeric variables - Summary by Overall and Group
-ExpNumStat(mtcars,by="GA",gp="gear",Qnt=seq(0,1,.1),MesofShape=1,Outlier=TRUE,round=2)
+ExpNumStat(mtcars,by="GA",gp="gear",Qnt=seq(0,1,.1),MesofShape=1,
+Outlier=TRUE,round=2)
+## Summary by specific statistics for all numeric variables
+ExpNumStat(mtcars,by="GA",gp="gear",Qnt=c(0.1,0.2),MesofShape=2,
+Outlier=FALSE,round=2,dcast = TRUE,val = "IQR")
 }
 \seealso{
 \code{\link[psych:describe.by]{describe.by}}

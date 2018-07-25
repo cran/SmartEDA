@@ -73,6 +73,12 @@ paged_table(snv_2)
 ### 3. Distributions of numerical variables
 Graphical representation of all numeric features
 
+  * Quantile-quantile plot(Univariate)
+  
+```{r snv2_new,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=10,fig.width=10}
+ExpOutQQ(data,nlim=4,fname=NULL,Page=c(2,2),sample=sn)
+```
+  
   * Density plot (Univariate)
 
 ```{r snv2,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=10,fig.width=10}

@@ -86,9 +86,17 @@ paged_table(snv_2)
 ### 3. Distributions of numerical variables
 Graphical representation of all numeric features, used below types of plots to explore the data
 
+  * Quantile-quantile plot (Univariate)
   * Density plot (Univariate)
   * Scatter plot (Bivariate)
 
+#### Quantile-quantile plot for Numerical variables - Univariate  
+Quantile-quantile plot for all Numerical variables
+
+```{r snv2_new,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=10,fig.width=10}
+ExpOutQQ(data,nlim=4,fname=NULL,Page=c(2,2),sample=sn)
+```
+    
 #### Density plots for numerical variables - Univariate
 Density plot for all numerical variables
 
@@ -104,6 +112,21 @@ Dependent variable is **`r Target `** (continuous).
 
 ```{r snv1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=10,fig.width=10}
 ExpNumViz(data,gp=Target,nlim=5,fname=NULL,col=NULL,Page=c(2,2),sample=sn)
+```
+
+#### Correlation between Target and Independent variables
+```{r eda_400, eval=T,include=F}
+snv_22 = ExpNumStat(data,by="GA",gp=Target,Qnt=NULL,MesofShape=2,Outlier=FALSE,round=2,dcast=T,val="cor")
+rownames(snv_22)<-NULL
+
+```
+
+```{r eda_400.1, warning=FALSE,eval=F,include=T}
+ExpNumStat(data,by="GA",gp=Target,Qnt=NULL,MesofShape=2,Outlier=FALSE,round=2,dcast=T,val="cor")
+```
+
+```{r eda_400.2,warning=FALSE,eval=T,render=snv_22,echo=F}
+paged_table(snv_22)
 ```
 
 ### 4. Summary of categorical variables

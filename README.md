@@ -13,7 +13,7 @@ In a quality statistical data analysis the initial step has to be exploratory. E
 
 The package can be installed directly from CRAN.
 
-    install.packages("DataExplorer")
+    install.packages("SmartEDA")
 
 You can install SmartEDA from github with:
 	

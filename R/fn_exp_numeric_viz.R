@@ -33,6 +33,7 @@
 ##'
 ##' Boxplot – by overall and group (target variable)
 ##'
+##' @importFrom gridExtra marrangeGrob
 ##' @examples
 #' ## Generate Boxplot by category
 #' ExpNumViz(mtcars,gp="gear",type=2,nlim=25,fname = file.path(tempdir(),"Mtcars2"),Page = c(2,2))
@@ -40,7 +41,6 @@
 #' ExpNumViz(mtcars,gp=NULL,type=3,nlim=25,fname = file.path(tempdir(),"Mtcars3"),Page = c(2,2))
 #' ## Generate Scatter plot
 #' ExpNumViz(mtcars,gp="carb",type=3,nlim=25,fname = file.path(tempdir(),"Mtcars4"),Page = c(2,2))
-##' @importFrom gridExtra marrangeGrob
 ##' @export ExpNumViz
 
 ExpNumViz = function(data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL,sample=NULL) {
@@ -56,10 +56,10 @@ ExpNumViz = function(data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL
   {num_var <- num_var[sapply(xx[,num_var], function(x){length(unique(na.omit(x)))>=nlim})]}
 
   if(!is.null(sample)) {
-    if(sample>length(num_var)) {sample <- length(num_var)} else
+    if(sample>length(num_var)) {num_var <- num_var} else
     {num_var <- num_var[sample(1:length(num_var),sample)]}}
 
-
+  wrap_40 <- wrap_format(40)
   if(is.null(gp)){
     ## Histogram for all numeric variable - Univariate graph
     plot_l <- lapply(num_var, function(j){
@@ -113,6 +113,7 @@ ExpNumViz = function(data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL
         NV <- NULL
         switch (type,
                 {mdat$GP = as.character(paste0(mdat$GP))
+                if (anyNA(mdat$GP)) {mdat$GP = addNA(mdat$GP)}
                 mdat1 = mdat
                 mdat1$GP = "All"
                 gdata = rbind(mdat,mdat1)
@@ -120,19 +121,24 @@ ExpNumViz = function(data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL
                 },
                 {gdata = mdat
                 gdata$GP = as.character(paste0(gdata$GP))
+                if (anyNA(gdata$GP)) {gdata$GP = addNA(mdat$GP)}
                 nlevel = length(unique(gdata$GP))},
                 {gdata = mdat
                 gdata$GP = as.character(paste0(gdata$GP))
                 gdata$GP ="ALL"
                 nlevel = length(unique(gdata$GP))})
 
-        if(!is.null(col) & nlevel==1){fill_1 <- col} else
-          if(is.null(col) & nlevel==1){fill_1 <- c("#E1B378")} else
-            if(is.null(col) & nlevel==2){fill_1 <- c("#5F9EA0", "#E1B378")} else
-              if(is.null(col) & nlevel>2){fill_1 <- sample(colors(),nlevel)} else
-                if(!is.null(col) & nlevel>2){fill_1 <- col} else {fill_1 <- col}
+        cp=with(gdata,aggregate(NV,by=list(GP), function(x)sum(x,na.rm=T)))
+        if(nrow(cp)!=nrow(cp[cp$x==0,])) {fill_1 = "orange" } else
+        {
+          if(!is.null(col) & nlevel==1){fill_1 <- col} else
+            if(is.null(col) & nlevel==1){fill_1 <- c("#E1B378")} else
+              if(is.null(col) & nlevel==2){fill_1 <- c("#5F9EA0", "#E1B378")} else
+                if(is.null(col) & nlevel>2){fill_1 <- sample(colors(),nlevel)} else
+                  if(!is.null(col) & nlevel>2){fill_1 <- col} else {fill_1 <- col}
+        }
 
-        wrap_40 <- wrap_format(40)
+
         gg1 <- ggplot(gdata, aes(y=NV, x=GP)) +
           geom_boxplot(fill=fill_1)+xlab(gp)+ylab(j)+ggtitle(wrap_40(paste(j," vs ",gp)))+
           scale_x_discrete(labels = wrap_format(8))+

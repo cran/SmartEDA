@@ -18,46 +18,256 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; position: absolute; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource a.sourceLine:empty
+  { position: absolute; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
 
-<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 </head>
 
@@ -74,7 +284,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Exploratory analysis - Custom tables, summary statistics</h2>
 <p>In this vignette we will discuss about how to customize the summary statistics using <em>ExpCustomStat</em> function from <code>SmartEDA</code>. The output of this function returns matrix object containing descriptive information on all input variables for each level/combination of levels in categorical/group variable. Also, while running the analysis we can filter row/cases of the data. We can apply the filters at individual variable level or complete data like base subsetting.</p>
 <p>Function definition:</p>
-<pre><code>ExpCustomStat(data,Cvar=NULL,Nvar=NULL,stat=NULL,gpby=TRUE,filt=NULL)</code></pre>
+<pre><code>ExpCustomStat(data,Cvar=NULL,Nvar=NULL,stat=NULL,gpby=TRUE,filt=NULL,dcast=FALSE)</code></pre>
 <p>Key functionalities of <code>ExpCustomStat</code> are:</p>
 <ol style="list-style-type: decimal">
 <li>Categorical data descriptive statistics (Frequencies, Proportions)</li>
@@ -90,9 +300,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Data Source <a href="https://www.rdocumentation.org/packages/ISLR/versions/1.2/topics/Carseats">ISLR package</a>.</p>
 <p>Function source <a href="https://www.rdocumentation.org/packages/SmartEDA">SmartEDA package</a></p>
 <p>Carseats data from ISLR package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)
-CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats
-<span class="kw">head</span>(CData,<span class="dv">5</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">head</span>(CData,<span class="dv">5</span>)</a></code></pre></div>
 <pre><code>##   Sales CompPrice Income Advertising Population Price ShelveLoc Age Education Urban  US
 ## 1  9.50       138     73          11        276   120       Bad  42        17   Yes Yes
 ## 2 11.22       111     48          16        260    83      Good  65        10   Yes Yes
@@ -114,7 +324,7 @@ CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats
 <li>Base: All carseats data</li>
 <li>Table: Calculating the count and proportions of <code>&quot;US&quot;, &quot;Urban&quot; and &quot;ShelveLoc&quot;</code> variable</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>,<span class="st">&quot;Education&quot;</span>),<span class="dt">gpby=</span><span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>,<span class="st">&quot;Education&quot;</span>),<span class="dt">gpby=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>##      Level  Group_by Count  Prop
 ##  1:    Yes        US   258 64.50
 ##  2:     No        US   142 35.50
@@ -133,7 +343,7 @@ CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats
 ## 15:     18 Education    40 10.00
 ## 16:     11 Education    48 12.00</code></pre>
 <p>OR we can use similar analysis using <code>ExpCTable</code> function from same package, this functions includes cumulative percentages and Total</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ExpCTable</span>(Carseats,<span class="dt">Target=</span><span class="ot">NULL</span>,<span class="dt">clim=</span><span class="dv">5</span>,<span class="dt">nlim=</span><span class="dv">15</span>,<span class="dt">round=</span><span class="dv">2</span>,<span class="dt">bin=</span><span class="ot">NULL</span>,<span class="dt">per=</span>F)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">ExpCTable</span>(Carseats,<span class="dt">Target=</span><span class="ot">NULL</span>,<span class="dt">clim=</span><span class="dv">5</span>,<span class="dt">nlim=</span><span class="dv">15</span>,<span class="dt">round=</span><span class="dv">2</span>,<span class="dt">bin=</span><span class="ot">NULL</span>,<span class="dt">per=</span>F)</a></code></pre></div>
 <pre><code>##     Variable  Valid Frequency Percent CumPercent
 ## 1  ShelveLoc    Bad        96   24.00      24.00
 ## 2  ShelveLoc   Good        85   21.25      45.25
@@ -159,7 +369,7 @@ CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats
 <li>Base: All carseats data</li>
 <li>Table: Calculating the count and proportions of <code>&quot;US&quot;, &quot;Urban&quot; and &quot;ShelveLoc&quot;</code> variable</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>),<span class="dt">gpby=</span><span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>),<span class="dt">gpby=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>##     Level  Group_by Count  Prop
 ## 1:    Yes        US   258 64.50
 ## 2:     No        US   142 35.50
@@ -177,7 +387,7 @@ CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats
 <li>Base: All carseats data</li>
 <li>Table: Calculating the count and proportions of <code>&quot;US&quot; Vs &quot;Urban&quot;</code></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="ot">NULL</span>)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="ot">NULL</span>)</a></code></pre></div>
 <pre><code>##     US Urban Count Prop
 ## 1: Yes   Yes   186 46.5
 ## 2:  No   Yes    96 24.0
@@ -188,7 +398,7 @@ CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats
 <li>Base: All carseats data</li>
 <li>Table: Calculating the count and proportions of <code>&quot;US&quot; Vs &quot;Urban&quot; Vs &quot;ShelveLoc&quot;</code></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="ot">NULL</span>)</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="ot">NULL</span>)</a></code></pre></div>
 <pre><code>##      US Urban ShelveLoc Count  Prop
 ##  1: Yes   Yes       Bad    51 12.75
 ##  2: Yes   Yes      Good    39  9.75
@@ -210,7 +420,7 @@ CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats
 <li>Base: Those stores having their average age of the local <code>Population</code> is &gt; 150</li>
 <li>Table: Calculating the count and proportions of <code>&quot;US&quot; Vs &quot;Urban&quot;</code></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;Population&gt;150&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;Population&gt;150&quot;</span>)</a></code></pre></div>
 <pre><code>##     US Urban         Filter Count  Prop
 ## 1: Yes   Yes Population&gt;150   138 48.25
 ## 2:  No   Yes Population&gt;150    63 22.03
@@ -220,7 +430,7 @@ CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats
 <li>Base: Those stores having their average age of the local <code>Population</code> &gt; 150 and <code>Urban</code>==“Yes”</li>
 <li>Table: Calculating the count and proportions of <code>&quot;US&quot; Vs &quot;ShelveLoc&quot;</code></li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes' &amp; Population&gt;150&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes' &amp; Population&gt;150&quot;</span>)</a></code></pre></div>
 <pre><code>##     US ShelveLoc                        Filter Count  Prop
 ## 1: Yes       Bad Urban=='Yes' &amp; Population&gt;150    40 19.90
 ## 2: Yes      Good Urban=='Yes' &amp; Population&gt;150    31 15.42
@@ -245,8 +455,8 @@ CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats
 <li>Base: All carseats data</li>
 <li>Table: Descriptive summary for Price, Population, Sales, CompPrice, Income</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'sd'</span>,<span class="st">'min'</span>,<span class="st">'max'</span>,<span class="st">'IQR'</span>))</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'sd'</span>,<span class="st">'min'</span>,<span class="st">'max'</span>,<span class="st">'IQR'</span>))</a></code></pre></div>
 <pre><code>##     Attribute Count       mean       sum          var         sd min    max    IQR
 ## 1: Population   400 264.840000 105936.00 21719.813935 147.376436  10 509.00 259.50
 ## 2:      Sales   400   7.496325   2998.53     7.975626   2.824115   0  16.27   3.93
@@ -256,7 +466,7 @@ CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats
 <li>Base: All carseats data</li>
 <li>Table: Tukey’s five number summary (minimum, lower-hinge, median, upper-hinge, maximum) for Price, Population, Sales, CompPrice, Income</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'min'</span>,<span class="st">'p0.25'</span>,<span class="st">'median'</span>,<span class="st">'p0.75'</span>,<span class="st">'max'</span>))</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'min'</span>,<span class="st">'p0.25'</span>,<span class="st">'median'</span>,<span class="st">'p0.75'</span>,<span class="st">'max'</span>))</a></code></pre></div>
 <pre><code>##     Attribute min  p0.25 median  p0.75    max
 ## 1: Population  10 139.00 272.00 398.50 509.00
 ## 2:      Sales   0   5.39   7.49   9.32  16.27
@@ -270,8 +480,8 @@ CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats
 <li>Base: Whether the store is in urban (Urban ==Yes)</li>
 <li>Table: Descriptive summary for Price, Population, Sales, CompPrice, Income.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'min'</span>,<span class="st">'median'</span>,<span class="st">'max'</span>),<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes'&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)</a>
+<a class="sourceLine" id="cb22-2" data-line-number="2"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'min'</span>,<span class="st">'median'</span>,<span class="st">'max'</span>),<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes'&quot;</span>)</a></code></pre></div>
 <pre><code>##     Attribute       Filter Count       mean      sum          var   min median    max
 ## 1: Population Urban=='Yes'   282 259.886525 73288.00 20913.488857 12.00 274.00 508.00
 ## 2:      Sales Urban=='Yes'   282   7.468191  2106.03     8.044141  0.37   7.42  16.27
@@ -281,8 +491,8 @@ CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats
 <li>Base: Those store having their average age of the local population &gt; 150 and Urban==“Yes”</li>
 <li>Table: Descriptive summary for Price, Population, Sales, CompPrice, Income.</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">width=</span><span class="dv">150</span>)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'median'</span>,<span class="st">'IQR'</span>),<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes' &amp; Population&gt;150&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">width=</span><span class="dv">150</span>)</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'median'</span>,<span class="st">'IQR'</span>),<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes' &amp; Population&gt;150&quot;</span>)</a></code></pre></div>
 <pre><code>##     Attribute                        Filter Count       mean      sum median    IQR
 ## 1: Population Urban=='Yes' &amp; Population&gt;150   201 332.641791 66861.00 331.00 165.00
 ## 2:      Sales Urban=='Yes' &amp; Population&gt;150   201   7.573383  1522.25   7.49   3.74
@@ -295,16 +505,16 @@ CData =<span class="st"> </span>ISLR<span class="op">::</span>Carseats
 <p>Eg:dat = data.frame(x = c(23,24,34,999,12,12,23,999,45), y = c(1,3,4,999,0,999,0,8,999,0)</p>
 <p>Exclude 999:</p>
 <p>x = c(23,24,34,12,12,23,45) y = c(1,3,4,0,0,8,0)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_sam =<span class="st"> </span>Carseats[,]
-data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">30</span>),<span class="st">&quot;Sales&quot;</span>] &lt;-<span class="st"> </span><span class="dv">999</span>
-data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">20</span>),<span class="st">&quot;CompPrice&quot;</span>] &lt;-<span class="st"> </span><span class="op">-</span><span class="dv">9</span>
-data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">45</span>),<span class="st">&quot;Income&quot;</span>] &lt;-<span class="st"> </span><span class="dv">999</span>
-<span class="kw">ExpCustomStat</span>(data_sam,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'min'</span>),<span class="dt">filt=</span><span class="st">&quot;All %ni% c(999,-9)&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">data_sam =<span class="st"> </span>Carseats[,]</a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">30</span>),<span class="st">&quot;Sales&quot;</span>] &lt;-<span class="st"> </span><span class="dv">999</span></a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">20</span>),<span class="st">&quot;CompPrice&quot;</span>] &lt;-<span class="st"> </span><span class="dv">-9</span></a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">45</span>),<span class="st">&quot;Income&quot;</span>] &lt;-<span class="st"> </span><span class="dv">999</span></a>
+<a class="sourceLine" id="cb26-5" data-line-number="5"><span class="kw">ExpCustomStat</span>(data_sam,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'min'</span>),<span class="dt">filt=</span><span class="st">&quot;All %ni% c(999,-9)&quot;</span>)</a></code></pre></div>
 <pre><code>##     Attribute                   Filter Count       mean       sum min
 ## 1: Population Population%ni% c(999,-9)   400 264.840000 105936.00  10
-## 2:      Sales      Sales%ni% c(999,-9)   370   7.526514   2784.81   0
-## 3:  CompPrice  CompPrice%ni% c(999,-9)   380 125.163158  47562.00  77
-## 4:     Income     Income%ni% c(999,-9)   355  67.684507  24028.00  21</code></pre>
+## 2:      Sales      Sales%ni% c(999,-9)   370   7.589027   2807.94   0
+## 3:  CompPrice  CompPrice%ni% c(999,-9)   380 124.984211  47494.00  77
+## 4:     Income     Income%ni% c(999,-9)   355  68.447887  24299.00  21</code></pre>
 </div>
 <div id="d.-adding-filters-at-variable-level" class="section level6">
 <h6>d. Adding filters at variable level</h6>
@@ -315,8 +525,8 @@ data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op
 <p><code>&quot;Education&quot; - All stores</code></p>
 <p><code>&quot;Income&quot; - Inculde only stores in US (US==Yes)</code></p>
 <p>Table: Descriptive summary for Price, Population, Sales, CompPrice, Income based on the filters.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Education&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'sd'</span>,<span class="st">'IQR'</span>,<span class="st">'median'</span>),<span class="dt">filt=</span><span class="kw">c</span>(<span class="st">&quot;ShelveLoc=='Good'^Urban=='Yes'^Price&gt;=150^All^US=='Yes'&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Education&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'sd'</span>,<span class="st">'IQR'</span>,<span class="st">'median'</span>),<span class="dt">filt=</span><span class="kw">c</span>(<span class="st">&quot;ShelveLoc=='Good'^Urban=='Yes'^Price&gt;=150^All^US=='Yes'&quot;</span>))</a></code></pre></div>
 <pre><code>##     Attribute            Filter Count       mean      sum          var         sd      IQR median
 ## 1: Population ShelveLoc=='Good'    85 267.047059 22699.00 16193.473950 127.253581 177.0000 272.00
 ## 2:      Sales      Urban=='Yes'   282   7.468191  2106.03     8.044141   2.836219   3.9175   7.42
@@ -334,8 +544,8 @@ data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op
 <li>Base: All carseats data</li>
 <li>Table: Descriptive summary for Price, Population, Sales by group (Urban, ShelveLoc)</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'min'</span>,<span class="st">'P0.25'</span>,<span class="st">'median'</span>,<span class="st">'p0.75'</span>,<span class="st">'max'</span>),<span class="dt">gpby=</span><span class="ot">FALSE</span>)</code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'min'</span>,<span class="st">'P0.25'</span>,<span class="st">'median'</span>,<span class="st">'p0.75'</span>,<span class="st">'max'</span>),<span class="dt">gpby=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>##      Level  Attribute  Group_by Count  Prop       mean   min    P0.25 median    p0.75    max
 ##  1:    Yes Population     Urban   282 70.50 259.886525 12.00 139.0000 274.00 376.7500 508.00
 ##  2:     No Population     Urban   118 29.50 276.677966 10.00 144.0000 271.00 408.0000 509.00
@@ -354,8 +564,8 @@ data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op
 <li>Base: All carseats data</li>
 <li>Table: Descriptive summary for CompPrice, Income by group (Urban){PS: Percentages of shares}</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'PS'</span>,<span class="st">'min'</span>,<span class="st">'max'</span>,<span class="st">'IQR'</span>,<span class="st">'sd'</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)</a>
+<a class="sourceLine" id="cb32-2" data-line-number="2"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'PS'</span>,<span class="st">'min'</span>,<span class="st">'max'</span>,<span class="st">'IQR'</span>,<span class="st">'sd'</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>##     Urban  US ShelveLoc Attribute Count  Prop      mean   sum    PS min max   IQR        sd
 ##  1:   Yes Yes       Bad CompPrice    51 12.75 124.88235  6369 12.74  93 161 17.00 14.768408
 ##  2:   Yes Yes      Good CompPrice    39  9.75 127.00000  4953  9.91  89 156 22.00 15.998355
@@ -389,8 +599,8 @@ data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op
 <li>Base: Stores in Urban location only</li>
 <li>Table: Descriptive summary for CompPrice, Income by group (Urban){PS: Percentages of shares}</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'PS'</span>,<span class="st">'median'</span>,<span class="st">'IQR'</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes'&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'PS'</span>,<span class="st">'median'</span>,<span class="st">'IQR'</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes'&quot;</span>)</a></code></pre></div>
 <pre><code>##     Urban  US ShelveLoc Attribute       Filter Count  Prop      mean   sum    PS median   IQR
 ##  1:   Yes Yes       Bad CompPrice Urban=='Yes'    51 18.09 124.88235  6369 17.98  125.0 17.00
 ##  2:   Yes Yes      Good CompPrice Urban=='Yes'    39 13.83 127.00000  4953 13.98  128.0 22.00
@@ -408,55 +618,55 @@ data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op
 <li>Base: Removing redundant values</li>
 <li>Table: Descriptive summary for CompPrice, Income by group (Urban){PS: Percentages of shares}</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)
-data_sam =<span class="st"> </span>Carseats[,]
-data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">30</span>),<span class="st">&quot;Sales&quot;</span>] &lt;-<span class="st"> </span><span class="dv">888</span>
-data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">20</span>),<span class="st">&quot;CompPrice&quot;</span>] &lt;-<span class="st"> </span><span class="dv">999</span>
-data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">45</span>),<span class="st">&quot;Income&quot;</span>] &lt;-<span class="st"> </span><span class="dv">999</span>
-<span class="kw">ExpCustomStat</span>(data_sam,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'PS'</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;All %ni% c(888,999)&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">data_sam =<span class="st"> </span>Carseats[,]</a>
+<a class="sourceLine" id="cb36-3" data-line-number="3">data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">30</span>),<span class="st">&quot;Sales&quot;</span>] &lt;-<span class="st"> </span><span class="dv">888</span></a>
+<a class="sourceLine" id="cb36-4" data-line-number="4">data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">20</span>),<span class="st">&quot;CompPrice&quot;</span>] &lt;-<span class="st"> </span><span class="dv">999</span></a>
+<a class="sourceLine" id="cb36-5" data-line-number="5">data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">45</span>),<span class="st">&quot;Income&quot;</span>] &lt;-<span class="st"> </span><span class="dv">999</span></a>
+<a class="sourceLine" id="cb36-6" data-line-number="6"><span class="kw">ExpCustomStat</span>(data_sam,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'PS'</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;All %ni% c(888,999)&quot;</span>)</a></code></pre></div>
 <pre><code>##     Urban  US ShelveLoc Attribute                   Filter Count  Prop       mean      sum    PS
-##  1:   Yes Yes       Bad     Sales     Sales%ni% c(888,999)    48 12.97   5.557708   266.77  9.59
-##  2:   Yes Yes      Good     Sales     Sales%ni% c(888,999)    34  9.19  11.260294   382.85 13.77
-##  3:   Yes Yes    Medium     Sales     Sales%ni% c(888,999)    93 25.14   7.589892   705.86 25.38
-##  4:   Yes  No       Bad     Sales     Sales%ni% c(888,999)    21  5.68   5.288571   111.06  3.99
-##  5:    No Yes       Bad     Sales     Sales%ni% c(888,999)    10  2.70   6.145000    61.45  2.21
-##  6:   Yes  No    Medium     Sales     Sales%ni% c(888,999)    48 12.97   7.079167   339.80 12.22
-##  7:    No  No    Medium     Sales     Sales%ni% c(888,999)    28  7.57   6.665000   186.62  6.71
-##  8:    No Yes    Medium     Sales     Sales%ni% c(888,999)    36  9.73   7.587222   273.14  9.82
-##  9:   Yes  No      Good     Sales     Sales%ni% c(888,999)    17  4.59   8.988824   152.81  5.49
-## 10:    No Yes      Good     Sales     Sales%ni% c(888,999)    18  4.86  10.580556   190.45  6.85
-## 11:    No  No      Good     Sales     Sales%ni% c(888,999)     6  1.62   8.968333    53.81  1.93
-## 12:    No  No       Bad     Sales     Sales%ni% c(888,999)    11  2.97   5.135455    56.49  2.03
-## 13:   Yes Yes      Good CompPrice CompPrice%ni% c(888,999)    34  8.95 127.588235  4338.00  9.14
-## 14:   Yes Yes    Medium CompPrice CompPrice%ni% c(888,999)    90 23.68 125.188889 11267.00 23.75
-## 15:   Yes  No       Bad CompPrice CompPrice%ni% c(888,999)    22  5.79 124.954545  2749.00  5.79
-## 16:    No Yes       Bad CompPrice CompPrice%ni% c(888,999)    10  2.63 122.600000  1226.00  2.58
-## 17:   Yes  No    Medium CompPrice CompPrice%ni% c(888,999)    53 13.95 125.320755  6642.00 14.00
-## 18:    No  No    Medium CompPrice CompPrice%ni% c(888,999)    27  7.11 122.111111  3297.00  6.95
-## 19:    No Yes    Medium CompPrice CompPrice%ni% c(888,999)    38 10.00 125.710526  4777.00 10.07
-## 20:   Yes  No      Good CompPrice CompPrice%ni% c(888,999)    18  4.74 126.944444  2285.00  4.82
-## 21:    No Yes      Good CompPrice CompPrice%ni% c(888,999)    22  5.79 122.363636  2692.00  5.67
-## 22:   Yes Yes       Bad CompPrice CompPrice%ni% c(888,999)    49 12.89 124.775510  6114.00 12.89
-## 23:    No  No      Good CompPrice CompPrice%ni% c(888,999)     6  1.58 126.500000   759.00  1.60
+##  1:   Yes Yes       Bad     Sales     Sales%ni% c(888,999)    45 12.16   5.602000   252.09  9.16
+##  2:   Yes Yes      Good     Sales     Sales%ni% c(888,999)    36  9.73  10.905000   392.58 14.27
+##  3:   Yes Yes    Medium     Sales     Sales%ni% c(888,999)    91 24.59   7.464396   679.26 24.68
+##  4:   Yes  No       Bad     Sales     Sales%ni% c(888,999)    23  6.22   5.359130   123.26  4.48
+##  5:    No Yes       Bad     Sales     Sales%ni% c(888,999)     8  2.16   5.486250    43.89  1.59
+##  6:   Yes  No    Medium     Sales     Sales%ni% c(888,999)    51 13.78   6.816471   347.64 12.63
+##  7:    No  No    Medium     Sales     Sales%ni% c(888,999)    25  6.76   6.422400   160.56  5.83
+##  8:    No Yes    Medium     Sales     Sales%ni% c(888,999)    36  9.73   7.684722   276.65 10.05
+##  9:   Yes  No      Good     Sales     Sales%ni% c(888,999)    18  4.86   9.210556   165.79  6.02
+## 10:    No Yes      Good     Sales     Sales%ni% c(888,999)    20  5.41   9.993500   199.87  7.26
+## 11:    No  No      Good     Sales     Sales%ni% c(888,999)     6  1.62   8.968333    53.81  1.96
+## 12:    No  No       Bad     Sales     Sales%ni% c(888,999)    11  2.97   5.135455    56.49  2.05
+## 13:   Yes Yes       Bad CompPrice CompPrice%ni% c(888,999)    46 12.11 124.413043  5723.00 12.06
+## 14:   Yes Yes      Good CompPrice CompPrice%ni% c(888,999)    38 10.00 126.631579  4812.00 10.14
+## 15:   Yes Yes    Medium CompPrice CompPrice%ni% c(888,999)    91 23.95 125.505495 11421.00 24.07
+## 16:   Yes  No       Bad CompPrice CompPrice%ni% c(888,999)    23  6.05 125.521739  2887.00  6.08
+## 17:    No Yes       Bad CompPrice CompPrice%ni% c(888,999)    11  2.89 122.454545  1347.00  2.84
+## 18:   Yes  No    Medium CompPrice CompPrice%ni% c(888,999)    53 13.95 125.603774  6657.00 14.03
+## 19:    No  No    Medium CompPrice CompPrice%ni% c(888,999)    27  7.11 122.259259  3301.00  6.96
+## 20:    No Yes    Medium CompPrice CompPrice%ni% c(888,999)    38 10.00 126.763158  4817.00 10.15
+## 21:   Yes  No      Good CompPrice CompPrice%ni% c(888,999)    16  4.21 125.750000  2012.00  4.24
+## 22:    No Yes      Good CompPrice CompPrice%ni% c(888,999)    21  5.53 121.809524  2558.00  5.39
+## 23:    No  No      Good CompPrice CompPrice%ni% c(888,999)     5  1.32 124.000000   620.00  1.31
 ## 24:    No  No       Bad CompPrice CompPrice%ni% c(888,999)    11  2.89 118.363636  1302.00  2.74
-## 25:   Yes Yes       Bad    Income    Income%ni% c(888,999)    43 12.11  72.767442  3129.00 13.01
-## 26:   Yes Yes      Good    Income    Income%ni% c(888,999)    34  9.58  65.676471  2233.00  9.28
-## 27:   Yes Yes    Medium    Income    Income%ni% c(888,999)    85 23.94  69.529412  5910.00 24.56
-## 28:    No Yes       Bad    Income    Income%ni% c(888,999)     8  2.25  71.375000   571.00  2.37
-## 29:   Yes  No    Medium    Income    Income%ni% c(888,999)    52 14.65  66.538462  3460.00 14.38
-## 30:    No  No    Medium    Income    Income%ni% c(888,999)    29  8.17  62.448276  1811.00  7.53
-## 31:    No Yes    Medium    Income    Income%ni% c(888,999)    33  9.30  64.424242  2126.00  8.84
-## 32:   Yes  No      Good    Income    Income%ni% c(888,999)    17  4.79  70.117647  1192.00  4.95
-## 33:    No Yes      Good    Income    Income%ni% c(888,999)    20  5.63  72.200000  1444.00  6.00
-## 34:    No  No      Good    Income    Income%ni% c(888,999)     5  1.41  49.000000   245.00  1.02
-## 35:    No  No       Bad    Income    Income%ni% c(888,999)     8  2.25  62.625000   501.00  2.08
-## 36:   Yes  No       Bad    Income    Income%ni% c(888,999)    21  5.92  68.428571  1437.00  5.97
+## 25:   Yes Yes      Good    Income    Income%ni% c(888,999)    37 10.42  66.729730  2469.00 10.07
+## 26:   Yes Yes    Medium    Income    Income%ni% c(888,999)    88 24.79  68.568182  6034.00 24.61
+## 27:   Yes  No       Bad    Income    Income%ni% c(888,999)    20  5.63  69.850000  1397.00  5.70
+## 28:    No Yes       Bad    Income    Income%ni% c(888,999)    11  3.10  72.727273   800.00  3.26
+## 29:   Yes  No    Medium    Income    Income%ni% c(888,999)    47 13.24  68.042553  3198.00 13.05
+## 30:    No  No    Medium    Income    Income%ni% c(888,999)    26  7.32  63.692308  1656.00  6.76
+## 31:    No Yes    Medium    Income    Income%ni% c(888,999)    31  8.73  67.741935  2100.00  8.57
+## 32:   Yes  No      Good    Income    Income%ni% c(888,999)    13  3.66  68.846154   895.00  3.65
+## 33:    No Yes      Good    Income    Income%ni% c(888,999)    20  5.63  74.250000  1485.00  6.06
+## 34:   Yes Yes       Bad    Income    Income%ni% c(888,999)    45 12.68  77.066667  3468.00 14.15
+## 35:    No  No      Good    Income    Income%ni% c(888,999)     6  1.69  53.833333   323.00  1.32
+## 36:    No  No       Bad    Income    Income%ni% c(888,999)    11  3.10  62.727273   690.00  2.81
 ##     Urban  US ShelveLoc Attribute                   Filter Count  Prop       mean      sum    PS</code></pre>
 <p>Different base for each numeric variable.</p>
 <p><code>&quot;Population&quot; - Consider only Good ShelveLoc (the quality of the shelving location for the car seats at each site) ShelveLoc=='Good'</code></p>
 <p><code>&quot;Sales&quot; - Inculde only those store belongs to Urban location (Urban==Yes)</code></p>
 <p><code>&quot;CompPrice&quot; - Exclude Price is greater than 150</code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'IQR'</span>), <span class="dt">filt=</span><span class="kw">c</span>(<span class="st">&quot;ShelveLoc=='Good'^Urban=='Yes'^Price&gt;=150&quot;</span>))</code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'IQR'</span>), <span class="dt">filt=</span><span class="kw">c</span>(<span class="st">&quot;ShelveLoc=='Good'^Urban=='Yes'^Price&gt;=150&quot;</span>))</a></code></pre></div>
 <pre><code>##     Urban  US  Attribute            Filter Count  Prop       mean      sum          var      IQR
 ##  1:   Yes Yes Population ShelveLoc=='Good'    39 45.88 277.538462 10824.00 18259.676113 176.0000
 ##  2:   Yes  No Population ShelveLoc=='Good'    18 21.18 219.888889  3958.00 13625.633987 155.5000
@@ -468,44 +678,56 @@ data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op
 ##  8:    No Yes  CompPrice        Price&gt;=150     7 21.88 138.428571   969.00   180.952381  16.0000
 ##  9:   Yes  No  CompPrice        Price&gt;=150     7 21.88 143.285714  1003.00   156.571429  14.5000
 ## 10:    No  No  CompPrice        Price&gt;=150     2  6.25 146.500000   293.00   112.500000   7.5000</code></pre>
-<p>Example scripts</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">##Frequency table for categorical variables
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>),<span class="dt">gpby=</span><span class="ot">FALSE</span>)
-
-##Crosstabulation between categorical variables
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="ot">NULL</span>)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="ot">NULL</span>)
-
-##Adding filters for custom tables
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;Population&gt;150&quot;</span>)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes' &amp; Population&gt;150&quot;</span>)
-
-## Numeric variable summary
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'min'</span>,<span class="st">'max'</span>))
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'min'</span>,<span class="st">'p0.25'</span>,<span class="st">'median'</span>,<span class="st">'p0.75'</span>,<span class="st">'max'</span>))
-
-## Adding filters for complete data (like base Subset)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>),<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes'&quot;</span>)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>),<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes' &amp; Population&gt;150&quot;</span>)
-
-## Filter unique value from all the numeric variables
-<span class="kw">ExpCustomStat</span>(data_sam,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'min'</span>),<span class="dt">filt=</span><span class="st">&quot;All %ni% c(999,-9)&quot;</span>)
-
-## Adding filters at variable level
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Education&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'sd'</span>,<span class="st">'IQR'</span>,<span class="st">'median'</span>),<span class="dt">filt=</span><span class="kw">c</span>(<span class="st">&quot;ShelveLoc=='Good'^Urban=='Yes'^Price&gt;=150^ ^US=='Yes'&quot;</span>))
-
-##Numerical summaries by category
-##Variable summary report (One group variable)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'min'</span>,<span class="st">'P0.25'</span>,<span class="st">'median'</span>,<span class="st">'p0.75'</span>,<span class="st">'max'</span>),<span class="dt">gpby=</span><span class="ot">FALSE</span>)
-
-##Variable summary report (More than One group variable)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'PS'</span>,<span class="st">'min'</span>,<span class="st">'max'</span>,<span class="st">'IQR'</span>,<span class="st">'sd'</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>)
-
-##Variable summary report (More than One group variable) with filter
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'PS'</span>,<span class="st">'P0.25'</span>,<span class="st">'median'</span>,<span class="st">'p0.75'</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes'&quot;</span>)
-<span class="kw">ExpCustomStat</span>(data_sam,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'PS'</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;All %ni% c(888,999)&quot;</span>)
-<span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'min'</span>,<span class="st">'max'</span>), <span class="dt">filt=</span><span class="kw">c</span>(<span class="st">&quot;ShelveLoc=='Good'^Urban=='Yes'^Price&gt;=150&quot;</span>))</code></pre></div>
 </div>
+</div>
+<div id="resahpe-data" class="section level5">
+<h5>4. Resahpe data</h5>
+<p>Reshapes a grouped data</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)</a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">dcast=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Row value   : Attribute
+## Column value: Urban
+## Statistics  : Count + Prop</code></pre>
+<pre><code>##     Attribute Count_No Count_Yes Prop_No Prop_Yes
+## 1: Population      118       282    29.5     70.5
+## 2:      Sales      118       282    29.5     70.5</code></pre>
+<p>Example scripts</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">##Frequency table for categorical variables</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>),<span class="dt">gpby=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb43-4" data-line-number="4">##Crosstabulation between categorical variables</a>
+<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="ot">NULL</span>)</a>
+<a class="sourceLine" id="cb43-6" data-line-number="6"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="ot">NULL</span>)</a>
+<a class="sourceLine" id="cb43-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb43-8" data-line-number="8">##Adding filters for custom tables</a>
+<a class="sourceLine" id="cb43-9" data-line-number="9"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;Population&gt;150&quot;</span>)</a>
+<a class="sourceLine" id="cb43-10" data-line-number="10"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes' &amp; Population&gt;150&quot;</span>)</a>
+<a class="sourceLine" id="cb43-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb43-12" data-line-number="12">## Numeric variable summary</a>
+<a class="sourceLine" id="cb43-13" data-line-number="13"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'min'</span>,<span class="st">'max'</span>))</a>
+<a class="sourceLine" id="cb43-14" data-line-number="14"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'min'</span>,<span class="st">'p0.25'</span>,<span class="st">'median'</span>,<span class="st">'p0.75'</span>,<span class="st">'max'</span>))</a>
+<a class="sourceLine" id="cb43-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb43-16" data-line-number="16">## Adding filters for complete data (like base Subset)</a>
+<a class="sourceLine" id="cb43-17" data-line-number="17"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>),<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes'&quot;</span>)</a>
+<a class="sourceLine" id="cb43-18" data-line-number="18"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>),<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes' &amp; Population&gt;150&quot;</span>)</a>
+<a class="sourceLine" id="cb43-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb43-20" data-line-number="20">## Filter unique value from all the numeric variables</a>
+<a class="sourceLine" id="cb43-21" data-line-number="21"><span class="kw">ExpCustomStat</span>(data_sam,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'min'</span>),<span class="dt">filt=</span><span class="st">&quot;All %ni% c(999,-9)&quot;</span>)</a>
+<a class="sourceLine" id="cb43-22" data-line-number="22"></a>
+<a class="sourceLine" id="cb43-23" data-line-number="23">## Adding filters at variable level</a>
+<a class="sourceLine" id="cb43-24" data-line-number="24"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Education&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'sd'</span>,<span class="st">'IQR'</span>,<span class="st">'median'</span>),<span class="dt">filt=</span><span class="kw">c</span>(<span class="st">&quot;ShelveLoc=='Good'^Urban=='Yes'^Price&gt;=150^ ^US=='Yes'&quot;</span>))</a>
+<a class="sourceLine" id="cb43-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb43-26" data-line-number="26">##Numerical summaries by category</a>
+<a class="sourceLine" id="cb43-27" data-line-number="27">##Variable summary report (One group variable)</a>
+<a class="sourceLine" id="cb43-28" data-line-number="28"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'min'</span>,<span class="st">'P0.25'</span>,<span class="st">'median'</span>,<span class="st">'p0.75'</span>,<span class="st">'max'</span>),<span class="dt">gpby=</span><span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb43-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb43-30" data-line-number="30">##Variable summary report (More than One group variable)</a>
+<a class="sourceLine" id="cb43-31" data-line-number="31"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'PS'</span>,<span class="st">'min'</span>,<span class="st">'max'</span>,<span class="st">'IQR'</span>,<span class="st">'sd'</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb43-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb43-33" data-line-number="33">##Variable summary report (More than One group variable) with filter</a>
+<a class="sourceLine" id="cb43-34" data-line-number="34"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'PS'</span>,<span class="st">'P0.25'</span>,<span class="st">'median'</span>,<span class="st">'p0.75'</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;Urban=='Yes'&quot;</span>)</a>
+<a class="sourceLine" id="cb43-35" data-line-number="35"><span class="kw">ExpCustomStat</span>(data_sam,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'PS'</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;All %ni% c(888,999)&quot;</span>)</a>
+<a class="sourceLine" id="cb43-36" data-line-number="36"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">'Count'</span>,<span class="st">'Prop'</span>,<span class="st">'mean'</span>,<span class="st">'sum'</span>,<span class="st">'var'</span>,<span class="st">'min'</span>,<span class="st">'max'</span>), <span class="dt">filt=</span><span class="kw">c</span>(<span class="st">&quot;ShelveLoc=='Good'^Urban=='Yes'^Price&gt;=150&quot;</span>))</a></code></pre></div>
 </div>
 <div id="references" class="section level5">
 <h5>References</h5>

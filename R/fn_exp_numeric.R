@@ -2,16 +2,22 @@
 #'
 #'
 #' @description Function provides summary statistics for all numerical variable. This function automatically scans through each variable and select only numeric/integer variables. Also if we know the target variable, function will generate relationship between target variable and each independent variable.
-#' @usage ExpNumStat(data,by=c("A","G","GA"),gp=NULL,Qnt=NULL,MesofShape=2,Outlier=FALSE,round=3)
+#' @usage ExpNumStat(data,by=NULL,gp=NULL,Qnt=NULL,Nlim=10,MesofShape=2,
+#' Outlier=FALSE,round=3,dcast=FALSE,val=NULL)
 ##' @param data dataframe or matrix
 ##' @param by group by A (summary statistics by All), G (summary statistics by group), GA (summary statistics by group and Overall)
 ##' @param gp target variable if any, default NULL
 ##' @param Qnt default NULL. Specified quantiles [c(.25,0.75) will find 25th and 75th percentiles]
+##' @param Nlim numeric variable limit (default value is 10 which means it will only consider those variable having more than 10 unique values and variable type is numeric/integer)
 ##' @param MesofShape Measures of shapes (Skewness and kurtosis).
 ##' @param Outlier Calculate the lower hinge, upper hinge and number of outliers
 ##' @param round round off
+##' @param dcast fast dcast from data.table
+##' @param val Name of the column whose values will be filled to cast (see Detials sections for list of column names)
 ##' @seealso \code{\link[psych:describe.by]{describe.by}}
 ##' @return summary statistics for numeric independent variables
+##'
+##'@details
 ##'
 ##' Summary by – overall
 ##'
@@ -65,15 +71,23 @@
 ##'
 ##' @examples
 #' ## Descriptive summary of numeric variables - Summary by Target variables
-#' ExpNumStat(mtcars,by="G",gp="gear",Qnt=c(0.1,0.2),MesofShape=2,Outlier=TRUE,round=3)
+#' ExpNumStat(mtcars,by="G",gp="gear",Qnt=c(0.1,0.2),MesofShape=2,
+#' Outlier=TRUE,round=3)
 #' ## Descriptive summary of numeric variables - Summary by Overall
-#' ExpNumStat(mtcars,by="A",gp="gear",Qnt=c(0.1,0.2),MesofShape=2,Outlier=TRUE,round=3)
+#' ExpNumStat(mtcars,by="A",gp="gear",Qnt=c(0.1,0.2),MesofShape=2,
+#' Outlier=TRUE,round=3)
 #' ## Descriptive summary of numeric variables - Summary by Overall and Group
-#' ExpNumStat(mtcars,by="GA",gp="gear",Qnt=seq(0,1,.1),MesofShape=1,Outlier=TRUE,round=2)
+#' ExpNumStat(mtcars,by="GA",gp="gear",Qnt=seq(0,1,.1),MesofShape=1,
+#' Outlier=TRUE,round=2)
+#' ## Summary by specific statistics for all numeric variables
+#' ExpNumStat(mtcars,by="GA",gp="gear",Qnt=c(0.1,0.2),MesofShape=2,
+#' Outlier=FALSE,round=2,dcast = TRUE,val = "IQR")
 ##' @author dubrangala
 ##' @export ExpNumStat
 
-ExpNumStat = function(data,by=c("A","G","GA"),gp=NULL,Qnt=NULL,MesofShape=2,Outlier=FALSE,round=3) {
+
+
+ExpNumStat = function(data,by=NULL,gp=NULL,Qnt=NULL,Nlim=10,MesofShape=2,Outlier=FALSE,round=3,dcast=FALSE,val=NULL) {
   ds_fun <- function(x,r){
     BasDST <- c(TN = length(x),
                 nNeg = length(which(x < 0)),
@@ -162,14 +176,13 @@ ExpNumStat = function(data,by=c("A","G","GA"),gp=NULL,Qnt=NULL,MesofShape=2,Outl
 
     }
   }
-
+  if(is.null(by)) {by ="A"; message("Default summary by all sample") }
   if(is.null(gp) & by %in% c("G","GA")) stop("'gp variable is missing for group level summary'")
 
   if(!MesofShape %in% c(1,2)) stop("'value of MesofShape should be either 1 or 2'")
 
   num_var = names(xx)[sapply(xx, is.numeric)]
-  num_var <- num_var[sapply(xx[,num_var], function(x){length(unique(na.omit(x)))>3})]
-
+  num_var <- num_var[sapply(xx[,num_var], function(x){length(unique(na.omit(x)))>=Nlim})]
   if (by=="A"){
     ccc = sapply(xx[,num_var], function(x) ds_fun(x,r=r),USE.NAMES = TRUE)
     cname = rownames(ccc)
@@ -180,7 +193,7 @@ ExpNumStat = function(data,by=c("A","G","GA"),gp=NULL,Qnt=NULL,MesofShape=2,Outl
     tb_op = cbind(varn_gp,tb_op)
     tb_op <- tb_op[order(tb_op$Vname),]
     class(tb_op) = c("SmartEDA","ExpNumStat","data.frame")
-    return(tb_op)
+    #return(tb_op)
   }
   else
     if (by=="corr"){
@@ -191,12 +204,12 @@ ExpNumStat = function(data,by=c("A","G","GA"),gp=NULL,Qnt=NULL,MesofShape=2,Outl
       cname = rownames(ccc)
       tb_op = data.frame(t(ccc))
       names(tb_op) <- cname
-      varn_gp = cbind(Vname= rownames(tb_op),Note=paste0("Cor b/w ",gp))
+      varn_gp = cbind(Vname= rownames(tb_op),Group=gp,Note=paste0("Cor b/w ",gp))
       rownames(tb_op)<-NULL
       tb_op = cbind(varn_gp,tb_op)
       tb_op <- tb_op[order(tb_op$Vname),]
       class(tb_op) = c("SmartEDA","ExpNumStat","data.frame")
-      return(tb_op)
+      #return(tb_op)
     }
   else
     if (by=="G") {
@@ -215,7 +228,7 @@ ExpNumStat = function(data,by=c("A","G","GA"),gp=NULL,Qnt=NULL,MesofShape=2,Outl
       }
       tb_op <- tb_op[order(tb_op$Vname),]
       class(tb_op) = c("SmartEDA","ExpNumStat","data.frame")
-      return(tb_op)
+      #return(tb_op)
     } else
       if (by=="GA") {
         tb_op = data.frame()
@@ -235,8 +248,15 @@ ExpNumStat = function(data,by=c("A","G","GA"),gp=NULL,Qnt=NULL,MesofShape=2,Outl
         tb_op <- tb_op[order(tb_op$Vname),]
         names(tb_op) <- cname
         class(tb_op) = c("SmartEDA","ExpNumStat","data.frame")
-        return(tb_op)
+        #return(tb_op)
       }
+
+  if(isTRUE(dcast)){
+    cf<-formula(paste("Vname","Group",sep="~"))
+    cp=data.frame(Stat=val,dcast(tb_op,cf,value.var=val))
+    return(cp)
+  } else {return(tb_op)}
+
 }
 
 #' Measures of Shape - Skewness

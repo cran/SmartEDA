@@ -24,7 +24,7 @@ ExpCatStat(data,Target=NULL,Label=NULL,result=c("Stat","IV"),clim=10,nlim=10,Pcl
 \value{
 This function provides summary statistics for categorical variable
 
-Stat-Summary statistics includes Chi square test scores, p value, Information values
+Stat-Summary statistics includes Chi square test scores, p value, Information values, Cramers V and Degree if association
 
 IV- Weight of evidence and Information values
 

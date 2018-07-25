@@ -44,8 +44,6 @@
 ##' # Crosstbale for Mtcars data
 ##' ExpCTable(mtcars,Target="gear",margin=1,clim=10,nlim=3,bin=NULL,per=FALSE)
 ##'
-##' ExpCTable(mtcars,Target="gear",margin=2,clim=10,nlim=3,bin=NULL,per=FALSE)
-##'
 ##' @export ExpCTable
 
 ExpCTable = function(data,Target=NULL,margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=FALSE){
@@ -226,8 +224,14 @@ ExpWoeTable <- function (X, Y, valueOfGood = NULL,print=FALSE){
   if (length(yClasses1) >= 2) {
     Y =as.character(paste0(Y))
     yClasses <- unique(Y)
+    if(valueOfGood==1){
     Y[which(Y == valueOfGood)] <- 1
-    Y[which(!(Y == "1"))] <- 0
+    Y[which(!(Y == "1"))] <- 0 } else
+    {
+      Y[which(Y == valueOfGood)] <- 99
+      Y[which(!(Y == "99"))] <- 0
+      Y[which(Y == 99)] <- 1
+    }
     Y <- as.numeric(Y)
     df <- data.frame(X, Y)
     woeTable <- as.data.frame(matrix(numeric(nlevels(X) *
@@ -253,7 +257,7 @@ ExpWoeTable <- function (X, Y, valueOfGood = NULL,print=FALSE){
     ref_1 =valueOfGood
     ref_0 = yClasses[!yClasses %in% valueOfGood]
     woeTable$Ref_1 = ref_1
-    woeTable$Ref_0 = ref_0
+    woeTable$Ref_0 = paste0(ref_0,collapse = ",")
     # }
     return(woeTable)
   }
@@ -307,10 +311,13 @@ ExpInfoValue = function (X, Y, valueOfGood = NULL)
   val =valueOfGood
   woeTable <- ExpWoeTable(X = X, Y = Y, valueOfGood = val,print=FALSE)
   iv <- attr(woeTable, "iValue")
-  if (iv < 0.03) {
+  if(is.nan(iv)|is.na(iv)) {
+    PP<-"Not Predictive"
+  }
+  else if (iv < 0.09) {
     PP <- "Not Predictive"
   }
-  else if (iv < 0.1) {
+  else if (iv < 0.19) {
     PP <- "Somewhat Predictive"
   }
   else if (iv < 0.3) {
@@ -356,6 +363,8 @@ ExpInfoValue = function (X, Y, valueOfGood = NULL)
 ##' @export ExpStat
 
 ExpStat = function(X,Y,valueOfGood = NULL){
+  options(warn = -1)
+
   if(is.null(valueOfGood)){stop("Specify reference category for target variable")}
   if (class(Y)!="factor") {Y =as.factor(Y)}
   if (class(X)!="factor") {X =as.factor(X)}
@@ -363,14 +372,28 @@ ExpStat = function(X,Y,valueOfGood = NULL){
   if (anyNA(X)) {Xvar = addNA(X)}
   tb = table(X,Y)
   CTest=chisq.test(tb)
+  ## Cramers V
+  k <- min(dim(CTest$observed))
+  N <- sum(CTest$observed)
+  chi2 <- CTest$statistic
+  CrV <- round(sqrt(chi2/(N * (k - 1))),2) #indicative of the degree of association
+
+  #CrV_IV <- max(round(ExpInfoValue(X, Y, valueOfGood = valueOfGood)[[1]],3),CrV)
+  if(is.nan(CrV)|is.na(CrV)) {Deg_asso <- "Very Weak"}
+    else if (CrV < 0.09) { Deg_asso <- "Very Weak"}
+      else if (CrV < 0.19) {Deg_asso <- "Weak"}
+    else if (CrV < 0.3) {Deg_asso <- "Moderate"}
+  else {Deg_asso <- "Strong"}
+
   TList <- rbind(
     Unique_Levels = length(unique(X)),
     C2Tvalue = round(CTest$statistic,3),
     pval=round(CTest$p.value,3),
     df=CTest$parameter,
-
     IVvalue = round(ExpInfoValue(X, Y, valueOfGood = valueOfGood)[[1]],3),
-    IVvalue_st = ExpInfoValue(X, Y, valueOfGood = valueOfGood)[[2]])
+    Cram_Value = CrV,
+    Degree_Asso = Deg_asso,
+    Pred_class=ExpInfoValue(X, Y, valueOfGood = valueOfGood)[[2]])
   return(TList)
 }
 
@@ -388,7 +411,7 @@ ExpStat = function(X,Y,valueOfGood = NULL){
 ##' @param Pclass reference category of target variable
 ##' @return This function provides summary statistics for categorical variable
 ##'
-##' Stat-Summary statistics includes Chi square test scores, p value, Information values
+##' Stat-Summary statistics includes Chi square test scores, p value, Information values, Cramers V and Degree if association
 ##'
 ##' IV- Weight of evidence and Information values
 ##'
@@ -439,6 +462,10 @@ ExpStat = function(X,Y,valueOfGood = NULL){
 ##' @export ExpCatStat
 
 ExpCatStat = function(data,Target=NULL,Label=NULL,result=c("Stat","IV"),clim=10,nlim=10,Pclass=NULL) {
+  options(warn = -1)
+
+  if(is.null(result)) stop("Specify the result option either 'Stat' or 'IV' for inforamtion value")
+result = toupper(result)
 
   xx = as.data.frame(data)
   if(!is.data.frame(data)) stop("'data must be a numeric vector or data.frame'")
@@ -469,12 +496,12 @@ ExpCatStat = function(data,Target=NULL,Label=NULL,result=c("Stat","IV"),clim=10,
 
   if (is.null(Pclass)) {Pval=1} else {Pval=Pclass}
 
-  if (result=="Stat") {
+  if (result=="STAT") {
     tab2 = sapply(xx[,Cat_varlst],function(x){ExpStat(x,Yvar,valueOfGood = Pval)})
     tab2 <- data.frame(t(tab2))
     tb_op2 = cbind(Var_name= rownames(tab2),Tar_v=Target,tab2)
     rownames(tb_op2)<-NULL
-    names(tb_op2) = c("Variable","Target","Unique","Chi-squared","p-value","df","IV Value","Pred Power")
+    names(tb_op2) = c("Variable","Target","Unique","Chi-squared","p-value","df","IV Value","Cramers V","Degree of Association","Predictive Power")
     return(tb_op2)
   }
   if (result=="IV") {

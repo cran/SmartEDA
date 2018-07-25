@@ -9,7 +9,7 @@
 ##'
 ##' IF Type=1,overeview of the data (column names are "Descriptions", "Obs")
 ##'
-##' If Type=2,structure of the data (column names are "S.no", "VarName", "VarClass", "VarType")
+##' If Type=2,structure of the data (column names are "S.no","Variable Name","Variable Type","% of Missing","No. of Unique values")
 ##'
 ##' @examples
 ##' # Overview of the data
@@ -62,17 +62,11 @@ ExpData <- function(data,type=1){
             name_var = names(xx)
             tt = sapply(name_var, function(x){
               Xvar = xx[,x]
-              cla_var <- as.character(paste0(class(xx[,x])))
-
-              # if(is.null(DV)){Typ <- "Independent variable"} else {
-              #   if(x==DV){Typ <- "Dependent variable"} else {Typ <- "Independent variable"}
-              # }
+              cla_var <- as.character(paste0(class(xx[,x]),collapse = ":"))
               Per_missing <- round(length(Xvar[is.na(Xvar)])/length(Xvar),2)
               Per_Unique <- length(unique(Xvar))
-              # if(cla_var!="numeric") {x=paste0(x,"*")}
               if(class(xx[,x]) %in% c("factor","character")) {x=paste0(x,"*")} else
               if(class(xx[,x]) %in% c("Date","POSIXct","POSIXt")) {x=paste0(x,"**")} else {x=x}
-              # mydata = c(S.no=1,VarName=x,VarClass=cla_var,VarType=Typ,Per_mis=Per_missing,Unique=Per_Unique,VarDescriptions=NULL)
               mydata = c(S.no=1,VarName=x,VarClass=cla_var,Per_mis=Per_missing,Unique=Per_Unique,VarDescriptions=NULL)
                 return(mydata)
 
@@ -81,6 +75,7 @@ ExpData <- function(data,type=1){
             op = data.frame(t(tt))
             op$S.no = seq(1,length(name_var),1)
             rownames(op)<-NULL
+            names(op)<- c("S.no","Variable Name","Variable Type","% of Missing","No. of Unique values")
             return(op)
           }
   )

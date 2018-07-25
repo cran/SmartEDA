@@ -83,6 +83,10 @@ ExpCustomStat(data_sam,Cvar = c("Urban","US","ShelveLoc"), Nvar=c("Sales","CompP
 ## ---------------------------------------------------------------------------------------------------------------------------------------------------
 ExpCustomStat(Carseats,Cvar = c("Urban","US"), Nvar=c("Population","Sales","CompPrice"), stat = c('Count','Prop','mean','sum','var','IQR'), filt=c("ShelveLoc=='Good'^Urban=='Yes'^Price>=150"))
 
+## ---------------------------------------------------------------------------------------------------------------------------------------------------
+options(width = 150)
+ExpCustomStat(Carseats,Cvar = c("Urban"), Nvar=c("Population","Sales"), stat = c('Count','Prop'),gpby=TRUE,dcast=TRUE)
+
 ## ---- warning=FALSE,eval=F,include=T----------------------------------------------------------------------------------------------------------------
 #  ##Frequency table for categorical variables
 #  ExpCustomStat(Carseats,Cvar=c("US","Urban","ShelveLoc"),gpby=FALSE)

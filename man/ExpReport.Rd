@@ -4,10 +4,13 @@
 \alias{ExpReport}
 \title{Function to create HTML EDA report}
 \usage{
-ExpReport(data,Target=NULL,label=NULL,op_file=NULL,op_dir=getwd(),sc=NULL,sn=NULL,Rc=NULL)
+ExpReport(data,Template=NULL,Target=NULL,label=NULL,op_file=NULL,
+op_dir=getwd(),sc=NULL,sn=NULL,Rc=NULL)
 }
 \arguments{
 \item{data}{a data frame}
+
+\item{Template}{R markdown template (.rmd file)}
 
 \item{Target}{dependent variable. If there is no defined target variable then keep as it is NULL.}
 
@@ -28,13 +31,19 @@ Create a exploratory data analysis report in HTML format
 }
 \details{
 The "ExpReport" function will generate a HTML report for any R data frames.
-It will generate three different types of HTML report based on the Target field.
+If the markdown template is ready, we can use that template to generate the HTML report else
+It will generate three different types of HTML report based on the Target field
 
 IF Target = NULL, means there is no defined dependent varaible then it will genreate general EDA report at overall level
 
 IF Target = continuous, then it will genreate EDA report including univariate and multivarite summary statistics with correlation.
 
 IF Target = categorical, then it will genreate EDA report including univariate and multivarite summary statistics with chi-square, Information values.
+}
+\examples{
+# Overview of the data
+ExpReport(mtcars,Template=NULL,Target=NULL,label=NULL,op_file="Myreport.html",
+op_dir=getwd(),sc=2,sn=2,Rc=NULL)
 }
 \seealso{
 \code{\link[DataExplorer:create_report]{create_report}}

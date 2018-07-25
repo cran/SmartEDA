@@ -34,11 +34,11 @@ kable(ovw_tabl, "html")
 kable(ovw_tab2, "html")
 
 ## ----c1.1,warning=FALSE,eval=T,include=F---------------------------------
-ec1 = ExpNumStat(Carseats,by="A",gp=NULL,Qnt=seq(0,1,0.1),MesofShape=2,Outlier=TRUE,round=2)
+ec1 = ExpNumStat(Carseats,by="A",gp=NULL,Qnt=seq(0,1,0.1),MesofShape=2,Outlier=TRUE,round=2,Nlim=3)
 rownames(ec1)<-NULL
 
 ## ----c1.11, warning=FALSE,eval=F,include=T-------------------------------
-#  ExpNumStat(Carseats,by="A",gp=NULL,Qnt=seq(0,1,0.1),MesofShape=2,Outlier=TRUE,round=2)
+#  ExpNumStat(Carseats,by="A",gp=NULL,Qnt=seq(0,1,0.1),MesofShape=2,Outlier=TRUE,round=2,Nlim=10)
 #  
 
 ## ----c1.12,warning=FALSE,eval=T,render=ec1,echo=F------------------------
@@ -46,7 +46,8 @@ paged_table(ec1)
 
 ## ----c1.2 ,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
 # Note: Variable excluded (if unique value of variable which is less than or eaual to 10 [nlim=10])
-ExpNumViz(Carseats,gp=NULL,nlim=10,Page=c(2,2),sample=8)
+plot1 <- ExpNumViz(Carseats,gp=NULL,nlim=10,Page=c(2,2),sample=8)
+plot1[[1]]
 
 ## ----ec13, eval=T,include=F----------------------------------------------
 et1 <- ExpCTable(Carseats,Target=NULL,margin=1,clim=10,nlim=5,round=2,bin=NULL,per=T)
@@ -59,7 +60,8 @@ rownames(et1)<-NULL
 kable(et1,"html")
 
 ## ----bp1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
-ExpCatViz(Carseats,gp=NULL,fname=NULL,clim=10,margin=2,Page = c(2,1),sample=4)
+plot2 <- ExpCatViz(Carseats,gp=NULL,fname=NULL,clim=10,margin=2,Page = c(2,1),sample=4)
+plot2[[1]]
 
 ## ----tbd0,warning=FALSE,eval=T,include=T---------------------------------
 summary(Carseats[,"Price"])
@@ -77,7 +79,8 @@ paged_table(cpp)
 ## ----snv1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
 #Note: sample=8 means randomly selected 8 scatter plots
 #Note: nlim=4 means included numeric variable with unique value is more than 4
-ExpNumViz(Carseats,gp="Price",nlim=4,fname=NULL,col=NULL,Page=c(2,2),sample=8)
+plot3 <- ExpNumViz(Carseats,gp="Price",nlim=4,fname=NULL,col=NULL,Page=c(2,2),sample=8)
+plot3[[1]]
 
 ## ----eda_41, eval=T,include=F--------------------------------------------
 et11 <- ExpCTable(Carseats,Target="Price",margin=1,clim=10,nlim=NULL,round=2,bin=4,per=F)
@@ -110,11 +113,12 @@ rownames(snc)<-NULL
 paged_table(snc)
 
 ## ----bp3.1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
-ExpNumViz(Carseats,gp="Urban",type=1,nlim=NULL,fname=NULL,col=c("pink","yellow","orange"),Page=c(2,2),sample=8)
+plot4 <- ExpNumViz(Carseats,gp="Urban",type=1,nlim=NULL,fname=NULL,col=c("pink","yellow","orange"),Page=c(2,2),sample=8)
+plot4[[1]]
 
 ## ----ed3.3, eval=T,include=F---------------------------------------------
-et1 <- ExpCTable(Carseats,Target="Urban",margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
-rownames(et1)<-NULL
+et100 <- ExpCTable(Carseats,Target="Urban",margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
+rownames(et100)<-NULL
 
 et4 <- ExpCatStat(Carseats,Target="Urban",Label="Store Location",result = "Stat",clim=10,nlim=5,Pclass="Yes")
 rownames(et4)<-NULL
@@ -125,8 +129,8 @@ rownames(et5)<-NULL
 ## ----ed3.4, warning=FALSE,eval=F,include=T-------------------------------
 #  ExpCTable(Carseats,Target="Urban",margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
 
-## ----ed3.5,warning=FALSE,eval=T,render=et1,echo=F,out.height=8,out.width=8----
-kable(et1,"html")
+## ----ed3.5,warning=FALSE,eval=T,render=et100,echo=F,out.height=8,out.width=8----
+kable(et100,"html")
 
 ## ----ed3.6, warning=FALSE,eval=F,include=T-------------------------------
 #  ExpCatStat(Carseats,Target="Urban",Label="Store Location",result = "IV",clim=10,nlim=5,Pclass="Yes")
@@ -142,5 +146,66 @@ kable(et5,"html")
 kable(et4,"html")
 
 ## ----ed3.10,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
-ExpCatViz(Carseats,gp="Urban",fname=NULL,clim=10,col=NULL,margin=2,Page = c(2,1),sample=2)
+plot5 <- ExpCatViz(Carseats,gp="Urban",fname=NULL,clim=10,col=NULL,margin=2,Page = c(2,1),sample=2)
+plot5[[1]]
+
+## ----warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7---------------------------------------------------------------------
+options(width = 150)
+CData = ISLR::Carseats
+qqp <- ExpOutQQ(CData,nlim=10,fname=NULL,Page=c(2,2),sample=4)
+qqp[[1]]
+
+## ----warning=FALSE,eval=T,include=T,fig.align='center',fig.height=3,fig.width=7---------------------------------------------------------------------
+ExpParcoord(CData,Group=NULL,Stsize=NULL,Nvar=c("Price","Income","Advertising","Population","Age","Education"))
+
+## ----warning=FALSE,eval=T,include=T,fig.align='center',fig.height=3,fig.width=7---------------------------------------------------------------------
+ExpParcoord(CData,Group="ShelveLoc",Stsize=c(10,15,20),Nvar=c("Price","Income"),Cvar=c("Urban","US"))
+
+
+## ----warning=FALSE,eval=T,include=T,fig.align='center',fig.height=3,fig.width=7---------------------------------------------------------------------
+ExpParcoord(CData,Group="ShelveLoc",Nvar=c("Price","Income"),Cvar=c("Urban","US"),scale=NULL)
+
+
+## ----warning=FALSE,eval=T,include=T,fig.align='center',fig.height=3,fig.width=7---------------------------------------------------------------------
+ExpParcoord(CData,Group="US",Nvar=c("Price","Income"),Cvar=c("ShelveLoc"),scale="std")
+
+
+## ----warning=FALSE,eval=T,include=T,fig.align='center',fig.height=3,fig.width=7---------------------------------------------------------------------
+ExpParcoord(CData,Group="ShelveLoc",Stsize=c(10,15,20),Nvar=c("Price","Income","Advertising","Population","Age","Education"))
+
+## ----warning=FALSE,eval=T,include=T,fig.align='center',fig.height=3,fig.width=7---------------------------------------------------------------------
+ExpParcoord(CData,Group="US",Stsize=c(15,50),Cvar=c("ShelveLoc","Urban"))
+
+
+## ----dudu, eval=T,include=F-------------------------------------------------------------------------------------------------------------------------
+e1du <- ExpCustomStat(Carseats,Cvar="Urban",Nvar=c("Age","Price"),stat=c("mean","count"),gpby=TRUE,dcast=F)
+rownames(e1du)<-NULL
+
+e1du1 <- ExpCustomStat(Carseats,Cvar="Urban",Nvar=c("Age","Price"),stat=c("mean","count"),gpby=TRUE,dcast=T)
+rownames(e1du1)<-NULL
+
+e1du2 <- ExpCustomStat(Carseats,Cvar=c("Urban","ShelveLoc"),Nvar=c("Age","Price","Advertising","Sales"),stat=c("mean"),gpby=FALSE,dcast=T)
+rownames(e1du2)<-NULL
+
+
+## ----dud1, warning=FALSE,eval=F,include=T-----------------------------------------------------------------------------------------------------------
+#  ExpCustomStat(Carseats,Cvar="Urban",Nvar=c("Age","Price"),stat=c("mean","count"),gpby=TRUE,dcast=F)
+#  
+
+## ----dud12,warning=FALSE,eval=T,render=e1du,echo=F,out.height=8,out.width=8-------------------------------------------------------------------------
+kable(e1du,"html")
+
+## ----dud2, warning=FALSE,eval=F,include=T-----------------------------------------------------------------------------------------------------------
+#  ExpCustomStat(Carseats,Cvar="Urban",Nvar=c("Age","Price"),stat=c("mean","count"),gpby=TRUE,dcast=T)
+#  
+
+## ----dud21,warning=FALSE,eval=T,render=e1du1,echo=F,out.height=8,out.width=8------------------------------------------------------------------------
+kable(e1du1,"html")
+
+## ----dud3, warning=FALSE,eval=F,include=T-----------------------------------------------------------------------------------------------------------
+#  ExpCustomStat(Carseats,Cvar=c("Urban","ShelveLoc"),Nvar=c("Age","Price","Advertising","Sales"),stat=c("mean"),gpby=FALSE,dcast=T)
+#  
+
+## ----dud31,warning=FALSE,eval=T,render=e1du2,echo=F,out.height=8,out.width=8------------------------------------------------------------------------
+kable(e1du2,"html")
 

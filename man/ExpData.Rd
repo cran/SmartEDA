@@ -19,7 +19,7 @@ This function provides overview and structure of the data frames.
 
 IF Type=1,overeview of the data (column names are "Descriptions", "Obs")
 
-If Type=2,structure of the data (column names are "S.no", "VarName", "VarClass", "VarType")
+If Type=2,structure of the data (column names are "S.no","Variable Name","Variable Type","% of Missing","No. of Unique values")
 }
 \examples{
 # Overview of the data
