@@ -33,8 +33,9 @@
 #' ExpParcoord(CData,Group="ShelveLoc",Stsize=c(10,15,20),
 #' Nvar=c("Price","Income","Advertising","Population","Age","Education"))
 #'
-##' @importFrom ggplot2 stat_qq
-##' @export ExpOutQQ
+##' @importFrom GGally ggparcoord
+##' @importFrom sampling strata
+##' @export ExpParcoord
 
 ExpParcoord <-function(data,Group=NULL,Stsize=NULL,Nvar=NULL,Cvar=NULL,scale=NULL){
 

@@ -4,7 +4,7 @@
 \alias{ExpWoeTable}
 \title{Function provides summary statistics with weight of evidence}
 \usage{
-ExpWoeTable(X, Y, valueOfGood = NULL,print=FALSE)
+ExpWoeTable(X, Y, valueOfGood = NULL,print=FALSE,Round=2)
 }
 \arguments{
 \item{X}{Independent categorical variable.}
@@ -14,6 +14,8 @@ ExpWoeTable(X, Y, valueOfGood = NULL,print=FALSE)
 \item{valueOfGood}{Value of Y that is used as reference category.}
 
 \item{print}{print results}
+
+\item{Round}{rounds the values}
 }
 \value{
 Weight of evidance summary table

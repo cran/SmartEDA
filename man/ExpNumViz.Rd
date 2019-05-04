@@ -4,7 +4,8 @@
 \alias{ExpNumViz}
 \title{Distributions of numeric variables}
 \usage{
-ExpNumViz (data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL,sample=NULL)
+ExpNumViz (data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL,
+sample=NULL,gtitle=NULL,theme="Default")
 }
 \arguments{
 \item{data}{dataframe or matrix}
@@ -22,6 +23,10 @@ ExpNumViz (data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL,sample=NU
 \item{Page}{output pattern. if Page=c(3,2), It will generate 6 plots with 3 rows and 2 columns}
 
 \item{sample}{random selection of plots}
+
+\item{gtitle}{chart title}
+
+\item{theme}{extra themes, geoms, and scales for 'ggplot2' (use theme from ggthemes package)}
 }
 \value{
 returns collated graphs in PDF or JPEG format

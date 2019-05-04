@@ -1,4 +1,4 @@
-# SmartEDA [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/SmartEDA)](https://cran.r-project.org/package=SmartEDA)
+# SmartEDA [![CRAN status](https://www.r-pkg.org/badges/version/SmartEDA)](https://cran.r-project.org/package=SmartEDA)
 <!--
 [![CRAN Downloads](http://cranlogs.r-pkg.org/badges/SmartEDA)](https://cran.r-project.org/package=SmartEDA)
 [![CRAN Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/SmartEDA)](https://cran.r-project.org/package=SmartEDA)
@@ -59,15 +59,15 @@ To summarise the numeric variables, you can use following r codes from this paca
 ## Summary of Categorical variables	
 
 	ExpCTable(Carseats,Target=NULL,margin=1,clim=10,nlim=5,round=2,bin=NULL,per=T)
-	ExpCatViz(Carseats,gp=NULL,fname=NULL,clim=10,margin=2,Page = c(2,1),sample=4)
+	ExpCatViz(Carseats,target=NULL,fname=NULL,clim=10,margin=2,Page = c(2,1),sample=4)
 	ExpCTable(Carseats,Target="Price",margin=1,clim=10,nlim=NULL,round=2,bin=4,per=F)
-	ExpCatStat(Carseats,Target="Urban",Label="Store Location",result = "Stat",clim=10,nlim=5,Pclass="Yes")
-	ExpCatStat(Carseats,Target="Urban",Label="Store Location",result = "IV",clim=10,nlim=5,Pclass="Yes")
+	ExpCatStat(Carseats,Target="Urban",result = "Stat",clim=10,nlim=5,Pclass="Yes")
+	ExpCatStat(Carseats,Target="Urban",result = "IV",clim=10,nlim=5,Pclass="Yes")
 	ExpCTable(Carseats,Target="Urban",margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
 
 ## Graphical representation of all categorical variables
 
-	ExpCatViz(Carseats,gp="Urban",fname=NULL,clim=10,col=NULL,margin=2,Page = c(2,1),sample=2)
+	ExpCatViz(Carseats,target="Urban",fname=NULL,clim=10,col=NULL,margin=2,Page = c(2,1),sample=2)
 	
 ## Create HTML EDA report
 Create a exploratory data analysis report in HTML format

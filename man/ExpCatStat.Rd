@@ -4,14 +4,13 @@
 \alias{ExpCatStat}
 \title{Function provides summary statistics for all character or categorical columns in the dataframe}
 \usage{
-ExpCatStat(data,Target=NULL,Label=NULL,result=c("Stat","IV"),clim=10,nlim=10,Pclass=NULL)
+ExpCatStat(data,Target=NULL,result=c("Stat","IV"),clim=10,nlim=10,bins=10,
+Pclass=NULL,plot=FALSE,top=20,Round=2)
 }
 \arguments{
 \item{data}{dataframe or matrix}
 
 \item{Target}{target variable}
-
-\item{Label}{target variable label (not mandatory)}
 
 \item{result}{"Stat" - summary statistics, "IV" - information value}
 
@@ -19,7 +18,15 @@ ExpCatStat(data,Target=NULL,Label=NULL,result=c("Stat","IV"),clim=10,nlim=10,Pcl
 
 \item{nlim}{maximum unique values for numeric variable.}
 
+\item{bins}{number of bins (default is 10)}
+
 \item{Pclass}{reference category of target variable}
+
+\item{plot}{Inforamtion value barplot (default False)}
+
+\item{top}{for plotting top information values (default value is 20)}
+
+\item{Round}{round of value}
 }
 \value{
 This function provides summary statistics for categorical variable
@@ -46,7 +53,7 @@ Columns description:
 
  •	pct0 – bad observations / total bad observations
 
- •	odds – pct1/pct0
+ •	odds – Odds ratio [(a/b)/(c/d)]
 
  •	woe – Weight of Evidence – calculated as ln(odds)
 
@@ -71,9 +78,14 @@ If information value is >0.3 then predictive power = "Highly Predictive"
 ## Read mtcars data
 # Target variable "am" - Transmission (0 = automatic, 1 = manual)
 # Summary statistics
-ExpCatStat(mtcars,Target="am",Label="Transmission",result = "Stat",clim=10,nlim=5,Pclass=1)
+ExpCatStat(mtcars,Target="am",result = "Stat",clim=10,nlim=10,bins=10,
+Pclass=1,plot=FALSE,top=20,Round=2)
+# Information value plot
+ExpCatStat(mtcars,Target="am",result = "Stat",clim=10,nlim=10,bins=10,
+Pclass=1,plot=TRUE,top=20,Round=2)
 # Inforamtion value for categorical Independent variables
-ExpCatStat(mtcars,Target="am",Label="Transmission",result = "IV",clim=10,nlim=5,Pclass=1)
+ExpCatStat(mtcars,Target="am",result = "IV",clim=10,nlim=10,bins=10,
+Pclass=1,plot=FALSE,top=20,Round=2)
 }
 \author{
 dubrangala

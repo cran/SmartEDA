@@ -44,6 +44,7 @@
 ##' # Crosstbale for Mtcars data
 ##' ExpCTable(mtcars,Target="gear",margin=1,clim=10,nlim=3,bin=NULL,per=FALSE)
 ##'
+##' @importFrom stats na.omit
 ##' @export ExpCTable
 
 ExpCTable = function(data,Target=NULL,margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=FALSE){
@@ -181,11 +182,12 @@ ExpCTable = function(data,Target=NULL,margin=1,clim=10,nlim=NULL,round=2,bin=NUL
 #'
 #'
 #' @description Weight of evidence for categorical(X-independent) variable against Target variable (Y)
-#' @usage ExpWoeTable(X, Y, valueOfGood = NULL,print=FALSE)
+#' @usage ExpWoeTable(X, Y, valueOfGood = NULL,print=FALSE,Round=2)
 ##' @param X Independent categorical variable.
 ##' @param Y Binary response variable, it can take values of either 1 or 0.
 ##' @param valueOfGood Value of Y that is used as reference category.
 ##' @param print print results
+##' @param Round rounds the values
 ##' @examples
 ##' X = mtcars$gear
 ##' Y = mtcars$am
@@ -197,63 +199,59 @@ ExpCTable = function(data,Target=NULL,margin=1,clim=10,nlim=NULL,round=2,bin=NUL
 ##' @return Weight of evidance summary table
 ##' @export ExpWoeTable
 
-
-ExpWoeTable <- function (X, Y, valueOfGood = NULL,print=FALSE){
-  Y <- as.factor(paste0(Y))
-  X <- as.factor(paste0(X))
-  if (anyNA(Y)) {Yvar = addNA(Y)}
-  if (anyNA(X)) {Xvar = addNA(X)}
+ExpWoeTable <- function (X, Y, valueOfGood = NULL,print=FALSE,Round=2){
+  if(is.factor(Y)) {Y <- Y} else {Y <- as.factor(paste0(Y))}
+  if(is.factor(X)) {X <- X} else {X <- as.factor(paste0(X))}
+  if (anyNA(Y)) {Y = addNA(Y)}
+  if (anyNA(X)) {X = addNA(X)}
   if (anyNA(Y)==T){stop("Treat NA value from Target varible")}
   if (is.null(valueOfGood)){stop("Specify reference category for target variable")}
   yClasses1 <- unique(Y)
   if (length(yClasses1) < 2){stop("Target variable having only one category")}
 
-  # if (length(yClasses1)>2) { if(print==TRUE){cat(" Target variable have more than 2 categories")
-  #   print(table(Y))}
-  #   Y =as.character(Y)
-  #   Y[which(Y==valueOfGood)]<-1
-  #   Y[which(Y!="1")]<-0
-  #   ref_1 =yClasses1[[1]]
-  #   ref_0 =ref_val =paste0(yClasses1[c(-1)],collapse = " : ")
-  #
-  #   if(print==TRUE){cat("\n","re-classified target variable as binary value (1,0) with reference category","\n\n")
-  #     cat(paste0("Reference category (valueOfGood) : ",yClasses[[1]]))}
-  # }
-  # else
-
   if (length(yClasses1) >= 2) {
     Y =as.character(paste0(Y))
     yClasses <- unique(Y)
     if(valueOfGood==1){
-    Y[which(Y == valueOfGood)] <- 1
-    Y[which(!(Y == "1"))] <- 0 } else
-    {
-      Y[which(Y == valueOfGood)] <- 99
-      Y[which(!(Y == "99"))] <- 0
-      Y[which(Y == 99)] <- 1
-    }
+      Y[which(Y == valueOfGood)] <- 1
+      Y[which(!(Y == "1"))] <- 0 } else
+      {
+        Y[which(Y == valueOfGood)] <- 99
+        Y[which(!(Y == "99"))] <- 0
+        Y[which(Y == 99)] <- 1
+      }
     Y <- as.numeric(Y)
     df <- data.frame(X, Y)
     woeTable <- as.data.frame(matrix(numeric(nlevels(X) *
-                                               9), nrow = nlevels(X), ncol = 9))
+                                               9), nrow = nlevels(X), ncol = 10))
     names(woeTable) <- c("Class","Out_1", "Out_0", "TOTAL",
-                         "Per_1", "Per_0","Odds","WOE", "IV")
+                         "Per_1", "Per_0","Odds_WOE","Odds","WOE", "IV")
     woeTable$Class <- levels(X)
     try(woeTable[, c(3, 2)] <- table(X,Y), silent = T)
     woeTable[, "TOTAL"] <- apply(woeTable[,c(3,2)],1,sum)
-    # }
-    woeTable$Per_1 <- round(woeTable$Out_1/sum(woeTable$Out_1,na.rm = T),3)
-    woeTable$Per_0 <- round(woeTable$Out_0/sum(woeTable$Out_0, na.rm = T),3)
-    woeTable$Odds <- round(woeTable$Per_1/woeTable$Per_0,3)
-    woeTable$WOE <- round(log(woeTable$Odds),3)
-    woeTable$IV <- round((woeTable$Per_1 - woeTable$Per_0) * woeTable$WOE,3)
-    woeTable[sapply(woeTable, is.infinite)] <-0
 
+    tbx <- woeTable[,c(2,3)]
+
+    odsvalue <- NULL
+    for(j in 1:nrow(tbx)) { ## OR = (a/b)/(c/d)
+      t=sapply(rbind(tbx[j,],
+                     apply(tbx[-j,],2,sum)),function(x){ x[1]/x[2]})
+      odv<- round(t[[1]]/t[[2]],Round)
+      if(is.infinite(odv)) odv = 0
+      odsvalue <- rbind(c(t,od=odv),odsvalue)
+    }
+
+
+    woeTable$Per_1 <- round(woeTable$Out_1/sum(woeTable$Out_1,na.rm = T),Round)
+    woeTable$Per_0 <- round(woeTable$Out_0/sum(woeTable$Out_0, na.rm = T),Round)
+    woeTable$Odds_WOE <- round(woeTable$Per_1/woeTable$Per_0,Round)
+    woeTable[, "Odds"] <- odsvalue[,3]
+    woeTable$WOE <- round(log(woeTable$Odds_WOE),Round)
+    woeTable$IV <- round((woeTable$Per_1 - woeTable$Per_0) * woeTable$WOE,Round)
+    woeTable[sapply(woeTable, is.infinite)] <-0
+    woeTable <- woeTable[,-7]
     attr(woeTable, "iValue") <- sum(woeTable$IV, na.rm = T)
 
-    # if (length(yClasses1)>2)
-    # {
-    #
     ref_1 =valueOfGood
     ref_0 = yClasses[!yClasses %in% valueOfGood]
     woeTable$Ref_1 = ref_1
@@ -359,7 +357,7 @@ ExpInfoValue = function (X, Y, valueOfGood = NULL)
 ##' Information value
 ##'
 ##' Predictive class
-##'
+##' @importFrom stats chisq.test
 ##' @export ExpStat
 
 ExpStat = function(X,Y,valueOfGood = NULL){
@@ -380,9 +378,9 @@ ExpStat = function(X,Y,valueOfGood = NULL){
 
   #CrV_IV <- max(round(ExpInfoValue(X, Y, valueOfGood = valueOfGood)[[1]],3),CrV)
   if(is.nan(CrV)|is.na(CrV)) {Deg_asso <- "Very Weak"}
-    else if (CrV < 0.09) { Deg_asso <- "Very Weak"}
-      else if (CrV < 0.19) {Deg_asso <- "Weak"}
-    else if (CrV < 0.3) {Deg_asso <- "Moderate"}
+  else if (CrV < 0.09) { Deg_asso <- "Very Weak"}
+  else if (CrV < 0.19) {Deg_asso <- "Weak"}
+  else if (CrV < 0.3) {Deg_asso <- "Moderate"}
   else {Deg_asso <- "Strong"}
 
   TList <- rbind(
@@ -401,21 +399,25 @@ ExpStat = function(X,Y,valueOfGood = NULL){
 #' Function provides summary statistics for all character or categorical columns in the dataframe
 #'
 #' @description This function combines results from weight of evidence, information value and summary statistics.
-#' @usage ExpCatStat(data,Target=NULL,Label=NULL,result=c("Stat","IV"),clim=10,nlim=10,Pclass=NULL)
+#' @usage ExpCatStat(data,Target=NULL,result=c("Stat","IV"),clim=10,nlim=10,bins=10,
+#' Pclass=NULL,plot=FALSE,top=20,Round=2)
 ##' @param data dataframe or matrix
 ##' @param Target target variable
-##' @param Label target variable label (not mandatory)
 ##' @param result "Stat" - summary statistics, "IV" - information value
 ##' @param clim maximum unique levles for categorical variable. Variables will be dropped if unique levels is higher than clim for class factor/character variable
 ##' @param nlim maximum unique values for numeric variable.
+##' @param bins number of bins (default is 10)
 ##' @param Pclass reference category of target variable
+##' @param plot Inforamtion value barplot (default False)
+##' @param top for plotting top information values (default value is 20)
+##' @param Round round of value
 ##' @return This function provides summary statistics for categorical variable
 ##'
 ##' Stat-Summary statistics includes Chi square test scores, p value, Information values, Cramers V and Degree if association
 ##'
 ##' IV- Weight of evidence and Information values
 ##'
-##'Columns description:
+##' Columns description:
 ##'
 ##'  •	Variable – variable name
 ##'
@@ -433,7 +435,7 @@ ExpStat = function(X,Y,valueOfGood = NULL){
 ##'
 ##'  •	pct0 – bad observations / total bad observations
 ##'
-##'  •	odds – pct1/pct0
+##'  •	odds – Odds ratio [(a/b)/(c/d)]
 ##'
 ##'  •	woe – Weight of Evidence – calculated as ln(odds)
 ##'
@@ -455,64 +457,114 @@ ExpStat = function(X,Y,valueOfGood = NULL){
 ##' ## Read mtcars data
 ##' # Target variable "am" - Transmission (0 = automatic, 1 = manual)
 ##' # Summary statistics
-##' ExpCatStat(mtcars,Target="am",Label="Transmission",result = "Stat",clim=10,nlim=5,Pclass=1)
+##' ExpCatStat(mtcars,Target="am",result = "Stat",clim=10,nlim=10,bins=10,
+##' Pclass=1,plot=FALSE,top=20,Round=2)
+##' # Information value plot
+##' ExpCatStat(mtcars,Target="am",result = "Stat",clim=10,nlim=10,bins=10,
+##' Pclass=1,plot=TRUE,top=20,Round=2)
 ##' # Inforamtion value for categorical Independent variables
-##' ExpCatStat(mtcars,Target="am",Label="Transmission",result = "IV",clim=10,nlim=5,Pclass=1)
+##' ExpCatStat(mtcars,Target="am",result = "IV",clim=10,nlim=10,bins=10,
+##' Pclass=1,plot=FALSE,top=20,Round=2)
 ##' @author dubrangala
+##' @importFrom scales wrap_format dollar_format
 ##' @export ExpCatStat
 
-ExpCatStat = function(data,Target=NULL,Label=NULL,result=c("Stat","IV"),clim=10,nlim=10,Pclass=NULL) {
+ExpCatStat <- function(data,Target=NULL,result=c("Stat","IV"),clim=10,nlim=10,bins=10,Pclass=NULL,plot=FALSE,top=20,Round=2)
+{
   options(warn = -1)
 
   if(is.null(result)) stop("Specify the result option either 'Stat' or 'IV' for inforamtion value")
-result = toupper(result)
+  result = toupper(result)
 
-  xx = as.data.frame(data)
   if(!is.data.frame(data)) stop("'data must be a numeric vector or data.frame'")
   if(is.null(Target)) stop("'Target variable is missing'")
 
-  Yvar = xx[,Target]
-  Yvar = as.factor(Yvar)
-  nlev_Y <- length(levels(Yvar))
-  if(nlev_Y<2) stop("Target variable has required atleast 2 categories")
+  xx = as.data.frame(data)
+
+  Yvar = as.factor(xx[,Target])
+
+  if(length(levels(Yvar))<2) stop("Target variable has required atleast 2 categories")
 
   num_var = names(xx)[sapply(xx, is.numeric)]
   Cat_var <- c(names(xx)[sapply(xx, is.character)],names(xx)[sapply(xx, is.factor)])
 
   if (length(num_var)>0){
-    num_var <- num_var[sapply(xx[,num_var], function(x){length(unique(na.omit(x)))>1 & length(unique(na.omit(x)))<=nlim})]}
+    num_var1 <- num_var[sapply(xx[,num_var], function(x){length(unique(na.omit(x)))>1 & length(unique(na.omit(x)))<=nlim})]
+    num_var2 <- num_var[sapply(xx[,num_var], function(x){length(unique(na.omit(x)))>nlim})]
+  } else {
+    num_var1 = NULL
+    num_var2 = NULL
+  }
 
-  if((length(num_var)+length(Cat_var))==0) stop("there is no categorical variable in the data")
+  if((length(num_var1)+length(Cat_var)+length(num_var2))==0) stop("there is no categorical variable in the data")
 
 
   if(length(Cat_var) >0){
     Cat_varlst <- Cat_var[sapply(xx[,Cat_var], function(x){length(unique(x))<=clim & length(unique(x))>=2})]
-    Cat_varlst <- c(Cat_varlst,num_var)
+    Cat_varlst <- c(Cat_varlst,num_var1)
     Cat_varlst <- Cat_varlst[!(Cat_varlst %in% Target)]
     rm_var = setdiff (Cat_var,Cat_varlst)
 
   } else
-  {Cat_varlst <- num_var[!(num_var %in% Target)]}
+  {Cat_varlst <- num_var1[!(num_var1 %in% Target)]}
 
   if (is.null(Pclass)) {Pval=1} else {Pval=Pclass}
 
+  ## Adding Bin for Numeric variables
+  if(length(num_var2)>0 & !is.null(bins)) {
+
+    bin_data = lapply(xx[,num_var2], function(x){
+      q=quantile(x, probs = c(1:(bins - 1)/bins), na.rm = TRUE, type = 3)
+      cuts <- unique(q)
+      cuts <- unique(c(min(x),cuts,max(x)))
+      tp <- cut(x,cuts, include.lowest =T)
+      return(tp)
+    })
+
+    bin_data <- cbind.data.frame(bin_data)
+    InputData <- cbind(subset(xx,select=Cat_varlst),bin_data)
+    variables <- names(InputData)
+  } else
+  {
+    InputData <- xx[,Cat_varlst]
+    variables <- names(InputData)
+  }
+
   if (result=="STAT") {
-    tab2 = sapply(xx[,Cat_varlst],function(x){ExpStat(x,Yvar,valueOfGood = Pval)})
+    `IV Value` <- NULL
+    Variable <- NULL
+    tab2 = sapply(InputData,function(x){ExpStat(x,Yvar,valueOfGood = Pval)})
     tab2 <- data.frame(t(tab2))
     tb_op2 = cbind(Var_name= rownames(tab2),Tar_v=Target,tab2)
     rownames(tb_op2)<-NULL
+    tb_op2[,3:8] <- sapply(tb_op2[,3:8], function(x){as.numeric(paste0(x))})
+    tb_op2[,-c(3:8)] <- sapply(tb_op2[,-c(3:8)], function(x){as.character(paste0(x))})
     names(tb_op2) = c("Variable","Target","Unique","Chi-squared","p-value","df","IV Value","Cramers V","Degree of Association","Predictive Power")
-    return(tb_op2)
+
+    if(plot==TRUE){
+      varcnt = nrow(tb_op2)
+      if(top>varcnt) top=varcnt
+      plotdt <- tb_op2[order(tb_op2$`IV Value`,decreasing = T),][1:top,]
+      gp_iv = ggplot(plotdt, aes(y=`IV Value`, x=reorder(Variable,`IV Value`),label = paste0(`IV Value`))) +
+        geom_bar( stat="identity", position="dodge",fill="tan3")+xlab("Variables")+
+        ylab("Inforamtion value")+ geom_text(size = 4, position=position_dodge(width=0),vjust=0.5,hjust=0)+
+        scale_x_discrete(labels = wrap_format(8))+
+        scale_y_continuous(labels = dollar_format(suffix = "", prefix = ""))+coord_flip()+
+        theme(axis.line = element_line(size=1, colour = "black"),
+              panel.grid.major = element_line(colour = "#d3d3d3",linetype = "dashed"), panel.grid.minor = element_blank(),
+              panel.border = element_blank(), panel.background = element_blank())
+      print(gp_iv)
+      return(tb_op2)
+    }
+    else {return(tb_op2)}
   }
   if (result=="IV") {
-    outp_dat =data.frame()
-    # k=0
-    for(j in Cat_varlst){
-      tab1 = ExpWoeTable (xx[,j],Yvar,valueOfGood = Pval,print = FALSE)
-      tab2 = cbind(Variable=j,Target=Target,data.frame(tab1))
-      outp_dat = rbind(outp_dat,tab2)
-    }
+    tab1<- lapply(InputData, function(x) {ExpWoeTable (x,Yvar,valueOfGood = Pval,print = FALSE,Round=Round)})
+    cnm <- names(tab1)
+    outp_dat <- do.call("rbind",tab1)
+    outp_dat <- data.frame(Variable=rownames(outp_dat),outp_dat)
+    rownames(outp_dat) <- NULL
     return(outp_dat)
-
-  }  else {stop("Input data error or Target variable is not properly defined")}
+  }
+  else {stop("Input data error or Target variable is not properly defined")}
 }

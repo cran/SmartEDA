@@ -1,3 +1,15 @@
+### SmartEDA 0.3.1
+#### Enhancements
+* Added 'bins', 'plot', 'round' and 'top' options to plot bar graph in `ExpCatStat`
+* Added 'theme' option to customise the graph theme in both `ExpCatViz` and `ExpNumViz`
+* Added 'gtitle' option to add additional chart title on both `ExpCatViz` and `ExpNumViz`
+* Removed 'Label' option from `ExpCatStat`
+* Changed input parameter name from 'gp' to 'target' in `ExpCatViz`
+
+#### Bug fixes
+* Fixed a formula issues on odds calculation in `ExpCatStat`
+
+
 ### SmartEDA 0.3.0
 #### New Features
 * Added function `ExpOutQQ` to plot Quantile-Quantile Plots for outlier checking

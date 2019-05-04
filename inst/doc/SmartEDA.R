@@ -46,7 +46,7 @@ paged_table(ec1)
 
 ## ----c1.2 ,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
 # Note: Variable excluded (if unique value of variable which is less than or eaual to 10 [nlim=10])
-plot1 <- ExpNumViz(Carseats,gp=NULL,nlim=10,Page=c(2,2),sample=8)
+plot1 <- ExpNumViz(Carseats,gp=NULL,nlim=10,Page=c(2,2),sample=8,theme=)
 plot1[[1]]
 
 ## ----ec13, eval=T,include=F----------------------------------------------
@@ -60,7 +60,7 @@ rownames(et1)<-NULL
 kable(et1,"html")
 
 ## ----bp1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
-plot2 <- ExpCatViz(Carseats,gp=NULL,fname=NULL,clim=10,margin=2,Page = c(2,1),sample=4)
+plot2 <- ExpCatViz(Carseats,target=NULL,col ="slateblue4",clim=10,margin=2,Page = c(2,1),sample=4)
 plot2[[1]]
 
 ## ----tbd0,warning=FALSE,eval=T,include=T---------------------------------
@@ -79,7 +79,7 @@ paged_table(cpp)
 ## ----snv1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
 #Note: sample=8 means randomly selected 8 scatter plots
 #Note: nlim=4 means included numeric variable with unique value is more than 4
-plot3 <- ExpNumViz(Carseats,gp="Price",nlim=4,fname=NULL,col=NULL,Page=c(2,2),sample=8)
+plot3 <- ExpNumViz(Carseats,gp="Price",nlim=4,fname=NULL,col="red",Page=c(2,2),sample=8)
 plot3[[1]]
 
 ## ----eda_41, eval=T,include=F--------------------------------------------
@@ -113,18 +113,20 @@ rownames(snc)<-NULL
 paged_table(snc)
 
 ## ----bp3.1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
-plot4 <- ExpNumViz(Carseats,gp="Urban",type=1,nlim=NULL,fname=NULL,col=c("pink","yellow","orange"),Page=c(2,2),sample=8)
+plot4 <- ExpNumViz(Carseats,gp="Urban",type=1,nlim=NULL,fname=NULL,col=c("darkgreen","springgreen3","springgreen1"),Page=c(2,2),sample=8)
 plot4[[1]]
 
 ## ----ed3.3, eval=T,include=F---------------------------------------------
 et100 <- ExpCTable(Carseats,Target="Urban",margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
 rownames(et100)<-NULL
 
-et4 <- ExpCatStat(Carseats,Target="Urban",Label="Store Location",result = "Stat",clim=10,nlim=5,Pclass="Yes")
+et4 <- ExpCatStat(Carseats,Target="Urban",result = "Stat",clim=3,nlim=3,bins=10,Pclass="Yes",plot=FALSE,top=20,Round=2)
 rownames(et4)<-NULL
 
-et5 <- ExpCatStat(Carseats,Target="Urban",Label="Store Location",result = "IV",clim=10,nlim=5,Pclass="Yes")
+
+et5 <- ExpCatStat(Carseats,Target="Urban",result = "IV",clim=10,nlim=5,bins=10,Pclass="Yes",plot=FALSE,top=20,Round=2)
 rownames(et5)<-NULL
+et5 <- et5[1:15,]
 
 ## ----ed3.4, warning=FALSE,eval=F,include=T-------------------------------
 #  ExpCTable(Carseats,Target="Urban",margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
@@ -133,20 +135,23 @@ rownames(et5)<-NULL
 kable(et100,"html")
 
 ## ----ed3.6, warning=FALSE,eval=F,include=T-------------------------------
-#  ExpCatStat(Carseats,Target="Urban",Label="Store Location",result = "IV",clim=10,nlim=5,Pclass="Yes")
+#  ExpCatStat(Carseats,Target="Urban",result = "IV",clim=10,nlim=5,bins=10,Pclass="Yes",plot=FALSE,top=20,Round=2)
 #  
 
 ## ----ed3.7,warning=FALSE,eval=T,render=et5,echo=F,out.height=8,out.width=8----
 kable(et5,"html")
 
 ## ----ed3.8, warning=FALSE,eval=F,include=T-------------------------------
-#  ExpCatStat(Carseats,Target="Urban",Label="Store Location",result = "Stat",clim=10,nlim=5,Pclass="Yes")
+#  et4 <- ExpCatStat(Carseats,Target="Urban",result = "Stat",clim=10,nlim=5,bins=10,Pclass="Yes",plot=FALSE,top=20,Round=2)
 
 ## ----ed3.9,warning=FALSE,eval=T,render=et4,echo=F,out.height=8,out.width=8----
 kable(et4,"html")
 
+## ----ed3.91,warning=FALSE,eval=T,fig.align='center',fig.height=7,fig.width=7----
+varimp <- ExpCatStat(Carseats,Target="Urban",result = "Stat",clim=10,nlim=5,bins=10,Pclass="Yes",plot=TRUE,top=10,Round=2)
+
 ## ----ed3.10,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
-plot5 <- ExpCatViz(Carseats,gp="Urban",fname=NULL,clim=10,col=NULL,margin=2,Page = c(2,1),sample=2)
+plot5 <- ExpCatViz(Carseats,target="Urban",fname=NULL,clim=5,col=c("slateblue4","slateblue1"),margin=2,Page = c(2,1),sample=2)
 plot5[[1]]
 
 ## ----warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7---------------------------------------------------------------------

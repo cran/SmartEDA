@@ -31,9 +31,9 @@
 ##'ExpCustomStat(mtcars,Cvar=c("vs","am","gear"),Nvar=c("disp","mpg"),
 ##'stat=c("Count","sum","PS"),gpby=TRUE,filt =NULL)
 ##' @export ExpCustomStat
-##'@importFrom data.table setDT
-##'@importFrom data.table data.table
-##'@importFrom stringi stri_split_fixed
+##'@import data.table
+##'@importFrom data.table dcast .N
+##'@importFrom stats formula
 
 ExpCustomStat = function(data,Cvar=NULL,Nvar=NULL,stat=NULL,gpby=TRUE,filt=NULL,dcast=FALSE,value=NULL) {
   options(warn = -1)
@@ -77,7 +77,8 @@ ExpCustomStat = function(data,Cvar=NULL,Nvar=NULL,stat=NULL,gpby=TRUE,filt=NULL,
       if (is.null(filt)) {
         data1=data;filter="NA"}
       else {
-        cc1 <- unlist(stri_split_fixed(filt,pattern ="^",omit_empty=TRUE,simplify=TRUE))
+        #cc1 <- unlist(stri_split_fixed(filt,pattern ="^",omit_empty=TRUE,simplify=TRUE))
+        cc1 <- unlist(strsplit(filt,"^",fixed=TRUE))
         ccd =trimws(cc1)
         if (length(ccd)==1) {
           allft = substr(ccd,1,3)
@@ -141,42 +142,42 @@ ExpCustomStat = function(data,Cvar=NULL,Nvar=NULL,stat=NULL,gpby=TRUE,filt=NULL,
     nam2 = names(Final_data)[names(Final_data)%ni%nam1]
     Final_data <- Final_data[,c(nam2,nam1),with=F]
     if(isTRUE(dcast))
-      { if(is.null(Cvar)) stop("if dcast option is TRUE then 'Cvar' should not be empty")
+    { if(is.null(Cvar)) stop("if dcast option is TRUE then 'Cvar' should not be empty")
       if(!is.null(value) & (is.null(Nvar)|length(Nvar)==1)){
-          #if(is.null(Cvar)) stop("if dcast option is TRUE then 'Cvar' should not be empty")
-          colun_nam = value
-          Rownam = Cvar[!(Cvar%in%value)]
+        #if(is.null(Cvar)) stop("if dcast option is TRUE then 'Cvar' should not be empty")
+        colun_nam = value
+        Rownam = Cvar[!(Cvar%in%value)]
 
-          cf<-formula(paste(paste0(colun_nam,collapse = "+"),paste0(Rownam,collapse = "+"),sep="~"))
-
-          # Final_data[,(Cvar):=lapply(Cvar,function(x) paste(x,Final_data[,get(x)],sep=":"))]
-          cp=dcast(Final_data,cf,value.var=stat)
-          cat(paste0("Row value   : ",paste0(colun_nam,collapse = " + "),"\n", "Column value: ",paste0(Rownam,collapse = " + "),"\n","Statistics  : ",paste0(stat,collapse = " + "),"\n","\n"))
-          return(cp)
-      } else
-      if(length(Nvar)>=1)
-       {
-        colun_nam <- "Attribute"
-        Rownam <- Cvar
         cf<-formula(paste(paste0(colun_nam,collapse = "+"),paste0(Rownam,collapse = "+"),sep="~"))
+
+        # Final_data[,(Cvar):=lapply(Cvar,function(x) paste(x,Final_data[,get(x)],sep=":"))]
         cp=dcast(Final_data,cf,value.var=stat)
         cat(paste0("Row value   : ",paste0(colun_nam,collapse = " + "),"\n", "Column value: ",paste0(Rownam,collapse = " + "),"\n","Statistics  : ",paste0(stat,collapse = " + "),"\n","\n"))
         return(cp)
-
       } else
+        if(length(Nvar)>=1)
+        {
+          colun_nam <- "Attribute"
+          Rownam <- Cvar
+          cf<-formula(paste(paste0(colun_nam,collapse = "+"),paste0(Rownam,collapse = "+"),sep="~"))
+          cp=dcast(Final_data,cf,value.var=stat)
+          cat(paste0("Row value   : ",paste0(colun_nam,collapse = " + "),"\n", "Column value: ",paste0(Rownam,collapse = " + "),"\n","Statistics  : ",paste0(stat,collapse = " + "),"\n","\n"))
+          return(cp)
 
-        if(!(is.null(Cvar)) & is.null(Nvar)) {print("Input error")} else {print('No reshape for this input, correct the input')}
-      }
+        } else
+
+          if(!(is.null(Cvar)) & is.null(Nvar)) {print("Input error")} else {print('No reshape for this input, correct the input')}
+    }
 
     else
-      {
+    {
       return(Final_data)
-      }
+    }
 
   }
   else ## Without Group
   {
-   if(is.null(Cvar)) stop("Group variable is missing")
+    if(is.null(Cvar)) stop("Group variable is missing")
     Final_data1 <- NULL
     for(g in Cv) {
       Final_data <- NULL
@@ -190,7 +191,8 @@ ExpCustomStat = function(data,Cvar=NULL,Nvar=NULL,stat=NULL,gpby=TRUE,filt=NULL,
         }
         else
         {
-          cc1 <- unlist(stri_split_fixed(filt,pattern ="^",omit_empty=TRUE,simplify=TRUE))
+          #cc1 <- unlist(stri_split_fixed(filt,pattern ="^",omit_empty=TRUE,simplify=TRUE))
+          cc1 <- unlist(strsplit(filt,"^",fixed=TRUE))
           ccd =trimws(cc1)
           if (length(ccd)==1) {
             allft = substr(ccd,1,3)

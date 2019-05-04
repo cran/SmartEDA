@@ -14,7 +14,9 @@
 ##' @examples
 #' CData = ISLR::Carseats
 #' ExpOutQQ(CData,nlim=10,fname=NULL,Page=c(2,2),sample=4)
-##' @importFrom ggplot2 stat_qq
+##' @import ggplot2
+##' @importFrom stats qnorm
+##' @importFrom sampling srswor
 ##' @export ExpOutQQ
 
 ExpOutQQ = function(data,nlim=NULL,fname=NULL,Page=NULL,sample=NULL) {
@@ -37,7 +39,8 @@ ExpOutQQ = function(data,nlim=NULL,fname=NULL,Page=NULL,sample=NULL) {
     if(sample>length(num_var)) {num_var <- num_var}
     else
     {
-      num_var <- num_var[sample(1:length(num_var),sample)]}
+      num_var <- num_var[srswor(sample,length(num_var))==1]
+      }
   }
 
   ## QQ plot

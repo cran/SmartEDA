@@ -1,12 +1,19 @@
 ---
 title: "Summarize and Explore the Data"
-author: "Dayanand, Kiran, Ravi"
+subtitle: "R package that automates most of exploratory analyses tasks in modeling"
+author: "Dayananda Ubrangala, Kiran R, Ravi Prasad Kondapalli"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    fig_caption: yes
+    toc: true
+    css: custom.css
 vignette: >
-  %\VignetteIndexEntry{Explore data using SmartEDA (Intro)}
+  %\VignetteIndexEntry{Vignette Title Subtitle}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\SweaveUTF8
+  %\VignetteIndexEntry{Information Value: Usage Examples}  
 ---
   
 ```{r setup, include=FALSE}
@@ -21,7 +28,7 @@ library(ggplot2)
 ```
 
 
-## Intro
+## Introduction
 
 
 The document introduces the **SmartEDA** package and how it can help you to build exploratory data analysis.
@@ -132,7 +139,7 @@ Graphical representation of all numeric features
 
 ```{r c1.2 ,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7}
 # Note: Variable excluded (if unique value of variable which is less than or eaual to 10 [nlim=10])
-plot1 <- ExpNumViz(Carseats,gp=NULL,nlim=10,Page=c(2,2),sample=8)
+plot1 <- ExpNumViz(Carseats,gp=NULL,nlim=10,Page=c(2,2),sample=8,theme=)
 plot1[[1]]
 ```
 
@@ -159,7 +166,7 @@ kable(et1,"html")
   * Bar plots for all categorical variables
 
 ```{r bp1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7}
-plot2 <- ExpCatViz(Carseats,gp=NULL,fname=NULL,clim=10,margin=2,Page = c(2,1),sample=4)
+plot2 <- ExpCatViz(Carseats,target=NULL,col ="slateblue4",clim=10,margin=2,Page = c(2,1),sample=4)
 plot2[[1]]
 ```
 
@@ -205,7 +212,7 @@ Dependent variable is **Price** (continuous).
 ```{r snv1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7}
 #Note: sample=8 means randomly selected 8 scatter plots
 #Note: nlim=4 means included numeric variable with unique value is more than 4
-plot3 <- ExpNumViz(Carseats,gp="Price",nlim=4,fname=NULL,col=NULL,Page=c(2,2),sample=8)
+plot3 <- ExpNumViz(Carseats,gp="Price",nlim=4,fname=NULL,col="red",Page=c(2,2),sample=8)
 plot3[[1]]
 ```
 
@@ -229,8 +236,7 @@ paged_table(et11)
 
 ### Example for case 3: Target variable is categorical
 
-#### 3.1. Target variable 
-Summary of categorical dependent variable
+#### 3.1. Summary of categorical dependent variable
 
   1. Variable name - **Urban**
   2. Variable description - **Whether the store is in an urban or rural location**
@@ -246,7 +252,7 @@ rownames(tab_tar)<-NULL
 kable(tab_tar, "html")
 ```
 
-#### 3.1 Summary of numerical variables
+#### 3.2 Summary of numerical variables
 Summary of all numeric variables 
 ```{r snc1,warning=FALSE,eval=T,include=F}
 snc = ExpNumStat(Carseats,by="GA",gp="Urban",Qnt=seq(0,1,0.1),MesofShape=2,Outlier=TRUE,round=2)
@@ -261,28 +267,30 @@ ExpNumStat(Carseats,by="GA",gp="Urban",Qnt=seq(0,1,0.1),MesofShape=2,Outlier=TRU
 paged_table(snc)
 ```
 
-#### 3.2 Distributions of Numerical variables
+#### 3.3 Distributions of Numerical variables
 
 * Box plots for all numerical variables vs categorical dependent variable - Bivariate comparision only with categories
 
 Boxplot for all the numeric attributes by each category of **Urban**
 
 ```{r bp3.1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7}
-plot4 <- ExpNumViz(Carseats,gp="Urban",type=1,nlim=NULL,fname=NULL,col=c("pink","yellow","orange"),Page=c(2,2),sample=8)
+plot4 <- ExpNumViz(Carseats,gp="Urban",type=1,nlim=NULL,fname=NULL,col=c("darkgreen","springgreen3","springgreen1"),Page=c(2,2),sample=8)
 plot4[[1]]
 ```
 
-#### 3.3 Summary of categorical variables
+#### 3.4 Summary of categorical variables
 
 ```{r ed3.3, eval=T,include=F}
 et100 <- ExpCTable(Carseats,Target="Urban",margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
 rownames(et100)<-NULL
 
-et4 <- ExpCatStat(Carseats,Target="Urban",Label="Store Location",result = "Stat",clim=10,nlim=5,Pclass="Yes")
+et4 <- ExpCatStat(Carseats,Target="Urban",result = "Stat",clim=3,nlim=3,bins=10,Pclass="Yes",plot=FALSE,top=20,Round=2)
 rownames(et4)<-NULL
 
-et5 <- ExpCatStat(Carseats,Target="Urban",Label="Store Location",result = "IV",clim=10,nlim=5,Pclass="Yes")
+
+et5 <- ExpCatStat(Carseats,Target="Urban",result = "IV",clim=10,nlim=5,bins=10,Pclass="Yes",plot=FALSE,top=20,Round=2)
 rownames(et5)<-NULL
+et5 <- et5[1:15,]
 ```
 
 **Cross tabulation with target variable**
@@ -300,7 +308,7 @@ kable(et100,"html")
 **Information Value**
 
 ```{r ed3.6, warning=FALSE,eval=F,include=T}
-ExpCatStat(Carseats,Target="Urban",Label="Store Location",result = "IV",clim=10,nlim=5,Pclass="Yes")
+ExpCatStat(Carseats,Target="Urban",result = "IV",clim=10,nlim=5,bins=10,Pclass="Yes",plot=FALSE,top=20,Round=2)
 
 ```
 
@@ -311,23 +319,30 @@ kable(et5,"html")
 **Statistical test**
 
 ```{r ed3.8, warning=FALSE,eval=F,include=T}
-ExpCatStat(Carseats,Target="Urban",Label="Store Location",result = "Stat",clim=10,nlim=5,Pclass="Yes")
+et4 <- ExpCatStat(Carseats,Target="Urban",result = "Stat",clim=10,nlim=5,bins=10,Pclass="Yes",plot=FALSE,top=20,Round=2)
 ```
 
 ```{r ed3.9,warning=FALSE,eval=T,render=et4,echo=F,out.height=8,out.width=8}
 kable(et4,"html")
 ```
 
-#### 3.4. Distributions of categorical variables
+**Variable importance based on Information value**
+
+```{r ed3.91,warning=FALSE,eval=T,fig.align='center',fig.height=7,fig.width=7}
+varimp <- ExpCatStat(Carseats,Target="Urban",result = "Stat",clim=10,nlim=5,bins=10,Pclass="Yes",plot=TRUE,top=10,Round=2)
+```
+
+
+#### 3.5. Distributions of categorical variables
 
 Stacked bar plot with vertical or horizontal bars for all categorical variables 
 
 ```{r ed3.10,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7}
-plot5 <- ExpCatViz(Carseats,gp="Urban",fname=NULL,clim=10,col=NULL,margin=2,Page = c(2,1),sample=2)
+plot5 <- ExpCatViz(Carseats,target="Urban",fname=NULL,clim=5,col=c("slateblue4","slateblue1"),margin=2,Page = c(2,1),sample=2)
 plot5[[1]]
 ```
 
-### Quantile-quantile plot for numeric variables
+## Quantile-quantile plot for numeric variables
 
 Function definition:
 ```
@@ -359,35 +374,38 @@ Cvar    : vector of categorical variables, default it will consider all the cate
 scale   : scale the variables in the parallel coordinate plot[Default normailized with minimum of the variable is zero and maximum of the variable is one]
 ```
 
-#### Defualt ExpParcoord funciton
+### Defualt ExpParcoord funciton
 ```{r,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=3,fig.width=7}
 ExpParcoord(CData,Group=NULL,Stsize=NULL,Nvar=c("Price","Income","Advertising","Population","Age","Education"))
 ```
 
-#### With Stratified rows and selected columns only
+### With Stratified rows and selected columns only
 ```{r,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=3,fig.width=7}
 ExpParcoord(CData,Group="ShelveLoc",Stsize=c(10,15,20),Nvar=c("Price","Income"),Cvar=c("Urban","US"))
 
 ```
 
-#### Without stratification
+### Without stratification
 ```{r,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=3,fig.width=7}
 ExpParcoord(CData,Group="ShelveLoc",Nvar=c("Price","Income"),Cvar=c("Urban","US"),scale=NULL)
 
 ```
 
-#### Scale changed std: univariately, subtract mean and divide by standard deviation 
+### Scale change
+
+ `std: univariately, subtract mean and divide by standard deviation`
+ 
 ```{r,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=3,fig.width=7}
 ExpParcoord(CData,Group="US",Nvar=c("Price","Income"),Cvar=c("ShelveLoc"),scale="std")
 
 ```
 
-#### Selected numeric variables
+### Selected numeric variables
 ```{r,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=3,fig.width=7}
 ExpParcoord(CData,Group="ShelveLoc",Stsize=c(10,15,20),Nvar=c("Price","Income","Advertising","Population","Age","Education"))
 ```
 
-#### Selected categorical variables
+### Selected categorical variables
 ```{r,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=3,fig.width=7}
 ExpParcoord(CData,Group="US",Stsize=c(15,50),Cvar=c("ShelveLoc","Urban"))
 

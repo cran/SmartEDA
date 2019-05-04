@@ -2,7 +2,8 @@
 #'
 #'
 #' @description This function automatically scans through each variable and creates density plot, scatter plot and box plot for continuous variable.
-#' @usage ExpNumViz (data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL,sample=NULL)
+#' @usage ExpNumViz (data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL,
+#' sample=NULL,gtitle=NULL,theme="Default")
 ##' @param data dataframe or matrix
 ##' @param gp target variable
 ##' @param type 1 (boxplot by category and overall), 2 (boxplot by category only), 3 (boxplot for overall)
@@ -11,6 +12,8 @@
 ##' @param col define the fill color for box plot. Number of color should be equal to number of categories in target variable
 ##' @param Page output pattern. if Page=c(3,2), It will generate 6 plots with 3 rows and 2 columns
 ##' @param sample random selection of plots
+##' @param gtitle chart title
+##' @param theme extra themes, geoms, and scales for 'ggplot2' (use theme from ggthemes package)
 ##' @seealso \code{\link[ggplot2:geom_boxplot]{geom_boxplot}}
 ##'
 ##' @details
@@ -33,7 +36,9 @@
 ##'
 ##' Boxplot – by overall and group (target variable)
 ##'
+##' @importFrom grDevices colors
 ##' @importFrom gridExtra marrangeGrob
+##' @importFrom sampling srswor
 ##' @examples
 #' ## Generate Boxplot by category
 #' ExpNumViz(mtcars,gp="gear",type=2,nlim=25,fname = file.path(tempdir(),"Mtcars2"),Page = c(2,2))
@@ -43,11 +48,11 @@
 #' ExpNumViz(mtcars,gp="carb",type=3,nlim=25,fname = file.path(tempdir(),"Mtcars4"),Page = c(2,2))
 ##' @export ExpNumViz
 
-ExpNumViz = function(data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL,sample=NULL) {
+ExpNumViz = function(data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL,sample=NULL,gtitle=NULL,theme="Default") {
 
   if(!is.data.frame(data)) stop("'data must be a numeric vector or data.frame'")
   xx <- as.data.frame(data)
-
+  comma <-NULL
   num_var = names(xx)[sapply(xx, is.numeric)]
   if(length(num_var)==0) stop("there is no numeric variable in the data frame")
   if(is.null(nlim)) {
@@ -56,25 +61,35 @@ ExpNumViz = function(data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL
   {num_var <- num_var[sapply(xx[,num_var], function(x){length(unique(na.omit(x)))>=nlim})]}
 
   if(!is.null(sample)) {
+
     if(sample>length(num_var)) {num_var <- num_var} else
-    {num_var <- num_var[sample(1:length(num_var),sample)]}}
+    {#num_var <- num_var[sample(1:length(num_var),sample)]
+    num_var <- num_var[srswor(sample,length(num_var))==1]
+    }
+
+    }
 
   wrap_40 <- wrap_format(40)
+
+  if(theme=="Default") {
+    mytheme <- theme(axis.text.x=element_text(angle=90,vjust=.5,hjust=0.95,size=8,colour='grey20'),
+                     axis.text.y=element_text(vjust=.5,hjust=0.95,size=8,colour='grey20'),
+                     plot.title = element_text(hjust = 0.5, face = "bold", colour = "#5F9EA0", size = 12))+
+      theme(axis.line = element_line(size=1, colour = "black"),
+            panel.grid.major = element_line(colour = "#d3d3d3",linetype = "dashed"), panel.grid.minor = element_blank(),
+            panel.border = element_blank(), panel.background = element_blank())
+  } else {mytheme <- theme }
+
+  if(!is.null(gtitle)) {chart_title <- gtitle} else chart_title<-NULL
+
   if(is.null(gp)){
     ## Histogram for all numeric variable - Univariate graph
     plot_l <- lapply(num_var, function(j){
       x <- na.omit(subset(xx,select= j))
-      # ggplot(x, aes_string(x = names(x))) +
-      #   geom_histogram(bins = 30L, colour = "black", alpha = 0.3,fill="#E1B378") +
-      #   scale_x_continuous(labels = comma) +
-      #   scale_y_continuous(labels = comma) +
-      #   ylab("Frequency")+ theme(axis.line = element_line(size=1, colour = "black"),
-      #                            panel.grid.major = element_line(colour = "#d3d3d3",linetype = "dashed"), panel.grid.minor = element_blank(),
-      #                            panel.border = element_blank(), panel.background = element_blank())
-
       y = xx[,j]
       p = ggplot(data= x,aes_string(x = names(x))) + geom_line(stat = 'density', size = 1,alpha = 1.0) +
-        xlab(paste0((colnames(x)), '\n', 'Skewness: ',round(ExpSkew(y,type="moment"), 2), ' Kurtosis: ',round(ExpKurtosis(y,type="excess"), 2))) + theme_light()
+        xlab(paste0((colnames(x)), '\n', 'Skewness: ',round(ExpSkew(y,type="moment"), 2), ' Kurtosis: ',
+                    round(ExpKurtosis(y,type="excess"), 2)))+ mytheme
       return(p)
     })
 
@@ -85,16 +100,14 @@ ExpNumViz = function(data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL
     target = xx[,gp]
     if(is.numeric(target)& length(unique(na.omit(target)))>=6) {
       ## Scatter plot
+      if(is.null(col)){col="#5F9EA0"}
       num_var1 = num_var[!num_var %in% gp]
       plot_l <- lapply(num_var1, function(j){
         x <- na.omit(subset(xx,select=c(j,gp)))
         ggplot(x, aes_string(x = names(x)[2],y=names(x)[1])) +
-          geom_point(colour = "#5F9EA0", size = 2) +
+          geom_point(colour = col, size = 2) +
           scale_x_continuous(labels = comma) +
-          scale_y_continuous(labels = comma) +
-          theme(axis.line = element_line(size=1, colour = "black"),
-                panel.grid.major = element_line(colour = "#d3d3d3",linetype = "dashed"), panel.grid.minor = element_blank(),
-                panel.border = element_blank(), panel.background = element_blank())
+          scale_y_continuous(labels = comma) + mytheme
 
       })
 
@@ -102,15 +115,13 @@ ExpNumViz = function(data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL
     {
       target <- as.factor(as.character(paste0(target)))
       nlev_tar <- nlevels(target)
-      # if(nlev_tar < 2) stop("Target variable has required atleast 2 categories")
-
       ## Box plot by target - Bivariate
       plot_l <- lapply(num_var, function(j){
 
         mdat = subset(xx,select = c(gp,j))
-        names(mdat) = c("GP","NV")
         GP <- NULL
         NV <- NULL
+        names(mdat) = c("GP","NV")
         switch (type,
                 {mdat$GP = as.character(paste0(mdat$GP))
                 if (anyNA(mdat$GP)) {mdat$GP = addNA(mdat$GP)}
@@ -129,24 +140,20 @@ ExpNumViz = function(data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL
                 nlevel = length(unique(gdata$GP))})
 
         cp=with(gdata,aggregate(NV,by=list(GP), function(x)sum(x,na.rm=T)))
-        if(nrow(cp)!=nrow(cp[cp$x==0,])) {fill_1 = "orange" } else
-        {
+        # if(nrow(cp)!=nrow(cp[cp$x==0,])) {fill_1 = "orange" } else
+        # {
           if(!is.null(col) & nlevel==1){fill_1 <- col} else
-            if(is.null(col) & nlevel==1){fill_1 <- c("#E1B378")} else
+            if(is.null(col) & nlevel==1){fill_1 <- c("orange")} else
               if(is.null(col) & nlevel==2){fill_1 <- c("#5F9EA0", "#E1B378")} else
-                if(is.null(col) & nlevel>2){fill_1 <- sample(colors(),nlevel)} else
-                  if(!is.null(col) & nlevel>2){fill_1 <- col} else {fill_1 <- col}
-        }
-
+                if(is.null(col) & nlevel>2){fill_1 <- colors()[srswor(nlevel,length(colors()))==1]} else
+                  if(!is.null(col) & nlevel>=2){fill_1 <- col} else {fill_1 <- col}
+        # }
 
         gg1 <- ggplot(gdata, aes(y=NV, x=GP)) +
-          geom_boxplot(fill=fill_1)+xlab(gp)+ylab(j)+ggtitle(wrap_40(paste(j," vs ",gp)))+
+          geom_boxplot(fill=fill_1)+xlab(gp)+ylab(j)+ggtitle(wrap_40(paste(chart_title," ",j," vs ",gp)))+
           scale_x_discrete(labels = wrap_format(8))+
           theme(axis.text.x=element_text(angle=0,vjust=.5,size=8,colour='grey20'),
-                plot.title = element_text(hjust = 0.5, face = "bold", colour = "#5F9EA0", size = 12))+
-          theme(axis.line = element_line(size=1, colour = "black"),
-                panel.grid.major = element_line(colour = "#d3d3d3",linetype = "dashed"), panel.grid.minor = element_blank(),
-                panel.border = element_blank(), panel.background = element_blank())
+                plot.title = element_text(hjust = 0.5, face = "bold", colour = "#5F9EA0", size = 12))+ mytheme
 
         return(gg1)
       })

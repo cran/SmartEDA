@@ -40,11 +40,6 @@ IF Target = continuous, then it will genreate EDA report including univariate an
 
 IF Target = categorical, then it will genreate EDA report including univariate and multivarite summary statistics with chi-square, Information values.
 }
-\examples{
-# Overview of the data
-ExpReport(mtcars,Template=NULL,Target=NULL,label=NULL,op_file="Myreport.html",
-op_dir=getwd(),sc=2,sn=2,Rc=NULL)
-}
 \seealso{
 \code{\link[DataExplorer:create_report]{create_report}}
 }

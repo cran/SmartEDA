@@ -130,10 +130,10 @@ if(is.null(Rc)) {Rc=as.character(paste0(unique(data[,Target])[1]))}
 et1 <- ExpCTable(data,Target=Target,margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
 rownames(et1)<-NULL
 
-et4 <- ExpCatStat(data,Target=Target,Label=label,result = "Stat",clim=10,nlim=5,Pclass=Rc)
+et4 <- ExpCatStat(data,Target=Target,result = "Stat",clim=10,nlim=5,bins=10,Pclass=Rc,plot=FALSE,top=20,Round=2)
 rownames(et4)<-NULL
 
-et5 <- ExpCatStat(data,Target=Target,Label=label,result = "IV",clim=10,nlim=5,Pclass=Rc)
+et5 <- ExpCatStat(data,Target=Target,result = "IV",clim=10,nlim=5,bins=10,Pclass=Rc,plot=FALSE,top=20,Round=2)
 rownames(et5)<-NULL
 ```
 
@@ -169,6 +169,13 @@ ExpCatStat(data,Target=Target,Label=label,result = "Stat",clim=10,nlim=5,Pclass=
 paged_table(et4)
 ```
 
+**Variable importance based on Information value**
+
+```{r ed3.91,warning=FALSE,eval=T,fig.align='center',fig.height=7,fig.width=7}
+varimp <- ExpCatStat(Carseats,Target="Urban",result = "Stat",clim=10,nlim=5,bins=10,Pclass="Yes",plot=TRUE,top=10,Round=2)
+```
+
+
 ### 5. Distributions of categorical variables
 Graphical representation of all categorical variables
 
@@ -180,11 +187,11 @@ Graphical representation of all categorical variables
   * Bar plot with vertical or horizontal bars for all categorical variables 
 
 ```{r bp1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=10,fig.width=10}
-ExpCatViz(data,gp=NULL,fname=NULL,clim=10,margin=2,Page = c(2,2),sample=sc)
+ExpCatViz(data,target=NULL,fname=NULL,clim=10,margin=2,Page = c(2,1),sample=sc)
 ```
 
   * Stacked bar plot with vertical or horizontal bars for all categorical variables 
 
 ```{r bp2,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=10,fig.width=10}
-ExpCatViz(data,gp=Target,fname=NULL,clim=10,margin=2,Page = c(2,2),sample=sc)
+ExpCatViz(data,target=Target,fname=NULL,clim=10,margin=2,Page = c(2,1),sample=sc)
 ```
