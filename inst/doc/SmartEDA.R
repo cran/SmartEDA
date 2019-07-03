@@ -46,7 +46,7 @@ paged_table(ec1)
 
 ## ----c1.2 ,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
 # Note: Variable excluded (if unique value of variable which is less than or eaual to 10 [nlim=10])
-plot1 <- ExpNumViz(Carseats,gp=NULL,nlim=10,Page=c(2,2),sample=8,theme=)
+plot1 <- ExpNumViz(Carseats,target=NULL,nlim=10,Page=c(2,2),sample=8,theme=)
 plot1[[1]]
 
 ## ----ec13, eval=T,include=F----------------------------------------------
@@ -79,8 +79,14 @@ paged_table(cpp)
 ## ----snv1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
 #Note: sample=8 means randomly selected 8 scatter plots
 #Note: nlim=4 means included numeric variable with unique value is more than 4
-plot3 <- ExpNumViz(Carseats,gp="Price",nlim=4,fname=NULL,col="red",Page=c(2,2),sample=8)
+plot3 <- ExpNumViz(Carseats,target="Price",nlim=4,scatter=FALSE,fname=NULL,col="green",Page=c(2,2),sample=8)
 plot3[[1]]
+
+## ----snv1_1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
+#Note: sample=8 means randomly selected 8 scatter plots
+#Note: nlim=4 means included numeric variable with unique value is more than 4
+plot31 <- ExpNumViz(Carseats,target="US",nlim=4,scatter=TRUE,fname=NULL,Page=c(2,1),sample=4)
+plot31[[1]]
 
 ## ----eda_41, eval=T,include=F--------------------------------------------
 et11 <- ExpCTable(Carseats,Target="Price",margin=1,clim=10,nlim=NULL,round=2,bin=4,per=F)
@@ -113,7 +119,7 @@ rownames(snc)<-NULL
 paged_table(snc)
 
 ## ----bp3.1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
-plot4 <- ExpNumViz(Carseats,gp="Urban",type=1,nlim=NULL,fname=NULL,col=c("darkgreen","springgreen3","springgreen1"),Page=c(2,2),sample=8)
+plot4 <- ExpNumViz(Carseats,target="Urban",type=1,nlim=NULL,fname=NULL,col=c("darkgreen","springgreen3","springgreen1"),Page=c(2,2),sample=8)
 plot4[[1]]
 
 ## ----ed3.3, eval=T,include=F---------------------------------------------

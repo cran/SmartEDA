@@ -1,12 +1,13 @@
 #' Function to create HTML EDA report
 #'
 #' @description Create a exploratory data analysis report in HTML format
-#' @usage ExpReport(data,Template=NULL,Target=NULL,label=NULL,op_file=NULL,
-#' op_dir=getwd(),sc=NULL,sn=NULL,Rc=NULL)
+#' @usage ExpReport(data,Template=NULL,Target=NULL,label=NULL,theme="Default",
+#' op_file=NULL,op_dir=getwd(),sc=NULL,sn=NULL,Rc=NULL)
 ##' @param data a data frame
 ##' @param Template R markdown template (.rmd file)
 ##' @param Target dependent variable. If there is no defined target variable then keep as it is NULL.
 ##' @param label target variable descriptions, not a mandatory field
+##' @param theme customized ggplot theme (default SmartEDA theme) (for Some extra themes use Package: ggthemes)
 ##' @param op_file output file name (.html)
 ##' @param op_dir output path
 ##' @param sc sample number of plots for categorical variable. User can decide how many number of plots to depict in html report.
@@ -25,11 +26,18 @@
 ##' IF Target = categorical, then it will genreate EDA report including univariate and multivarite summary statistics with chi-square, Information values.
 ##' @importFrom rmarkdown render
 ##' @importFrom utils browseURL
+##' @examples
+#' ## Creating HTML report
+#' # library (ggthemes)
+#' # ExpReport(mtcars,Target="gear",label="car",theme=theme_economist(),op_file="Samp1.html",Rc=3)
+#' # ExpReport(mtcars,Target="wt",label="car",theme="Default",op_file="Samp2.html")
+#' # ExpReport(mtcars,Target=NULL,label="car",theme=theme_foundation(),op_file="Samp3.html")
 ##' @export ExpReport
 
-ExpReport<-function (data,Template=NULL,Target=NULL,label=NULL,op_file=NULL,op_dir=getwd(),sc=NULL,sn=NULL,Rc=NULL)
+ExpReport<-function (data,Template=NULL,Target=NULL,label=NULL,theme="Default",op_file=NULL,op_dir=getwd(),sc=NULL,sn=NULL,Rc=NULL)
 {
   data=as.data.frame(data)
+
   if(!is.null(Template)) fil4 = paste0(Template)
 
   fil1 = paste0("rmd_template/report_tmp.Rmd")

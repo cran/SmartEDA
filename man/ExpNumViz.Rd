@@ -4,13 +4,13 @@
 \alias{ExpNumViz}
 \title{Distributions of numeric variables}
 \usage{
-ExpNumViz (data,gp=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL,
-sample=NULL,gtitle=NULL,theme="Default")
+ExpNumViz (data,target=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=NULL,
+sample=NULL,scatter=FALSE,gtitle=NULL,theme="Default")
 }
 \arguments{
 \item{data}{dataframe or matrix}
 
-\item{gp}{target variable}
+\item{target}{target variable}
 
 \item{type}{1 (boxplot by category and overall), 2 (boxplot by category only), 3 (boxplot for overall)}
 
@@ -23,6 +23,8 @@ sample=NULL,gtitle=NULL,theme="Default")
 \item{Page}{output pattern. if Page=c(3,2), It will generate 6 plots with 3 rows and 2 columns}
 
 \item{sample}{random selection of plots}
+
+\item{scatter}{option to run scatter plot between all the numerical variables (default scatter=FALSE)}
 
 \item{gtitle}{chart title}
 
@@ -46,19 +48,24 @@ This function automatically scans through each variable and creates density plot
 }
 \details{
 This function automatically scan each variables and generate a graph based on the user inputs. Graphical representation includes scatter plot, box plot and density plots.
-If input "gp" is continuous then output is scatter plots
+If input "target" is continuous then output is scatter plots
 
-If input "gp" is categorical then output is box plot.
+If input "target" is categorical then output is box plot.
 
-If input "gp" is NULL, means there is no target variable and this will generate density plot for all numeric features
+If input "target" is NULL, means there is no target variable and this will generate density plot for all numeric features
+
+To plot only scatter plot : target is categorical or NULL and scatter = TRUE
 }
 \examples{
 ## Generate Boxplot by category
-ExpNumViz(mtcars,gp="gear",type=2,nlim=25,fname = file.path(tempdir(),"Mtcars2"),Page = c(2,2))
+ExpNumViz(mtcars,target="gear",type=2,nlim=25,Page = c(2,2),sample=4)
 ## Generate Density plot
-ExpNumViz(mtcars,gp=NULL,type=3,nlim=25,fname = file.path(tempdir(),"Mtcars3"),Page = c(2,2))
-## Generate Scatter plot
-ExpNumViz(mtcars,gp="carb",type=3,nlim=25,fname = file.path(tempdir(),"Mtcars4"),Page = c(2,2))
+ExpNumViz(mtcars,target=NULL,type=3,nlim=25,Page = c(2,2),sample=4)
+## Generate Scatter plot by Dependent variable
+ExpNumViz(mtcars,target="carb",type=3,nlim=25,Page = c(2,2),sample=4)
+## Generate Scatter plot for all the numerical variables
+ExpNumViz(mtcars,target="gear",scatter=TRUE,gtitle="Scatter plot",theme="Default",sample=2)
+ExpNumViz(mtcars,target=NULL,scatter=TRUE,gtitle="Scatter plot",theme="Default",sample=2)
 }
 \seealso{
 \code{\link[ggplot2:geom_boxplot]{geom_boxplot}}
