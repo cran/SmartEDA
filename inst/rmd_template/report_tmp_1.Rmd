@@ -83,7 +83,7 @@ ExpOutQQ(data,nlim=4,fname=NULL,Page=c(2,2),sample=sn)
   * Density plot (Univariate)
 
 ```{r snv2,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=10,fig.width=10}
-ExpNumViz(data,target=NULL,type=1,nlim=NULL,fname=NULL,col=NULL,Page=c(2,2),theme=theme,sample=sn)
+ExpNumViz(data,target=NULL,type=1,nlim=10,fname=NULL,col=NULL,Page=c(2,2),theme=theme,sample=sn)
 ```
 
   * Scatter plot (Bivariate)
@@ -96,14 +96,14 @@ ExpNumViz(data,Page=c(2,1),sample=sn,theme=theme,scatter=TRUE)
 Summary of categorical variables
 
 ```{r eda_4, eval=T,include=F}
-et1 <- ExpCTable(data,Target=NULL,margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=T)
+et1 <- ExpCTable(data,Target=NULL,margin=1,clim=10,nlim=5,round=2,bin=NULL,per=T)
 rownames(et1)<-NULL
 ```
 
   * frequency for all categorical independent variables
 
 ```{r e4.1, warning=FALSE,eval=F,include=T}
-ExpCTable(data,Target=NULL,margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=T)
+ExpCTable(data,Target=NULL,margin=1,clim=10,nlim=5,round=2,bin=NULL,per=T)
 ```
 
 ```{r e4.1.1,warning=FALSE,eval=T,render=et1,echo=F}

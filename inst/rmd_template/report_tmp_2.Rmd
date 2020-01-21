@@ -135,7 +135,7 @@ Summary of categorical variable
 
 ```{r eda_4, eval=T,include=F}
 if(is.null(Rc)) {Rc=as.character(paste0(unique(data[,Target])[1]))}
-et1 <- ExpCTable(data,Target=Target,margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
+et1 <- ExpCTable(data,Target=Target,margin=1,clim=10,nlim=5,round=2,bin=NULL,per=F)
 rownames(et1)<-NULL
 
 et4 <- ExpCatStat(data,Target=Target,result = "Stat",clim=10,nlim=5,bins=10,Pclass=Rc,plot=FALSE,top=20,Round=2)
@@ -150,11 +150,14 @@ rownames(et5)<-NULL
   * Custom tables between all categorical independent variables and traget variable **`r Target `** 
 
 ```{r e4.1, warning=FALSE,eval=F,include=T}
-ExpCTable(data,Target=Target,margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
+ExpCTable(data,Target=Target,margin=1,clim=10,nlim=5,round=2,bin=NULL,per=F)
 ```
 
 ```{r e4.1.1,warning=FALSE,eval=T,render=et1,echo=F}
-paged_table(et1)
+if(!is.null(dim(et1))){
+paged_table(et1)  
+}
+
 ```
 
 **Information Value**

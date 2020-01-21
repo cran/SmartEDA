@@ -46,7 +46,7 @@ paged_table(ec1)
 
 ## ----c1.2 ,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
 # Note: Variable excluded (if unique value of variable which is less than or eaual to 10 [nlim=10])
-plot1 <- ExpNumViz(Carseats,target=NULL,nlim=10,Page=c(2,2),sample=8,theme=)
+plot1 <- ExpNumViz(Carseats,target=NULL,nlim=10,Page=c(2,2),sample=4)
 plot1[[1]]
 
 ## ----ec13, eval=T,include=F----------------------------------------------
@@ -54,7 +54,7 @@ et1 <- ExpCTable(Carseats,Target=NULL,margin=1,clim=10,nlim=5,round=2,bin=NULL,p
 rownames(et1)<-NULL
 
 ## ----ec14, warning=FALSE,eval=F,include=T--------------------------------
-#  ExpCTable(Carseats,Target=NULL,margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=T)
+#  ExpCTable(Carseats,Target=NULL,margin=1,clim=10,nlim=3,round=2,bin=NULL,per=T)
 
 ## ----ec14.1,warning=FALSE,eval=T,render=et1,echo=F-----------------------
 kable(et1,"html")
@@ -89,12 +89,12 @@ plot31 <- ExpNumViz(Carseats,target="US",nlim=4,scatter=TRUE,fname=NULL,Page=c(2
 plot31[[1]]
 
 ## ----eda_41, eval=T,include=F--------------------------------------------
-et11 <- ExpCTable(Carseats,Target="Price",margin=1,clim=10,nlim=NULL,round=2,bin=4,per=F)
+et11 <- ExpCTable(Carseats,Target="Price",margin=1,clim=10,round=2,bin=4,per=F)
 rownames(et11)<-NULL
 
 ## ----e4.2, warning=FALSE,eval=F,include=T--------------------------------
 #  ##bin=4, descretized 4 categories based on quantiles
-#  ExpCTable(Carseats,Target="Price",margin=1,clim=10,nlim=NULL,round=2,bin=4,per=F)
+#  ExpCTable(Carseats,Target="Price",margin=1,clim=10,round=2,bin=4,per=F)
 
 ## ----e4.2.1,warning=FALSE,eval=T,render=et11,echo=F----------------------
 paged_table(et11)
@@ -119,11 +119,11 @@ rownames(snc)<-NULL
 paged_table(snc)
 
 ## ----bp3.1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7----
-plot4 <- ExpNumViz(Carseats,target="Urban",type=1,nlim=NULL,fname=NULL,col=c("darkgreen","springgreen3","springgreen1"),Page=c(2,2),sample=8)
+plot4 <- ExpNumViz(Carseats,target="Urban",type=1,nlim=3,fname=NULL,col=c("darkgreen","springgreen3","springgreen1"),Page=c(2,2),sample=8)
 plot4[[1]]
 
 ## ----ed3.3, eval=T,include=F---------------------------------------------
-et100 <- ExpCTable(Carseats,Target="Urban",margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
+et100 <- ExpCTable(Carseats,Target="Urban",margin=1,clim=10,nlim=3,round=2,bin=NULL,per=F)
 rownames(et100)<-NULL
 
 et4 <- ExpCatStat(Carseats,Target="Urban",result = "Stat",clim=3,nlim=3,bins=10,Pclass="Yes",plot=FALSE,top=20,Round=2)
@@ -135,7 +135,7 @@ rownames(et5)<-NULL
 et5 <- et5[1:15,]
 
 ## ----ed3.4, warning=FALSE,eval=F,include=T-------------------------------
-#  ExpCTable(Carseats,Target="Urban",margin=1,clim=10,nlim=NULL,round=2,bin=NULL,per=F)
+#  ExpCTable(Carseats,Target="Urban",margin=1,clim=10,nlim=3,round=2,bin=NULL,per=F)
 
 ## ----ed3.5,warning=FALSE,eval=T,render=et100,echo=F,out.height=8,out.width=8----
 kable(et100,"html")
@@ -219,4 +219,33 @@ kable(e1du1,"html")
 
 ## ----dud31,warning=FALSE,eval=T,render=e1du2,echo=F,out.height=8,out.width=8------------------------------------------------------------------------
 kable(e1du2,"html")
+
+## ----ktana, eval=T,include=F------------------------------------------------------------------------------------------------------------------------
+ana1 <- ExpOutliers(Carseats, varlist = c("Sales","CompPrice","Income"), method = "boxplot",  treatment = "mean", capping = c(0.1, 0.9))
+outlier_summ <- ana1[[1]]
+outlier_data <- ana1[[2]]
+
+ana2 <- ExpOutliers(Carseats, varlist = c("Sales","CompPrice","Income"), method = "3xStDev",  treatment = "median", capping = c(0.1, 0.9))
+outlier_summ1 <- ana2[[1]]
+outlier_data1 <- ana2[[2]]
+
+
+## ----out1, warning=FALSE,eval=F,include=T-----------------------------------------------------------------------------------------------------------
+#  ExpOutliers(Carseats, varlist = c("Sales","CompPrice","Income"), method = "boxplot",  treatment = "mean", capping = c(0.1, 0.9))
+
+## ----out11,warning=FALSE,eval=T,render=outlier_summ,echo=F,out.height=8,out.width=8-----------------------------------------------------------------
+kable(outlier_summ,"html")
+
+## ----out12,warning=FALSE,eval=T,render=outlier_data,echo=F,out.height=8,out.width=8-----------------------------------------------------------------
+kable(head(outlier_data),"html")
+
+## ----out2, warning=FALSE,eval=F,include=T-----------------------------------------------------------------------------------------------------------
+#  ExpOutliers(Carseats, varlist = c("Sales","CompPrice","Income"), method = "3xStDev",  treatment = "medain", capping = c(0.1, 0.9))
+#  
+
+## ----out21,warning=FALSE,eval=T,render=outlier_summ1,echo=F,out.height=8,out.width=8----------------------------------------------------------------
+kable(outlier_summ1,"html")
+
+## ----out22,warning=FALSE,eval=T,render=outlier_data1,echo=F,out.height=8,out.width=8----------------------------------------------------------------
+kable(head(outlier_data1),"html")
 

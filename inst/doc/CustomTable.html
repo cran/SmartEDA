@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -94,7 +95,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -304,7 +305,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 
 
 <div id="exploratory-analysis---custom-tables-summary-statistics" class="section level2">
-<h2>Exploratory analysis - Custom tables, summary statistics</h2>
+<h2>1. Exploratory analysis - Custom tables, summary statistics</h2>
 <p>In this vignette we will discuss about how to customize the summary statistics using <em>ExpCustomStat</em> function from <code>SmartEDA</code>. The output of this function returns matrix object containing descriptive information on all input variables for each level/combination of levels in categorical/group variable. Also, while running the analysis we can filter row/cases of the data. We can apply the filters at individual variable level or complete data like base subsetting.</p>
 <p>Function definition:</p>
 <pre><code>ExpCustomStat(data,Cvar=NULL,Nvar=NULL,stat=NULL,gpby=TRUE,filt=NULL,dcast=FALSE)</code></pre>
@@ -317,7 +318,7 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <li>Options to calculate basic statistics like Mean, Median, Std.Dev, Variance, Count, Proportions, Quantiles, IQR, Percentages of Shares (PS) for numerical data</li>
 </ol>
 <div id="usage-of-expcustomstat-function" class="section level3">
-<h3>Usage of <code>ExpCustomStat</code> function</h3>
+<h3>1.1 Usage of <code>ExpCustomStat</code> function</h3>
 <p>Will open the carseats data from ISLR package and drive different types of use cases using <code>ExpCustomStat</code> function.</p>
 <p>In this vignette, we will be using a simulated data set containing sales of child car seats at 400 different stores.</p>
 <p>Data Source <a href="https://www.rdocumentation.org/packages/ISLR/versions/1.2/topics/Carseats">ISLR package</a>.</p>
@@ -332,16 +333,18 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 3 10.06       113     35          10        269    80    Medium  59        12   Yes Yes
 ## 4  7.40       117    100           4        466    97    Medium  55        14   Yes Yes
 ## 5  4.15       141     64           3        340   128       Bad  38        13   Yes  No</code></pre>
-<div id="categorical-summaries" class="section level5">
-<h5>1. Categorical summaries</h5>
+</div>
+</div>
+<div id="categorical-summaries" class="section level2">
+<h2>2. Categorical summaries</h2>
 <p>Categorical summaries to describe the distribution for a qualitative variables.</p>
 <ul>
 <li>Count (Frequency) the number of subjects in each group</li>
 <li>The proportions in each group (Relative frequency)</li>
 <li>Tabulation or custom tables for more than two categorical variables</li>
 </ul>
-<div id="a.-frequency-table" class="section level6">
-<h6>a. Frequency table</h6>
+<div id="frequency-table" class="section level3">
+<h3>2.1. Frequency table</h3>
 <p>The number of observations for particular category</p>
 <ul>
 <li>Base: All carseats data</li>
@@ -402,8 +405,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 6:   Good ShelveLoc    85 21.25
 ## 7: Medium ShelveLoc   219 54.75</code></pre>
 </div>
-<div id="b.-crosstabulation-more-than-one-categorical-variable" class="section level6">
-<h6>b. Crosstabulation (more than one categorical variable)</h6>
+<div id="crosstabulation-more-than-one-categorical-variable" class="section level3">
+<h3>2.2. Crosstabulation (more than one categorical variable)</h3>
 <p>To produce cross tables which calculate counts and proportions for each combination of categorical variables we can use <em>ExpCustomStat</em></p>
 <p>NOTE: For crosstabulation change input <code>gpby</code>=TRUE</p>
 <ul>
@@ -436,8 +439,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 11:  No    No      Good     6  1.50
 ## 12:  No    No       Bad    11  2.75</code></pre>
 </div>
-<div id="c.-adding-filters-to-tables" class="section level6">
-<h6>c. Adding filters to tables</h6>
+<div id="adding-filters-to-tables" class="section level3">
+<h3>2.3. Adding filters to tables</h3>
 <p>If we want to understand the number of stores in <code>US</code> and location is <code>Urban</code> for <code>Population</code> size greater than 150</p>
 <ul>
 <li>Base: Those stores having their average age of the local <code>Population</code> is &gt; 150</li>
@@ -463,8 +466,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 6:  No      Good Urban==&#39;Yes&#39; &amp; Population&gt;150    13  6.47</code></pre>
 </div>
 </div>
-<div id="numerical-summaries" class="section level5">
-<h5>2. Numerical summaries</h5>
+<div id="numerical-summaries" class="section level2">
+<h2>3. Numerical summaries</h2>
 <p>Numerical summaries to describe the distribution for quantitative variables.</p>
 <ul>
 <li>Measure of location (Mean, median)</li>
@@ -472,8 +475,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <li>Measure of shapes (Skewness and Kurtosis)</li>
 <li>Other summary statistics</li>
 </ul>
-<div id="a.-numerical-variable-summary" class="section level6">
-<h6>a. Numerical variable summary</h6>
+<div id="numerical-variable-summary" class="section level3">
+<h3>3.1. Numerical variable summary</h3>
 <ul>
 <li>Base: All carseats data</li>
 <li>Table: Descriptive summary for Price, Population, Sales, CompPrice, Income</li>
@@ -496,8 +499,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 3:  CompPrice  77 115.00 125.00 135.00 175.00
 ## 4:     Income  21  42.75  69.00  91.00 120.00</code></pre>
 </div>
-<div id="b.-adding-filters-to-complete-data-like-base-subset" class="section level6">
-<h6>b. Adding filters to complete data (like base subset)</h6>
+<div id="adding-filters-to-complete-data-like-base-subset" class="section level3">
+<h3>3.2. Adding filters to complete data (like base subset)</h3>
 <p>Filter rows/cases of complete dataset where conditions are true</p>
 <ul>
 <li>Base: Whether the store is in urban (Urban ==Yes)</li>
@@ -522,8 +525,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 3:  CompPrice Urban==&#39;Yes&#39; &amp; Population&gt;150   201 125.134328 25152.00 125.00  19.00
 ## 4:     Income Urban==&#39;Yes&#39; &amp; Population&gt;150   201  68.223881 13713.00  69.00  47.00</code></pre>
 </div>
-<div id="c.-filter-out-unique-value-from-all-the-numeric-variables" class="section level6">
-<h6>c. Filter out unique value from all the numeric variables</h6>
+<div id="filter-out-unique-value-from-all-the-numeric-variables" class="section level3">
+<h3>3.3. Filter out unique value from all the numeric variables</h3>
 <p>This will be useful when we need to exclude redundant values like ‘999’ or ‘9999’ or ‘-9’ or ‘-1111’, or ‘888’ etc from each selected variable.</p>
 <p>Eg:dat = data.frame(x = c(23,24,34,999,12,12,23,999,45), y = c(1,3,4,999,0,999,0,8,999,0)</p>
 <p>Exclude 999:</p>
@@ -535,12 +538,12 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb26-5" title="5"><span class="kw">ExpCustomStat</span>(data_sam,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">&#39;Count&#39;</span>,<span class="st">&#39;mean&#39;</span>,<span class="st">&#39;sum&#39;</span>,<span class="st">&#39;min&#39;</span>),<span class="dt">filt=</span><span class="st">&quot;All %ni% c(999,-9)&quot;</span>)</a></code></pre></div>
 <pre><code>##     Attribute                   Filter Count       mean       sum min
 ## 1: Population Population%ni% c(999,-9)   400 264.840000 105936.00  10
-## 2:      Sales      Sales%ni% c(999,-9)   370   7.544838   2791.59   0
-## 3:  CompPrice  CompPrice%ni% c(999,-9)   380 124.757895  47408.00  77
-## 4:     Income     Income%ni% c(999,-9)   355  68.309859  24250.00  21</code></pre>
+## 2:      Sales      Sales%ni% c(999,-9)   370   7.485784   2769.74   0
+## 3:  CompPrice  CompPrice%ni% c(999,-9)   380 125.081579  47531.00  77
+## 4:     Income     Income%ni% c(999,-9)   355  69.284507  24596.00  21</code></pre>
 </div>
-<div id="d.-adding-filters-at-variable-level" class="section level6">
-<h6>d. Adding filters at variable level</h6>
+<div id="adding-filters-at-variable-level" class="section level3">
+<h3>3.4. Adding filters at variable level</h3>
 <p>Different filters for each numeric variable. For example, below are the conditions (logic) for each variable summary analysis.</p>
 <p><code>&quot;Population&quot; - Consider only Good ShelveLoc (the quality of the shelving location for the car seats at each site) ShelveLoc==&#39;Good&#39;</code></p>
 <p><code>&quot;Sales&quot; - Inculde only those store belongs to Urban location (Urban==Yes)</code></p>
@@ -558,11 +561,11 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 5:     Income         US==&#39;Yes&#39;   258  70.515504 18193.00   782.849953  27.979456  48.0000  70.00</code></pre>
 </div>
 </div>
-<div id="numerical-summaries-by-category" class="section level5">
-<h5>3. Numerical summaries by category</h5>
+<div id="numerical-summaries-by-category" class="section level2">
+<h2>4. Numerical summaries by category</h2>
 <p>Descriptive summary for numerical variable by group level.</p>
-<div id="a.-variable-summary-report-one-group-variable" class="section level6">
-<h6>a. Variable summary report (One group variable)</h6>
+<div id="variable-summary-report-one-group-variable" class="section level3">
+<h3>4.1. Variable summary report (One group variable)</h3>
 <ul>
 <li>Base: All carseats data</li>
 <li>Table: Descriptive summary for Price, Population, Sales by group (Urban, ShelveLoc)</li>
@@ -581,8 +584,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ##  9:   Good      Sales ShelveLoc    85 21.25  10.214000  3.58   8.3300  10.50  11.9600  16.27
 ## 10: Medium      Sales ShelveLoc   219 54.75   7.306575  0.00   5.6250   7.38   8.7750  13.36</code></pre>
 </div>
-<div id="b.-variable-summary-report-more-than-one-group-variable" class="section level6">
-<h6>b. Variable summary report (More than One group variable)</h6>
+<div id="variable-summary-report-more-than-one-group-variable" class="section level3">
+<h3>4.2. Variable summary report (More than One group variable)</h3>
 <ul>
 <li>Base: All carseats data</li>
 <li>Table: Descriptive summary for CompPrice, Income by group (Urban){PS: Percentages of shares}</li>
@@ -616,8 +619,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 24:    No  No       Bad    Income    11  2.75  62.72727   690  2.51  25 105 17.00 23.524842
 ##     Urban  US ShelveLoc Attribute Count  Prop      mean   sum    PS min max   IQR        sd</code></pre>
 </div>
-<div id="c.-variable-summary-report-more-than-one-group-variable-with-filter" class="section level6">
-<h6>c. Variable summary report (More than One group variable) with filter</h6>
+<div id="variable-summary-report-more-than-one-group-variable-with-filter" class="section level3">
+<h3>4.3. Variable summary report (More than One group variable) with filter</h3>
 <ul>
 <li>Base: Stores in Urban location only</li>
 <li>Table: Descriptive summary for CompPrice, Income by group (Urban){PS: Percentages of shares}</li>
@@ -648,42 +651,42 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb36-5" title="5">data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">45</span>),<span class="st">&quot;Income&quot;</span>] &lt;-<span class="st"> </span><span class="dv">999</span></a>
 <a class="sourceLine" id="cb36-6" title="6"><span class="kw">ExpCustomStat</span>(data_sam,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">&#39;Count&#39;</span>,<span class="st">&#39;Prop&#39;</span>,<span class="st">&#39;mean&#39;</span>,<span class="st">&#39;sum&#39;</span>,<span class="st">&#39;PS&#39;</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;All %ni% c(888,999)&quot;</span>)</a></code></pre></div>
 <pre><code>##     Urban  US ShelveLoc Attribute                   Filter Count  Prop       mean      sum    PS
-##  1:   Yes Yes       Bad     Sales     Sales%ni% c(888,999)    49 13.24   5.481020   268.57  9.79
-##  2:   Yes Yes      Good     Sales     Sales%ni% c(888,999)    38 10.27  10.910789   414.61 15.11
-##  3:   Yes Yes    Medium     Sales     Sales%ni% c(888,999)    83 22.43   7.458675   619.07 22.57
-##  4:   Yes  No       Bad     Sales     Sales%ni% c(888,999)    22  5.95   5.387273   118.52  4.32
-##  5:    No Yes       Bad     Sales     Sales%ni% c(888,999)    11  2.97   5.959091    65.55  2.39
-##  6:   Yes  No    Medium     Sales     Sales%ni% c(888,999)    52 14.05   6.796538   353.42 12.88
-##  7:    No  No    Medium     Sales     Sales%ni% c(888,999)    27  7.30   6.351852   171.50  6.25
-##  8:    No Yes    Medium     Sales     Sales%ni% c(888,999)    36  9.73   7.691111   276.88 10.09
-##  9:   Yes  No      Good     Sales     Sales%ni% c(888,999)    17  4.59   8.988824   152.81  5.57
-## 10:    No Yes      Good     Sales     Sales%ni% c(888,999)    19  5.14  10.382105   197.26  7.19
-## 11:    No  No      Good     Sales     Sales%ni% c(888,999)     6  1.62   8.968333    53.81  1.96
-## 12:    No  No       Bad     Sales     Sales%ni% c(888,999)    10  2.70   5.133000    51.33  1.87
-## 13:   Yes Yes       Bad CompPrice CompPrice%ni% c(888,999)    47 12.37 124.319149  5843.00 12.30
-## 14:   Yes Yes      Good CompPrice CompPrice%ni% c(888,999)    39 10.26 127.000000  4953.00 10.43
-## 15:   Yes Yes    Medium CompPrice CompPrice%ni% c(888,999)    90 23.68 125.866667 11328.00 23.85
-## 16:   Yes  No       Bad CompPrice CompPrice%ni% c(888,999)    20  5.26 126.250000  2525.00  5.32
-## 17:    No Yes       Bad CompPrice CompPrice%ni% c(888,999)    11  2.89 122.454545  1347.00  2.84
-## 18:   Yes  No    Medium CompPrice CompPrice%ni% c(888,999)    52 13.68 125.903846  6547.00 13.78
-## 19:    No  No    Medium CompPrice CompPrice%ni% c(888,999)    28  7.37 122.107143  3419.00  7.20
-## 20:    No Yes    Medium CompPrice CompPrice%ni% c(888,999)    37  9.74 125.675676  4650.00  9.79
-## 21:   Yes  No      Good CompPrice CompPrice%ni% c(888,999)    17  4.47 125.823529  2139.00  4.50
+##  1:   Yes Yes       Bad     Sales     Sales%ni% c(888,999)    44 11.89   5.495455   241.80  8.75
+##  2:   Yes Yes      Good     Sales     Sales%ni% c(888,999)    37 10.00  10.819189   400.31 14.48
+##  3:   Yes Yes    Medium     Sales     Sales%ni% c(888,999)    88 23.78   7.532045   662.82 23.98
+##  4:   Yes  No       Bad     Sales     Sales%ni% c(888,999)    21  5.68   5.211905   109.45  3.96
+##  5:    No Yes       Bad     Sales     Sales%ni% c(888,999)     9  2.43   5.634444    50.71  1.83
+##  6:   Yes  No    Medium     Sales     Sales%ni% c(888,999)    55 14.86   6.958909   382.74 13.85
+##  7:    No Yes    Medium     Sales     Sales%ni% c(888,999)    35  9.46   7.934286   277.70 10.05
+##  8:    No  No    Medium     Sales     Sales%ni% c(888,999)    28  7.57   6.437143   180.24  6.52
+##  9:    No Yes      Good     Sales     Sales%ni% c(888,999)    19  5.14   9.993158   189.87  6.87
+## 10:    No  No      Good     Sales     Sales%ni% c(888,999)     6  1.62   8.968333    53.81  1.95
+## 11:   Yes  No      Good     Sales     Sales%ni% c(888,999)    17  4.59   9.306471   158.21  5.72
+## 12:    No  No       Bad     Sales     Sales%ni% c(888,999)    11  2.97   5.135455    56.49  2.04
+## 13:   Yes Yes       Bad CompPrice CompPrice%ni% c(888,999)    51 13.42 124.882353  6369.00 13.40
+## 14:   Yes Yes      Good CompPrice CompPrice%ni% c(888,999)    38 10.00 126.368421  4802.00 10.11
+## 15:   Yes Yes    Medium CompPrice CompPrice%ni% c(888,999)    90 23.68 125.244444 11272.00 23.72
+## 16:   Yes  No       Bad CompPrice CompPrice%ni% c(888,999)    21  5.53 124.238095  2609.00  5.49
+## 17:    No Yes       Bad CompPrice CompPrice%ni% c(888,999)    10  2.63 119.800000  1198.00  2.52
+## 18:    No  No    Medium CompPrice CompPrice%ni% c(888,999)    27  7.11 122.888889  3318.00  6.98
+## 19:    No Yes    Medium CompPrice CompPrice%ni% c(888,999)    37  9.74 126.486486  4680.00  9.85
+## 20:   Yes  No    Medium CompPrice CompPrice%ni% c(888,999)    52 13.68 126.346154  6570.00 13.83
+## 21:   Yes  No      Good CompPrice CompPrice%ni% c(888,999)    18  4.74 126.944444  2285.00  4.81
 ## 22:    No Yes      Good CompPrice CompPrice%ni% c(888,999)    22  5.79 122.363636  2692.00  5.67
 ## 23:    No  No      Good CompPrice CompPrice%ni% c(888,999)     6  1.58 126.500000   759.00  1.60
-## 24:    No  No       Bad CompPrice CompPrice%ni% c(888,999)    11  2.89 118.363636  1302.00  2.74
-## 25:   Yes Yes       Bad    Income    Income%ni% c(888,999)    48 13.52  78.270833  3757.00 15.15
-## 26:   Yes Yes      Good    Income    Income%ni% c(888,999)    30  8.45  68.266667  2048.00  8.26
-## 27:   Yes Yes    Medium    Income    Income%ni% c(888,999)    87 24.51  69.896552  6081.00 24.53
-## 28:   Yes  No       Bad    Income    Income%ni% c(888,999)    20  5.63  68.700000  1374.00  5.54
-## 29:    No Yes       Bad    Income    Income%ni% c(888,999)    10  2.82  75.300000   753.00  3.04
-## 30:   Yes  No    Medium    Income    Income%ni% c(888,999)    51 14.37  67.156863  3425.00 13.81
-## 31:    No  No    Medium    Income    Income%ni% c(888,999)    25  7.04  62.320000  1558.00  6.28
-## 32:    No Yes      Good    Income    Income%ni% c(888,999)    17  4.79  79.000000  1343.00  5.42
-## 33:    No  No      Good    Income    Income%ni% c(888,999)     6  1.69  53.833333   323.00  1.30
-## 34:   Yes  No      Good    Income    Income%ni% c(888,999)    15  4.23  72.733333  1091.00  4.40
-## 35:    No Yes    Medium    Income    Income%ni% c(888,999)    35  9.86  67.114286  2349.00  9.47
-## 36:    No  No       Bad    Income    Income%ni% c(888,999)    11  3.10  62.727273   690.00  2.78
+## 24:    No  No       Bad CompPrice CompPrice%ni% c(888,999)     8  2.11 120.125000   961.00  2.02
+## 25:   Yes Yes       Bad    Income    Income%ni% c(888,999)    46 12.96  78.347826  3604.00 14.99
+## 26:   Yes Yes      Good    Income    Income%ni% c(888,999)    35  9.86  65.257143  2284.00  9.50
+## 27:   Yes Yes    Medium    Income    Income%ni% c(888,999)    85 23.94  67.929412  5774.00 24.01
+## 28:   Yes  No       Bad    Income    Income%ni% c(888,999)    21  5.92  63.238095  1328.00  5.52
+## 29:   Yes  No    Medium    Income    Income%ni% c(888,999)    49 13.80  65.673469  3218.00 13.38
+## 30:    No  No    Medium    Income    Income%ni% c(888,999)    28  7.89  61.285714  1716.00  7.14
+## 31:    No Yes    Medium    Income    Income%ni% c(888,999)    29  8.17  68.586207  1989.00  8.27
+## 32:    No Yes       Bad    Income    Income%ni% c(888,999)    10  2.82  68.700000   687.00  2.86
+## 33:   Yes  No      Good    Income    Income%ni% c(888,999)    17  4.79  67.176471  1142.00  4.75
+## 34:    No Yes      Good    Income    Income%ni% c(888,999)    19  5.35  69.631579  1323.00  5.50
+## 35:    No  No      Good    Income    Income%ni% c(888,999)     5  1.41  58.600000   293.00  1.22
+## 36:    No  No       Bad    Income    Income%ni% c(888,999)    11  3.10  62.727273   690.00  2.87
 ##     Urban  US ShelveLoc Attribute                   Filter Count  Prop       mean      sum    PS</code></pre>
 <p>Different base for each numeric variable.</p>
 <p><code>&quot;Population&quot; - Consider only Good ShelveLoc (the quality of the shelving location for the car seats at each site) ShelveLoc==&#39;Good&#39;</code></p>
@@ -703,8 +706,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 ## 10:    No  No  CompPrice        Price&gt;=150     2  6.25 146.500000   293.00   112.500000   7.5000</code></pre>
 </div>
 </div>
-<div id="resahpe-data" class="section level5">
-<h5>4. Resahpe data</h5>
+<div id="resahpe-data" class="section level2">
+<h2>5. Resahpe data</h2>
 <p>Reshapes a grouped data</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="kw">options</span>(<span class="dt">width =</span> <span class="dv">150</span>)</a>
 <a class="sourceLine" id="cb40-2" title="2"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">&#39;Count&#39;</span>,<span class="st">&#39;Prop&#39;</span>),<span class="dt">gpby=</span><span class="ot">TRUE</span>,<span class="dt">dcast=</span><span class="ot">TRUE</span>)</a></code></pre></div>
@@ -714,7 +717,8 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <pre><code>##     Attribute Count_No Count_Yes Prop_No Prop_Yes
 ## 1: Population      118       282    29.5     70.5
 ## 2:      Sales      118       282    29.5     70.5</code></pre>
-<p>Example scripts</p>
+<div id="example-scripts" class="section level5">
+<h5>Example scripts</h5>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="co">##Frequency table for categorical variables</span></a>
 <a class="sourceLine" id="cb43-2" title="2"><span class="kw">ExpCustomStat</span>(Carseats,<span class="dt">Cvar=</span><span class="kw">c</span>(<span class="st">&quot;US&quot;</span>,<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>),<span class="dt">gpby=</span><span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb43-3" title="3"></a>
@@ -759,8 +763,10 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </ul>
 </div>
 </div>
-</div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
