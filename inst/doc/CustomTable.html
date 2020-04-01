@@ -538,9 +538,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb26-5" title="5"><span class="kw">ExpCustomStat</span>(data_sam,<span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Population&quot;</span>,<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>),<span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">&#39;Count&#39;</span>,<span class="st">&#39;mean&#39;</span>,<span class="st">&#39;sum&#39;</span>,<span class="st">&#39;min&#39;</span>),<span class="dt">filt=</span><span class="st">&quot;All %ni% c(999,-9)&quot;</span>)</a></code></pre></div>
 <pre><code>##     Attribute                   Filter Count       mean       sum min
 ## 1: Population Population%ni% c(999,-9)   400 264.840000 105936.00  10
-## 2:      Sales      Sales%ni% c(999,-9)   370   7.485784   2769.74   0
-## 3:  CompPrice  CompPrice%ni% c(999,-9)   380 125.081579  47531.00  77
-## 4:     Income     Income%ni% c(999,-9)   355  69.284507  24596.00  21</code></pre>
+## 2:      Sales      Sales%ni% c(999,-9)   370   7.517919   2781.63   0
+## 3:  CompPrice  CompPrice%ni% c(999,-9)   380 124.868421  47450.00  77
+## 4:     Income     Income%ni% c(999,-9)   355  67.932394  24116.00  21</code></pre>
 </div>
 <div id="adding-filters-at-variable-level" class="section level3">
 <h3>3.4. Adding filters at variable level</h3>
@@ -651,42 +651,42 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb36-5" title="5">data_sam[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">400</span>,<span class="dv">45</span>),<span class="st">&quot;Income&quot;</span>] &lt;-<span class="st"> </span><span class="dv">999</span></a>
 <a class="sourceLine" id="cb36-6" title="6"><span class="kw">ExpCustomStat</span>(data_sam,<span class="dt">Cvar =</span> <span class="kw">c</span>(<span class="st">&quot;Urban&quot;</span>,<span class="st">&quot;US&quot;</span>,<span class="st">&quot;ShelveLoc&quot;</span>), <span class="dt">Nvar=</span><span class="kw">c</span>(<span class="st">&quot;Sales&quot;</span>,<span class="st">&quot;CompPrice&quot;</span>,<span class="st">&quot;Income&quot;</span>), <span class="dt">stat =</span> <span class="kw">c</span>(<span class="st">&#39;Count&#39;</span>,<span class="st">&#39;Prop&#39;</span>,<span class="st">&#39;mean&#39;</span>,<span class="st">&#39;sum&#39;</span>,<span class="st">&#39;PS&#39;</span>), <span class="dt">gpby =</span> <span class="ot">TRUE</span>,<span class="dt">filt=</span><span class="st">&quot;All %ni% c(888,999)&quot;</span>)</a></code></pre></div>
 <pre><code>##     Urban  US ShelveLoc Attribute                   Filter Count  Prop       mean      sum    PS
-##  1:   Yes Yes       Bad     Sales     Sales%ni% c(888,999)    44 11.89   5.495455   241.80  8.75
-##  2:   Yes Yes      Good     Sales     Sales%ni% c(888,999)    37 10.00  10.819189   400.31 14.48
-##  3:   Yes Yes    Medium     Sales     Sales%ni% c(888,999)    88 23.78   7.532045   662.82 23.98
-##  4:   Yes  No       Bad     Sales     Sales%ni% c(888,999)    21  5.68   5.211905   109.45  3.96
-##  5:    No Yes       Bad     Sales     Sales%ni% c(888,999)     9  2.43   5.634444    50.71  1.83
-##  6:   Yes  No    Medium     Sales     Sales%ni% c(888,999)    55 14.86   6.958909   382.74 13.85
-##  7:    No Yes    Medium     Sales     Sales%ni% c(888,999)    35  9.46   7.934286   277.70 10.05
-##  8:    No  No    Medium     Sales     Sales%ni% c(888,999)    28  7.57   6.437143   180.24  6.52
-##  9:    No Yes      Good     Sales     Sales%ni% c(888,999)    19  5.14   9.993158   189.87  6.87
+##  1:   Yes Yes      Good     Sales     Sales%ni% c(888,999)    34  9.19  10.517059   357.58 12.99
+##  2:   Yes Yes    Medium     Sales     Sales%ni% c(888,999)    90 24.32   7.503889   675.35 24.53
+##  3:   Yes  No       Bad     Sales     Sales%ni% c(888,999)    23  6.22   5.359130   123.26  4.48
+##  4:    No Yes       Bad     Sales     Sales%ni% c(888,999)    11  2.97   5.959091    65.55  2.38
+##  5:   Yes  No    Medium     Sales     Sales%ni% c(888,999)    51 13.78   6.874510   350.60 12.74
+##  6:    No  No    Medium     Sales     Sales%ni% c(888,999)    27  7.30   6.532222   176.37  6.41
+##  7:    No Yes    Medium     Sales     Sales%ni% c(888,999)    36  9.73   8.099167   291.57 10.59
+##  8:    No Yes      Good     Sales     Sales%ni% c(888,999)    22  5.95  10.194091   224.27  8.15
+##  9:   Yes Yes       Bad     Sales     Sales%ni% c(888,999)    45 12.16   5.423333   244.05  8.87
 ## 10:    No  No      Good     Sales     Sales%ni% c(888,999)     6  1.62   8.968333    53.81  1.95
-## 11:   Yes  No      Good     Sales     Sales%ni% c(888,999)    17  4.59   9.306471   158.21  5.72
-## 12:    No  No       Bad     Sales     Sales%ni% c(888,999)    11  2.97   5.135455    56.49  2.04
-## 13:   Yes Yes       Bad CompPrice CompPrice%ni% c(888,999)    51 13.42 124.882353  6369.00 13.40
-## 14:   Yes Yes      Good CompPrice CompPrice%ni% c(888,999)    38 10.00 126.368421  4802.00 10.11
-## 15:   Yes Yes    Medium CompPrice CompPrice%ni% c(888,999)    90 23.68 125.244444 11272.00 23.72
-## 16:   Yes  No       Bad CompPrice CompPrice%ni% c(888,999)    21  5.53 124.238095  2609.00  5.49
-## 17:    No Yes       Bad CompPrice CompPrice%ni% c(888,999)    10  2.63 119.800000  1198.00  2.52
-## 18:    No  No    Medium CompPrice CompPrice%ni% c(888,999)    27  7.11 122.888889  3318.00  6.98
-## 19:    No Yes    Medium CompPrice CompPrice%ni% c(888,999)    37  9.74 126.486486  4680.00  9.85
-## 20:   Yes  No    Medium CompPrice CompPrice%ni% c(888,999)    52 13.68 126.346154  6570.00 13.83
-## 21:   Yes  No      Good CompPrice CompPrice%ni% c(888,999)    18  4.74 126.944444  2285.00  4.81
-## 22:    No Yes      Good CompPrice CompPrice%ni% c(888,999)    22  5.79 122.363636  2692.00  5.67
+## 11:   Yes  No      Good     Sales     Sales%ni% c(888,999)    15  4.05   9.279333   139.19  5.06
+## 12:    No  No       Bad     Sales     Sales%ni% c(888,999)    10  2.70   5.133000    51.33  1.86
+## 13:   Yes Yes       Bad CompPrice CompPrice%ni% c(888,999)    49 12.89 124.102041  6081.00 12.83
+## 14:   Yes Yes    Medium CompPrice CompPrice%ni% c(888,999)    92 24.21 124.891304 11490.00 24.25
+## 15:   Yes  No       Bad CompPrice CompPrice%ni% c(888,999)    22  5.79 125.954545  2771.00  5.85
+## 16:    No Yes       Bad CompPrice CompPrice%ni% c(888,999)    10  2.63 120.400000  1204.00  2.54
+## 17:   Yes  No    Medium CompPrice CompPrice%ni% c(888,999)    53 13.95 125.584906  6656.00 14.05
+## 18:   Yes Yes      Good CompPrice CompPrice%ni% c(888,999)    34  8.95 127.382353  4331.00  9.14
+## 19:    No  No    Medium CompPrice CompPrice%ni% c(888,999)    27  7.11 121.111111  3270.00  6.90
+## 20:    No Yes    Medium CompPrice CompPrice%ni% c(888,999)    38 10.00 126.789474  4818.00 10.17
+## 21:   Yes  No      Good CompPrice CompPrice%ni% c(888,999)    16  4.21 125.437500  2007.00  4.24
+## 22:    No Yes      Good CompPrice CompPrice%ni% c(888,999)    22  5.79 122.363636  2692.00  5.68
 ## 23:    No  No      Good CompPrice CompPrice%ni% c(888,999)     6  1.58 126.500000   759.00  1.60
-## 24:    No  No       Bad CompPrice CompPrice%ni% c(888,999)     8  2.11 120.125000   961.00  2.02
-## 25:   Yes Yes       Bad    Income    Income%ni% c(888,999)    46 12.96  78.347826  3604.00 14.99
-## 26:   Yes Yes      Good    Income    Income%ni% c(888,999)    35  9.86  65.257143  2284.00  9.50
-## 27:   Yes Yes    Medium    Income    Income%ni% c(888,999)    85 23.94  67.929412  5774.00 24.01
-## 28:   Yes  No       Bad    Income    Income%ni% c(888,999)    21  5.92  63.238095  1328.00  5.52
-## 29:   Yes  No    Medium    Income    Income%ni% c(888,999)    49 13.80  65.673469  3218.00 13.38
-## 30:    No  No    Medium    Income    Income%ni% c(888,999)    28  7.89  61.285714  1716.00  7.14
-## 31:    No Yes    Medium    Income    Income%ni% c(888,999)    29  8.17  68.586207  1989.00  8.27
-## 32:    No Yes       Bad    Income    Income%ni% c(888,999)    10  2.82  68.700000   687.00  2.86
-## 33:   Yes  No      Good    Income    Income%ni% c(888,999)    17  4.79  67.176471  1142.00  4.75
-## 34:    No Yes      Good    Income    Income%ni% c(888,999)    19  5.35  69.631579  1323.00  5.50
-## 35:    No  No      Good    Income    Income%ni% c(888,999)     5  1.41  58.600000   293.00  1.22
-## 36:    No  No       Bad    Income    Income%ni% c(888,999)    11  3.10  62.727273   690.00  2.87
+## 24:    No  No       Bad CompPrice CompPrice%ni% c(888,999)    11  2.89 118.363636  1302.00  2.75
+## 25:   Yes Yes       Bad    Income    Income%ni% c(888,999)    43 12.11  78.744186  3386.00 13.94
+## 26:   Yes Yes      Good    Income    Income%ni% c(888,999)    36 10.14  68.638889  2471.00 10.17
+## 27:   Yes Yes    Medium    Income    Income%ni% c(888,999)    84 23.66  67.452381  5666.00 23.33
+## 28:   Yes  No       Bad    Income    Income%ni% c(888,999)    19  5.35  67.789474  1288.00  5.30
+## 29:    No Yes       Bad    Income    Income%ni% c(888,999)    10  2.82  71.800000   718.00  2.96
+## 30:   Yes  No    Medium    Income    Income%ni% c(888,999)    48 13.52  64.875000  3114.00 12.82
+## 31:    No  No    Medium    Income    Income%ni% c(888,999)    25  7.04  64.560000  1614.00  6.64
+## 32:    No Yes    Medium    Income    Income%ni% c(888,999)    38 10.70  67.842105  2578.00 10.61
+## 33:   Yes  No      Good    Income    Income%ni% c(888,999)    17  4.79  68.352941  1162.00  4.78
+## 34:    No Yes      Good    Income    Income%ni% c(888,999)    19  5.35  69.368421  1318.00  5.43
+## 35:    No  No      Good    Income    Income%ni% c(888,999)     5  1.41  56.800000   284.00  1.17
+## 36:    No  No       Bad    Income    Income%ni% c(888,999)    11  3.10  62.727273   690.00  2.84
 ##     Urban  US ShelveLoc Attribute                   Filter Count  Prop       mean      sum    PS</code></pre>
 <p>Different base for each numeric variable.</p>
 <p><code>&quot;Population&quot; - Consider only Good ShelveLoc (the quality of the shelving location for the car seats at each site) ShelveLoc==&#39;Good&#39;</code></p>
