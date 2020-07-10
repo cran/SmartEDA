@@ -1,6 +1,9 @@
 # SmartEDA [![CRAN status](https://www.r-pkg.org/badges/version/SmartEDA)](https://cran.r-project.org/package=SmartEDA)
 
 [![Downloads](http://cranlogs.r-pkg.org/badges/SmartEDA)](https://cran.r-project.org/package=SmartEDA)
+
+[![status](https://joss.theoj.org/papers/10.21105/joss.01509/status.svg)](https://joss.theoj.org/papers/10.21105/joss.01509)
+
 [![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/SmartEDA)](https://cran.r-project.org/package=SmartEDA)
 
 [![GitHub Stars](https://img.shields.io/github/stars/daya6489/SmartEDA.svg?style=social)](https://img.shields.io/github/stars/daya6489/SmartEDA)
@@ -90,11 +93,11 @@ To summarise the numeric variables, you can use following r codes from this paca
 
 ```R
 ## Generate Boxplot by category
-ExpNumViz(mtcars,gp="gear",type=2,nlim=25,fname = file.path(tempdir(),"Mtcars2"),Page = c(2,2))
+ExpNumViz(mtcars,target="gear",type=2,nlim=25,fname = file.path(tempdir(),"Mtcars2"),Page = c(2,2))
 ## Generate Density plot
-ExpNumViz(mtcars,gp=NULL,type=3,nlim=25,fname = file.path(tempdir(),"Mtcars3"),Page = c(2,2))
+ExpNumViz(mtcars,target=NULL,type=3,nlim=25,fname = file.path(tempdir(),"Mtcars3"),Page = c(2,2))
 ## Generate Scatter plot
-ExpNumViz(mtcars,gp="carb",type=3,nlim=25,fname = file.path(tempdir(),"Mtcars4"),Page = c(2,2))
+ExpNumViz(mtcars,target="carb",type=3,nlim=25,fname = file.path(tempdir(),"Mtcars4"),Page = c(2,2))
 
 ```
 
@@ -165,7 +168,7 @@ In statistics, an outlier is a data point that differs significantly from other 
 
 Identifying outliers: There are several methods we can use to identify outliers. In ExpOutliers used two methods (1) Boxplot and (2) Standard Deviation
 
-![SmartEDA](https://github.com/daya6489/SmartEDA/blob/master/man/figures/outlierPlot_image.PNG)
+![SmartEDA](https://github.com/daya6489/SmartEDA/blob/master/man/figures/outlierPlot_image.png)
 
 
 ```R
