@@ -1,4 +1,4 @@
-## ----setup, include=FALSE------------------------------------------------
+## ----setup, include=FALSE-----------------------------------------------------
 library(rmarkdown)
 library(SmartEDA)
 library(knitr)

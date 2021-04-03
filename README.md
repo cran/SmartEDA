@@ -161,6 +161,29 @@ Create a exploratory data analysis report in HTML format
   ExpParcoord(CData,Group="US",Stsize=c(15,50),Cvar=c("ShelveLoc","Urban"))
 ```
 
+## Two independent plots side by side for the same variable
+
+To plot graph from same variable when Target=NULL vs. when Target = categorical variable (binary or multi-class variable)
+
+```R
+target = "gear"
+categorical_features <- c("vs", "am", "carb")
+numeircal_features <- c("mpg", "cyl", "disp", "hp", "drat", "wt", "qsec")
+
+num_1 <- ExpTwoPlots(mtcars, 
+                     plot_type = "numeric",
+                     iv_variables = numeircal_features,
+                     target = "gear",
+                     lp_arg_list = list(alpha=0.5, color = "red", fill= "white", binwidth=1),
+                     lp_geom_type = 'histogram',
+                     rp_arg_list = list(alpha=0.5, fill = c("red", "orange", "pink"),  binwidth=1),
+                     rp_geom_type = 'histogram',
+                     fname = "dub2.pdf",
+                     page = c(2,1),
+                     theme = "Default")
+
+```
+
 
 ## Univariate Outlier analysis
 

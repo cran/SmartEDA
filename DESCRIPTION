@@ -1,7 +1,7 @@
 Package: SmartEDA
 Type: Package
 Title: Summarize and Explore the Data
-Version: 0.3.6
+Version: 0.3.7
 Authors@R: c(person("Dayanand Ubrangala", role = c("aut", "cre"), email = "daya6489@gmail.com"),
              person("Kiran", "R", role = c("aut","ctb")),
              person("Ravi", "Prasad Kondapalli", role = c("aut","ctb")),
@@ -9,21 +9,21 @@ Authors@R: c(person("Dayanand Ubrangala", role = c("aut", "cre"), email = "daya6
 Maintainer: Dayanand Ubrangala <daya6489@gmail.com>
 Depends: R (>= 3.3.0)
 Imports: ggplot2, sampling, scales, rmarkdown, ISLR(>= 1.0),
-        data.table, gridExtra, GGally
+        data.table, gridExtra, GGally, qpdf
 Description: Exploratory analysis on any input data describing the structure and the relationships present in the data. The package automatically select the variable and does related descriptive statistics. Analyzing information value, weight of evidence, custom tables, summary statistics, graphical techniques will be performed for both numeric and categorical predictors.
 License: MIT + file LICENSE
-Suggests: psych, Hmisc, smbinning,testthat,knitr,covr
+Suggests: testthat,knitr,covr,psych,DataExplorer
 Encoding: UTF-8
-LazyData: true
+LazyData: false
 URL: https://daya6489.github.io/SmartEDA/
 BugReports: https://github.com/daya6489/SmartEDA/issues
 Repository: CRAN
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-07-10 09:37:35 UTC; dubrangala
+Packaged: 2021-04-03 18:25:13 UTC; dubrangala
 Author: Dayanand Ubrangala [aut, cre],
   Kiran R [aut, ctb],
   Ravi Prasad Kondapalli [aut, ctb],
   Sayan Putatunda [aut, ctb]
-Date/Publication: 2020-07-10 10:20:17 UTC
+Date/Publication: 2021-04-03 19:00:10 UTC

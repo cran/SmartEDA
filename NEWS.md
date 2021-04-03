@@ -1,3 +1,10 @@
+# SmartEDA 0.3.7
+## New Features
+* Added function `ExpTwoPlots` to graph from same variable when Target=NULL vs. when Target = categorical variable (binary or multi-class variable)
+
+## Enhancements
+* Added "fun" option to add custom statistics on data dictionary output in `ExpData`
+
 # SmartEDA 0.3.6
 ## Bug fixes
 * Problem with date format. Fixed a bug in `ExpData()`, function is now supporting for all types of columns. Previously this function were not supporting to data types POSIXlt or date format

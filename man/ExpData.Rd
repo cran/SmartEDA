@@ -4,21 +4,23 @@
 \alias{ExpData}
 \title{Function to generate data dictionary of a data frame}
 \usage{
-ExpData(data, type = 1)
+ExpData(data, type = 1, fun = NULL)
 }
 \arguments{
 \item{data}{a data frame}
 
 \item{type}{Type 1 is overall data summary; Type 2 is variable level summary}
+
+\item{fun}{to add any additional statistics into metadata type 2 output, for example: mean, sum, etc..}
 }
 \description{
-This function used to produce summary of data frame.
+This function used to produce the metadata information and data summary
 }
 \details{
-This function provides overall and variable level data summary like percentage of missings, variable types etc..
+This function provides overall and variable level data summary like percentage of missing, variable types etc..
 \itemize{
 \item Type = 1, overall data summary (column names are "Descriptions Value")
-\item Type = 2, variable level summary (column names are "Index Variable_Name  Variable_Type Per_of_Missing No_of_distinct_values")
+\item Type = 2, variable level summary (column names are "Index Variable_Name Variable_Type Sample_n Missing_count Per_of_Missing No_of_distinct_values" and other statistics)
 }
 }
 \examples{
