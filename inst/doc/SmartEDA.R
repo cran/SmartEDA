@@ -85,7 +85,7 @@ rownames(et1)<-NULL
 kable(et1,"html")
 
 ## ----bp1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7-----------------------------------------------------------------
-plot2 <- ExpCatViz(Carseats,target=NULL,col ="slateblue4",clim=10,margin=2,Page = c(2,1),sample=4)
+plot2 <- ExpCatViz(Carseats,target=NULL,col ="slateblue4",clim=10,margin=2,Page = c(2,2),sample=4)
 plot2[[1]]
 
 ## ----tbd0,warning=FALSE,eval=T,include=T------------------------------------------------------------------------------------------------------------

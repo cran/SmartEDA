@@ -1,3 +1,7 @@
+# SmartEDA 0.3.8
+## Bug Fixes
+* matrix warning has fixed
+
 # SmartEDA 0.3.7
 ## New Features
 * Added function `ExpTwoPlots` to graph from same variable when Target=NULL vs. when Target = categorical variable (binary or multi-class variable)
@@ -15,22 +19,22 @@
 * Column name changed from returned output of `ExpData()` type 1 - "Obs" to new name "Value"
 * Column name changed from returned output of `ExpData()` type 2 - "S.no" to new name "Index", "% of Missing" as "Per_of_Missing"
 * Corrected few spell mistakes from `ExpData()` help file
-* Corrected output readings from `ExpData()` - Unqiue variable replaced as identifier variables
+* Corrected output readings from `ExpData()` - Unique variable replaced as identifier variables
 
 # SmartEDA 0.3.5
 ## Bug fixes
-* Fixed a bug in `ExpCatStat`, Corrected odds ratio calculation for mutliclass
-* Fixed a bug in `ExpData`, for Type = 2 changed output variable structure - previously all columns are factors and now changed to character and interger values. 
+* Fixed a bug in `ExpCatStat`, Corrected odds ratio calculation for multi class
+* Fixed a bug in `ExpData`, for Type = 2 changed output variable structure - previously all columns are factors and now changed to character and integer values. 
 
 ## Enhancements
-* Removed asterik mark from factor and date variables in `ExpData` type = 2
+* Removed asterisk mark from factor and date variables in `ExpData` type = 2
 * Added unique variable count in `ExpData` type = 1
 * Missing value percentage will be calculated based on NA value and no. of blanks
 * Added Target column in `ExpCatStat` output where stat = "IV"
 
 # SmartEDA 0.3.4
 ## Enhancements
-* Added mutliple standard devitaion options to treat oultier value in `ExpOutliers`
+* Added multiple standard deviation options to treat outlier value in `ExpOutliers`
 
 ## Bug fixes
 * Fixed error Centos 7 MRO, removed grDevices hcl.colours dependencies
@@ -42,13 +46,13 @@
 # SmartEDA 0.3.2
 ## Enhancements
 * Added 'scatter' option to plot the correlation plot between all the numeric variables in a dataframe `ExpNumViz`
-* Added 'theme' option to customise the graph theme in `ExpReport`
+* Added 'theme' option to customize the graph theme in `ExpReport`
 * Changed input parameter name from 'gp' to 'target' in `ExpNumViz`
 
 # SmartEDA 0.3.1
 ## Enhancements
 * Added 'bins', 'plot', 'round' and 'top' options to plot bar graph in `ExpCatStat`
-* Added 'theme' option to customise the graph theme in both `ExpCatViz` and `ExpNumViz`
+* Added 'theme' option to customize the graph theme in both `ExpCatViz` and `ExpNumViz`
 * Added 'gtitle' option to add additional chart title on both `ExpCatViz` and `ExpNumViz`
 * Removed 'Label' option from `ExpCatStat`
 * Changed input parameter name from 'gp' to 'target' in `ExpCatViz`

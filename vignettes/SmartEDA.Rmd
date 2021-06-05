@@ -205,7 +205,7 @@ kable(et1,"html")
   * Bar plots for all categorical variables
 
 ```{r bp1,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7}
-plot2 <- ExpCatViz(Carseats,target=NULL,col ="slateblue4",clim=10,margin=2,Page = c(2,1),sample=4)
+plot2 <- ExpCatViz(Carseats,target=NULL,col ="slateblue4",clim=10,margin=2,Page = c(2,2),sample=4)
 plot2[[1]]
 ```
 
@@ -236,7 +236,7 @@ ExpNumStat(Carseats,by="A",gp="Price",Qnt=seq(0,1,0.1),MesofShape=1,Outlier=TRUE
 paged_table(cpp)
 ```
 
->*If Target variable is continuous, summary statistics will add the correlation column (Correlation between Target variable vs all independet variables)*
+>*If Target variable is continuous, summary statistics will add the correlation column (Correlation between Target variable vs all independent variables)*
 
 #### 3.2.3 Distributions of numerical variables
 Graphical representation of all numeric variables
