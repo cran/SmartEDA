@@ -69,6 +69,18 @@ rownames(ec1)<-NULL
 ## ----c1.12,warning=FALSE,eval=T,render=ec1,echo=F---------------------------------------------------------------------------------------------------
 paged_table(ec1)
 
+## ----warning=FALSE,eval=T,include=T-----------------------------------------------------------------------------------------------------------------
+carseat = ISLR::Carseats
+## Compute random weight
+carseat$wt = stats::runif( nrow(carseat), 0.5, 1.5 )
+wt_summary = ExpNumStat(carseat,by="A",gp=NULL,round=2,Nlim=10, weight = "wt")
+wt_summary[,c("Vname","TN","W_count","mean", "W_Mean", "SD","W_Sd")]
+
+## ----warning=FALSE,eval=T,include=T-----------------------------------------------------------------------------------------------------------------
+## With group by statement
+wt_summary = ExpNumStat(carseat,by="GA",gp="ShelveLoc",round=2,Nlim=10, weight = "wt")
+wt_summary[,c("Vname","Group","TN","W_count","mean", "W_Mean", "SD","W_Sd")]
+
 ## ----c1.2 ,warning=FALSE,eval=T,include=T,fig.align='center',fig.height=7,fig.width=7---------------------------------------------------------------
 # Note: Variable excluded (if unique value of variable which is less than or eaual to 10 [nlim=10])
 plot1 <- ExpNumViz(Carseats,target=NULL,nlim=10,Page=c(2,2),sample=4)
@@ -123,6 +135,13 @@ rownames(et11)<-NULL
 
 ## ----e4.2.1,warning=FALSE,eval=T,render=et11,echo=F-------------------------------------------------------------------------------------------------
 paged_table(et11)
+
+## ----warning=FALSE,eval=T,include=T-----------------------------------------------------------------------------------------------------------------
+carseat = ISLR::Carseats
+## Compute random weight
+carseat$wt = stats::runif( nrow(carseat), 0.5, 1.5 )
+wt_summary = ExpCTable(carseat,margin=1,clim=10,round=2,bin=4,per=F, weight = "wt")
+wt_summary
 
 ## ----dd,warning=FALSE,eval=T,include=F--------------------------------------------------------------------------------------------------------------
 tab_tar <- data.frame(table(Carseats[,"Urban"]))
