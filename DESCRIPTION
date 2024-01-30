@@ -1,7 +1,7 @@
 Package: SmartEDA
 Type: Package
 Title: Summarize and Explore the Data
-Version: 0.3.9
+Version: 0.3.10
 Authors@R: c(person("Dayanand Ubrangala", role = c("aut", "cre"), email = "daya6489@gmail.com"),
              person("Kiran", "R", role = c("aut","ctb")),
              person("Ravi", "Prasad Kondapalli", role = c("aut","ctb")),
@@ -20,9 +20,9 @@ Repository: CRAN
 RoxygenNote: 7.2.2
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2022-12-03 09:28:06 UTC; dubrangala
+Packaged: 2024-01-30 17:32:15 UTC; dubrangala
 Author: Dayanand Ubrangala [aut, cre],
   Kiran R [aut, ctb],
   Ravi Prasad Kondapalli [aut, ctb],
   Sayan Putatunda [aut, ctb]
-Date/Publication: 2022-12-03 22:42:29 UTC
+Date/Publication: 2024-01-30 17:50:02 UTC

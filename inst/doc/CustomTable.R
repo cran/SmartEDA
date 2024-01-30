@@ -87,7 +87,7 @@ ExpCustomStat(Carseats,Cvar = c("Urban","US"), Nvar=c("Population","Sales","Comp
 options(width = 150)
 ExpCustomStat(Carseats,Cvar = c("Urban"), Nvar=c("Population","Sales"), stat = c('Count','Prop'),gpby=TRUE,dcast=TRUE)
 
-## ---- warning=FALSE,eval=F,include=T----------------------------------------------------------------------------------------------------------------
+## ----warning=FALSE,eval=F,include=T-----------------------------------------------------------------------------------------------------------------
 #  ##Frequency table for categorical variables
 #  ExpCustomStat(Carseats,Cvar=c("US","Urban","ShelveLoc"),gpby=FALSE)
 #  
